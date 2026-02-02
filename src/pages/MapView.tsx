@@ -25,17 +25,24 @@ const MapView = () => {
   const [suggestions, setSuggestions] = useState<string[]>([])
   const mapRef = useRef<any>(null)
 
-  useEffect(() => {
-    Promise.all([
-      fetch('/src/data/mainPolesAreas.json').then(r => r.json()),
-      fetch('/src/data/mainPolesLines.json').then(r => r.json()),
-      fetch('/src/data/mainPolesPoints.json').then(r => r.json())
-    ]).then(([a, l, p]) => {
+useEffect(() => {
+  const base = import.meta.env.BASE_URL;
+
+  Promise.all([
+    fetch(`${base}data/mainPolesAreas.json`).then(r => r.json()),
+    fetch(`${base}data/mainPolesLines.json`).then(r => r.json()),
+    fetch(`${base}data/mainPolesPoints.json`).then(r => r.json())
+  ])
+    .then(([a, l, p]) => {
       setAreas(convertGeoJSON(a))
       setLines(convertGeoJSON(l))
       setPoints(convertGeoJSON(p))
     })
-  }, [])
+    .catch(err => {
+      console.error("❌ Failed to load GeoJSON", err)
+    })
+}, [])
+
 
   const handleSearch = (query: string) => {
     if (!points || !query) {
