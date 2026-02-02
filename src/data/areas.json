@@ -1,0 +1,11 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    { "type": "Feature", "properties": { "area": "Bridge Section" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[78.484,17.384],[78.488,17.384],[78.488,17.387],[78.484,17.387],[78.484,17.384]]]
+      }
+    }
+  ]
+}
