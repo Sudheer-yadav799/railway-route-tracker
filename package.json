@@ -3,10 +3,13 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
+  "homepage": "https://Sudheer-yadav799.github.io/railway-route-tracker",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "leaflet": "^1.9.4",
@@ -22,6 +25,7 @@
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@vitejs/plugin-react": "^4.2.0",
+    "gh-pages": "^6.3.0",
     "typescript": "^5.2.2",
     "vite": "^5.0.0"
   }
