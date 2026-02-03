@@ -22,6 +22,11 @@ const DroneImageWMS = ({ enabled }: { enabled: boolean }) => {
       version="1.1.0"
       attribution="RTK Sample Layer"
       maxZoom={25}
+      params={{
+       headers: {
+      "ngrok-skip-browser-warning": "true",
+    },
+  }}
     />
   )
 }
