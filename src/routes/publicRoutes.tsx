@@ -8,7 +8,6 @@ export const publicRoutes = [
   {
     path: '/',
     element: <Login />
-      //  element: <MapView />
   },
 
   {

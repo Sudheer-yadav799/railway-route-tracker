@@ -8,7 +8,7 @@ import 'leaflet-measure/dist/leaflet-measure.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/railway-route-tracker">
       <App />
     </BrowserRouter>
   </React.StrictMode>

@@ -9,16 +9,16 @@ const DroneImageWMS = ({ enabled }: { enabled: boolean }) => {
     zoomend: () => setZoom(map.getZoom()),
   })
 
-  // Zoom rule remains
+  // Zoom rule
   if (!enabled) return null
   if (zoom <= 15) return null
 
   return (
     <WMSTileLayer
-      url="http://localhost:8080/geoserver/Rtk/wms"
+      url="https://8e752270bb54.ngrok-free.app/geoserver/Rtk/wms"
       layers="Rtk:sampletilelayer"
       format="image/png"
-      transparent={true}
+      transparent
       version="1.1.0"
       attribution="RTK Sample Layer"
       maxZoom={25}
