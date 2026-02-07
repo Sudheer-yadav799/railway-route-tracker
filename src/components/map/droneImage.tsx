@@ -14,9 +14,22 @@ const DroneImageWMS = ({ enabled }: { enabled: boolean }) => {
   if (zoom <= 15) return null
 
   return (
-    <WMSTileLayer
-      url="https://8e752270bb54.ngrok-free.app/geoserver/Rtk/wms"
-      layers="Rtk:sampletilelayer"
+  //   <WMSTileLayer
+  //     url="https://localhost:8080/geoserver/Rtk/wms"
+  //     layers="Rtk:sampletilelayer"
+  //     format="image/png"
+  //     transparent
+  //     version="1.1.0"
+  //     attribution="RTK Sample Layer"
+  //     maxZoom={25}
+  //     params={{
+  //     "ngrok-skip-browser-warning": "true",
+  // }}
+  //   />
+  
+      <WMSTileLayer
+      url="https://roughish-armani-uncorrugated.ngrok-free.dev/geoserver/RailwayDroneImage/wms"
+      layers="RailwayDroneImage:droneimage"
       format="image/png"
       transparent
       version="1.1.0"
@@ -30,3 +43,16 @@ const DroneImageWMS = ({ enabled }: { enabled: boolean }) => {
 }
 
 export default DroneImageWMS
+
+  //   <WMSTileLayer
+  //     url="https://roughish-armani-uncorrugated.ngrok-free.dev/geoserver/RailwayDroneImage/wms"
+  //     layers="RailwayDroneImage:droneimage"
+  //     format="image/png"
+  //     transparent
+  //     version="1.1.0"
+  //     attribution="RTK Sample Layer"
+  //     maxZoom={25}
+  //     params={{
+  //     "ngrok-skip-browser-warning": "true",
+  // }}
+  //   />
