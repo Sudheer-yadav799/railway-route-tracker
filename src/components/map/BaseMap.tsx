@@ -23,6 +23,7 @@ interface BaseMapProps {
   showDroneLayer: boolean
   currentZoom: number
   setCurrentZoom: (zoom: number) => void
+   showMapImageLayer :boolean
 }
 
 const BaseMap: React.FC<BaseMapProps> = ({
@@ -30,7 +31,8 @@ const BaseMap: React.FC<BaseMapProps> = ({
   onMapReady,
   showDroneLayer,
   currentZoom,
-  setCurrentZoom
+  setCurrentZoom,
+showMapImageLayer
 }) => {
   return (
     <MapContainer
@@ -40,12 +42,14 @@ const BaseMap: React.FC<BaseMapProps> = ({
       style={{ height: 'calc(100vh - 60px)', width: '100%' }}
       whenCreated={onMapReady}
     >
-      <TileLayer
+       {showMapImageLayer && (
+ <TileLayer
         url="https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}"
         attribution="Google"
         maxZoom={22}
       />
-
+       )}
+     
       <DroneImageWMS enabled={showDroneLayer} />
 
       <ZoomLogger />

@@ -19,6 +19,7 @@ const MapView = () => {
   const [showPoints, setShowPoints] = useState(true)
   const [showDroneLayer, setShowDroneLayer] = useState(false) // new
   const [selectedPole, setSelectedPole] = useState<string | null>(null)
+  const [showMapImageLayer, setMapImageLayer] = useState(true)
 
   const [currentZoom, setCurrentZoom] = useState(15)
 
@@ -87,6 +88,7 @@ useEffect(() => {
         showDroneLayer={showDroneLayer}
           currentZoom={currentZoom}
           setCurrentZoom={setCurrentZoom}
+          showMapImageLayer={showMapImageLayer}
         onMapReady={(map) => {
           console.log('✅ Map is ready')
           mapRef.current = map
@@ -109,8 +111,11 @@ useEffect(() => {
         showAreas={showAreas} setShowAreas={setShowAreas}
         showLines={showLines} setShowLines={setShowLines}
         showPoints={showPoints} setShowPoints={setShowPoints}
-        showDroneLayer={showDroneLayer} setShowDroneLayer={setShowDroneLayer} // new
+        showDroneLayer={showDroneLayer} setShowDroneLayer={setShowDroneLayer}
+        showMapImageLayer={showMapImageLayer}
+        setShowMapImageLayer={setMapImageLayer}
       />
+
 
       <Legend />
     </>

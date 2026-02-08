@@ -4,7 +4,8 @@ const LayerPanel = ({
   showAreas, setShowAreas,
   showLines, setShowLines,
   showPoints, setShowPoints,
-  showDroneLayer, setShowDroneLayer   // ✅ new props
+  showDroneLayer, setShowDroneLayer,   
+  showMapImageLayer, setShowMapImageLayer,
 }: any) => {
   const [open, setOpen] = useState(true)
 
@@ -86,6 +87,15 @@ const LayerPanel = ({
             />
             <span>Drone Image Layer</span>
           </label>
+         <label style={labelStyle}>
+  <input
+    type="checkbox"
+    checked={showMapImageLayer}
+    onChange={() => setShowMapImageLayer(!showMapImageLayer)}
+  />
+  <span>Map Image Layer</span>
+</label>
+
         </div>
       )}
     </div>

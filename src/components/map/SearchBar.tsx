@@ -82,7 +82,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
 
   return (
     <div style={styles.container}>
-      <div style={styles.label}>🔍 Search Pole</div>
+      <div style={styles.label}>🔍 Search </div>
 
       <div style={styles.inputRow}>
         <input
