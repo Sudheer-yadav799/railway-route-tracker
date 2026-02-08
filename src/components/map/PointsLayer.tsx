@@ -13,25 +13,32 @@ const LABEL_ZOOM = 15
 const EXTENT_BUFFER = 0.25
 const LOAD_DELAY = 150
 
-const createStationIcon = (selected = false) =>
-  L.divIcon({
-    className: 'custom-pole-marker',
+const createStationIcon = (selected = false) => {
+  const width = selected ? 35 : 26
+  const height = selected ? 50 : 52
+
+  return L.divIcon({
+    className: `custom-pole-marker ${selected ? 'selected' : ''}`,
     html: `
-      <svg width="26" height="52" viewBox="0 0 26 52">
+      <svg width="${width}" height="${height}"
+           viewBox="0 0 26 52"
+           style="transform: scale(${selected ? 1.4 : 1}); transform-origin: bottom center;">
         <rect x="11" y="6" width="4" height="38" rx="1.5"
-          fill="${selected ? '#a5be18' : '#061258'}"/>
+          fill="${selected ? '#e65319' : '#061258'}"/>
         <rect x="3" y="10" width="20" height="4" rx="1.5"
-          fill="${selected ? '#a5be18' : '#061258'}"/>
+          fill="${selected ? '#e65319' : '#061258'}"/>
         <circle cx="4" cy="12" r="2" fill="#f5f5f5"/>
         <circle cx="22" cy="12" r="2" fill="#f5f5f5"/>
         <rect x="8" y="44" width="10" height="6" rx="1.5"
-          fill="${selected ? '#a5be18' : '#061258'}"/>
+          fill="${selected ? '#e65319' : '#061258'}"/>
       </svg>
     `,
-    iconSize: [26, 52],
-    iconAnchor: [13, 52],
-    popupAnchor: [0, -46]
+    iconSize: [width, height],
+    iconAnchor: [width / 2, height],
+   popupAnchor: [0, -46]
   })
+}
+
 
 const getBufferedBounds = (map: L.Map) => {
   const b = map.getBounds()
@@ -57,7 +64,6 @@ const PointsLayer = ({ data, selectedPole }: any) => {
   const [visibleFeatures, setVisibleFeatures] = useState<any[]>([])
   const [showLabels, setShowLabels] = useState(map.getZoom() >= LABEL_ZOOM)
 
-  // 👇 Store previous selected key
   const prevSelectedRef = useRef<string | null>(null)
 
   const scheduleLoad = () => {
@@ -133,10 +139,8 @@ const PointsLayer = ({ data, selectedPole }: any) => {
       {visibleFeatures.map((f: any) => {
         const [lng, lat] = f.geometry.coordinates
 
-        const key =
-          f.id ??
-          f.properties.ID ??
-          `${lng}_${lat}`
+        const key = f.properties.NAME
+
 
         const name = f.properties.NAME
 
@@ -144,7 +148,7 @@ const PointsLayer = ({ data, selectedPole }: any) => {
           <Marker
             key={key}
             position={[lat, lng]}
-            icon={createStationIcon(selectedPole === key)}
+             icon={createStationIcon(selectedPole === key)}
             ref={(ref) => {
               if (ref) markerRefs.current[key] = ref
             }}

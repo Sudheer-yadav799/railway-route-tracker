@@ -74,7 +74,7 @@ useEffect(() => {
 
     setSelectedPole(name)
 
-    mapRef.current.flyTo([lat, lng], 19, {
+    mapRef.current.flyTo([lat, lng], 20, {
       animate: true,
       duration: 1.5
     })
