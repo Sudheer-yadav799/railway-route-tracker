@@ -1,81 +1,174 @@
+/* =========================
+   AUTH PAGE (GLASS STYLE)
+========================= */
+
 .auth-page {
   height: 100vh;
-  background-image: url("https://images.unsplash.com/photo-1504384308090-c894fdcc538d");
-  background-size: cover;
-  background-position: center;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
-  font-family: "Segoe UI", sans-serif;
+  font-family: "Inter", "Segoe UI", sans-serif;
+
+  /* Premium gradient background */
+  background: linear-gradient(
+    135deg,
+    #0f172a 0%,
+    #1e293b 40%,
+    #0f172a 100%
+  );
 }
 
-.auth-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(10, 20, 40, 0.75);
-}
+/* =========================
+   GLASS CARD
+========================= */
 
 .auth-card {
-  position: relative;
-  width: 420px;
-  padding: 40px 32px;
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(14px);
-  border-radius: 14px;
+  width: 100%;
+  max-width: 420px;
+  padding: 45px 40px;
+  border-radius: 18px;
+
+  /* Glassmorphism */
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
-  color: #fff;
+
+  color: #ffffff;
+
+  animation: fadeIn 0.4s ease-in-out;
 }
+
+/* Smooth appear animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+   TITLES
+========================= */
 
 .auth-title {
   text-align: center;
-  margin-bottom: 6px;
-  letter-spacing: 1px;
+  margin-bottom: 8px;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
 }
 
 .auth-subtitle {
   text-align: center;
-  margin-bottom: 28px;
+  margin-bottom: 30px;
   font-size: 14px;
-  opacity: 0.8;
+  opacity: 0.75;
 }
 
+/* =========================
+   FORM
+========================= */
+
 .form-group {
-  margin-bottom: 16px;
+  margin-bottom: 18px;
+  width: 100%;
 }
 
 .form-label {
   display: block;
   margin-bottom: 6px;
   font-size: 13px;
-  opacity: 0.9;
+  opacity: 0.85;
 }
+
+/* =========================
+   INPUTS
+========================= */
 
 .form-input {
   width: 100%;
-  padding: 11px 12px;
-  border-radius: 6px;
-  border: none;
-  outline: none;
+  padding: 12px  0px ;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
   font-size: 14px;
+  transition: all 0.2s ease;
 }
+
+.form-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+  padding: 20px;
+}
+
+.form-input:focus {
+  border-color: #3b82f6;
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+  outline: none;
+}
+
+/* =========================
+   PASSWORD WRAPPER
+========================= */
+
+/* =========================
+   PASSWORD WRAPPER FIX
+========================= */
+
+.password-wrapper {
+  position: relative;
+  width: 100%;
+  display: block;
+}
+
+
+
+.eye-icon {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  transition: 0.2s ease;
+}
+
+.eye-icon:hover {
+  color: #ffffff;
+}
+
+/* =========================
+   BUTTON
+========================= */
 
 .auth-button {
   width: 100%;
-  padding: 12px;
-  background: linear-gradient(90deg, #2563eb, #1d4ed8);
+  padding: 13px;
+  margin-top: 10px;
+  border-radius: 10px;
   border: none;
-  border-radius: 6px;
-  color: #fff;
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
-  margin-top: 10px;
-  transition: 0.3s ease;
+
+  background: linear-gradient(90deg, #2563eb, #3b82f6);
+  color: #ffffff;
+
+  transition: all 0.3s ease;
 }
 
 .auth-button:hover {
-  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
 }
 
 .auth-button:disabled {
@@ -83,19 +176,47 @@
   cursor: not-allowed;
 }
 
+/* =========================
+   SWITCH LINK
+========================= */
+
 .switch-text {
-  margin-top: 18px;
+  margin-top: 22px;
   text-align: center;
-  font-size: 13px;
-  opacity: 0.85;
+  font-size: 14px;
+  opacity: 0.8;
 }
 
 .switch-btn {
-  color: #93c5fd;
+  color: #60a5fa;
   cursor: pointer;
   font-weight: 600;
 }
 
 .switch-btn:hover {
   text-decoration: underline;
+}
+
+/* =========================
+   ERROR MESSAGE
+========================= */
+
+.error-text {
+  font-size: 12px;
+  color: #f87171;
+  margin-top: 5px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 35px 25px;
+  }
+
+  .auth-title {
+    font-size: 20px;
+  }
 }

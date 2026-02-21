@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useLogin, useRegister } from "../hooks/useAuth";
 import "../styles/auth.css";
 import { userService } from "../services/user_service";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 type Props = {
   onLogin?: () => void;
@@ -30,6 +31,7 @@ const Auth: React.FC<Props> = ({ onLogin }) => {
 
   const loginMutation = useLogin();
   const registerMutation = useRegister();
+  const [showPassword, setShowPassword] = useState(false);
 
   /* ---------------- VALIDATION ---------------- */
 
@@ -53,6 +55,8 @@ const Auth: React.FC<Props> = ({ onLogin }) => {
 
       if (!formData.mobile.trim()) {
         newErrors.mobile = "Mobile number is required";
+      } else if (!/^[0-9]{10}$/.test(formData.mobile)) {
+        newErrors.mobile = "Mobile number must be exactly 10 digits";
       }
 
       if (formData.password.length < 6) {
@@ -62,11 +66,19 @@ const Auth: React.FC<Props> = ({ onLogin }) => {
 
     // Validate user_id format (email or mobile)
     if (formData.username) {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      const mobileRegex = /^[0-9]{8,15}$/;
+      const value = formData.username.trim();
 
-      if (!emailRegex.test(formData.username) && !mobileRegex.test(formData.username)) {
-        newErrors.username = "Enter valid email or mobile number";
+      const isOnlyNumbers = /^[0-9]+$/.test(value);
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (isOnlyNumbers) {
+        if (value.length !== 10) {
+          newErrors.username = "Mobile number must be exactly 10 digits";
+        }
+      } else {
+        if (!emailRegex.test(value)) {
+          newErrors.username = "Enter valid email address";
+        }
       }
     }
 
@@ -91,46 +103,46 @@ const Auth: React.FC<Props> = ({ onLogin }) => {
 
   /* ---------------- SUBMIT ---------------- */
 
-const handleSubmit = async () => {
-  if (!validate()) return;
+  const handleSubmit = async () => {
+    if (!validate()) return;
 
-  try {
-    if (isRegister) {
-      await registerMutation.mutateAsync(formData);
-      alert("Registration successful. Please login.");
-      setIsRegister(false);
-    } else {
-      /* ---------- 1. LOGIN ---------- */
-      const loginRes = await loginMutation.mutateAsync({
-        user_id: formData.username,
-        password: formData.password,
-      });
+    try {
+      if (isRegister) {
+        await registerMutation.mutateAsync(formData);
+        alert("Registration successful. Please login.");
+        setIsRegister(false);
+      } else {
+        /* ---------- 1. LOGIN ---------- */
+        const loginRes = await loginMutation.mutateAsync({
+          user_id: formData.username,
+          password: formData.password,
+        });
 
-      if (!loginRes?.token) {
-        throw new Error("Login failed. No token received.");
+        if (!loginRes?.token) {
+          throw new Error("Login failed. No token received.");
+        }
+        localStorage.setItem("token", loginRes.token);
+
+        const userId = loginRes.userId;
+
+        if (!userId) {
+          throw new Error("User ID not found in login response.");
+        }
+
+        const userDetails = await userService.getUserById(userId);
+
+        /* ---------- 4. STORE USER DATA ---------- */
+        localStorage.setItem("userId", userDetails.id);
+        localStorage.setItem("userData", JSON.stringify(userDetails));
+
+        /* ---------- 5. NAVIGATE ---------- */
+        onLogin?.();
+        navigate("/map");
       }
-      localStorage.setItem("token", loginRes.token);
-
-      const userId = loginRes.userId;
-
-      if (!userId) {
-        throw new Error("User ID not found in login response.");
-      }
-
-      const userDetails = await userService.getUserById(userId);
-
-      /* ---------- 4. STORE USER DATA ---------- */
-      localStorage.setItem("userId", userDetails.id);
-      localStorage.setItem("userData", JSON.stringify(userDetails));
-
-      /* ---------- 5. NAVIGATE ---------- */
-      onLogin?.();
-      navigate("/map");
+    } catch (error: any) {
+      alert(error.message || "Something went wrong");
     }
-  } catch (error: any) {
-    alert(error.message || "Something went wrong");
-  }
-};
+  };
 
 
   return (
@@ -141,7 +153,6 @@ const handleSubmit = async () => {
         <h2 className="auth-title">
           {isRegister ? "CREATE ACCOUNT" : "SIGN IN"}
         </h2>
-        <p className="auth-subtitle">Railway Route Tracker</p>
 
         {/* Username */}
         <div className="form-group">
@@ -151,7 +162,19 @@ const handleSubmit = async () => {
             type="text"
             placeholder="Enter mobile or email"
             className="form-input"
-            onChange={handleChange}
+            value={formData.username}
+            onChange={(e) => {
+              let value = e.target.value;
+              if (/^[0-9]*$/.test(value)) {
+                value = value.slice(0, 10);
+                setFormData({ ...formData, username: value });
+              } else {
+                // Otherwise allow email typing
+                setFormData({ ...formData, username: value });
+              }
+
+              setErrors({ ...errors, username: "" });
+            }}
           />
           {errors.username && (
             <p className="error-text">{errors.username}</p>
@@ -194,18 +217,28 @@ const handleSubmit = async () => {
         {/* Password */}
         <div className="form-group">
           <label className="form-label">Password</label>
-          <input
-            name="password"
-            type="password"
-            placeholder="Enter password"
-            className="form-input"
-            onChange={handleChange}
-          />
+
+          <div className="password-wrapper">
+            <input
+              name="password"
+              type={showPassword ? "text" : "password"}
+              placeholder="Enter password"
+              className="form-input"
+              onChange={handleChange}
+            />
+
+            <span
+              className="eye-icon"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </span>
+          </div>
+
           {errors.password && (
             <p className="error-text">{errors.password}</p>
           )}
         </div>
-
         <button
           className="auth-button"
           onClick={handleSubmit}
@@ -214,8 +247,8 @@ const handleSubmit = async () => {
           {loginMutation.isPending || registerMutation.isPending
             ? "Please wait..."
             : isRegister
-            ? "Register"
-            : "Login"}
+              ? "Register"
+              : "Login"}
         </button>
 
         <div className="switch-text">
