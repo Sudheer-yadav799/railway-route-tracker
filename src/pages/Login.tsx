@@ -1,169 +1,240 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useLogin, useRegister } from "../hooks/useAuth";
+import "../styles/auth.css";
+import { userService } from "../services/user_service";
 
 type Props = {
-  onLogin?: () => void
-}
+  onLogin?: () => void;
+};
 
-const styles: Record<string, React.CSSProperties> = {
-  page: {
-    height: '100vh',
-    backgroundImage:
-      'url(https://images.unsplash.com/photo-1504384308090-c894fdcc538d)',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'relative',
-    fontFamily: 'Segoe UI, sans-serif'
-  },
-  overlay: {
-    position: 'absolute',
-    inset: 0,
-    background: 'rgba(10, 20, 40, 0.75)'
-  },
-  card: {
-    position: 'relative',
-    width: 420,
-    padding: '40px 32px',
-    background: 'rgba(255,255,255,0.12)',
-    backdropFilter: 'blur(14px)',
-    borderRadius: 14,
-    boxShadow: '0 25px 60px rgba(0,0,0,0.4)',
-    color: '#fff'
-  },
-  title: {
-    textAlign: 'center',
-    marginBottom: 6,
-    letterSpacing: 1
-  },
-  subtitle: {
-    textAlign: 'center',
-    marginBottom: 28,
-    fontSize: 14,
-    opacity: 0.8
-  },
-  formGroup: {
-    marginBottom: 16
-  },
-  label: {
-    display: 'block',
-    marginBottom: 6,
-    fontSize: 13,
-    opacity: 0.9
-  },
-  input: {
-    width: '100%',
-    padding: '11px 12px',
-    borderRadius: 6,
-    border: 'none',
-    outline: 'none',
-    fontSize: 14
-  },
-  button: {
-    width: '100%',
-    padding: '12px',
-    background: 'linear-gradient(90deg,#2563eb,#1d4ed8)',
-    border: 'none',
-    borderRadius: 6,
-    color: '#fff',
-    fontSize: 15,
-    fontWeight: 600,
-    cursor: 'pointer',
-    marginTop: 10
-  },
-  switchText: {
-    marginTop: 18,
-    textAlign: 'center',
-    fontSize: 13,
-    opacity: 0.85
-  },
-  switchBtn: {
-    color: '#93c5fd',
-    cursor: 'pointer',
-    fontWeight: 600
-  }
-}
+type Errors = {
+  username?: string;
+  email?: string;
+  mobile?: string;
+  password?: string;
+};
 
 const Auth: React.FC<Props> = ({ onLogin }) => {
-  const navigate = useNavigate()
-  const [isRegister, setIsRegister] = useState(false)
+  const navigate = useNavigate();
+  const [isRegister, setIsRegister] = useState(false);
 
-  const handleSubmit = () => {
-    if (isRegister) {
-      console.log('Register user')
-    } else {
-      onLogin?.()
-      navigate('/map')
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    mobile: "",
+    password: "",
+  });
+
+  const [errors, setErrors] = useState<Errors>({});
+
+  const loginMutation = useLogin();
+  const registerMutation = useRegister();
+
+  /* ---------------- VALIDATION ---------------- */
+
+  const validate = (): boolean => {
+    const newErrors: Errors = {};
+
+    // LOGIN VALIDATION
+    if (!formData.username.trim()) {
+      newErrors.username = "Mobile number or Email is required";
     }
+
+    if (!formData.password.trim()) {
+      newErrors.password = "Password is required";
+    }
+
+    // REGISTER VALIDATION
+    if (isRegister) {
+      if (!formData.email.trim()) {
+        newErrors.email = "Email is required";
+      }
+
+      if (!formData.mobile.trim()) {
+        newErrors.mobile = "Mobile number is required";
+      }
+
+      if (formData.password.length < 6) {
+        newErrors.password = "Password must be at least 6 characters";
+      }
+    }
+
+    // Validate user_id format (email or mobile)
+    if (formData.username) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const mobileRegex = /^[0-9]{8,15}$/;
+
+      if (!emailRegex.test(formData.username) && !mobileRegex.test(formData.username)) {
+        newErrors.username = "Enter valid email or mobile number";
+      }
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  /* ---------------- HANDLE CHANGE ---------------- */
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+
+    // Clear error while typing
+    setErrors({
+      ...errors,
+      [e.target.name]: "",
+    });
+  };
+
+  /* ---------------- SUBMIT ---------------- */
+
+const handleSubmit = async () => {
+  if (!validate()) return;
+
+  try {
+    if (isRegister) {
+      await registerMutation.mutateAsync(formData);
+      alert("Registration successful. Please login.");
+      setIsRegister(false);
+    } else {
+      /* ---------- 1. LOGIN ---------- */
+      const loginRes = await loginMutation.mutateAsync({
+        user_id: formData.username,
+        password: formData.password,
+      });
+
+      if (!loginRes?.token) {
+        throw new Error("Login failed. No token received.");
+      }
+      localStorage.setItem("token", loginRes.token);
+
+      const userId = loginRes.userId;
+
+      if (!userId) {
+        throw new Error("User ID not found in login response.");
+      }
+
+      const userDetails = await userService.getUserById(userId);
+
+      /* ---------- 4. STORE USER DATA ---------- */
+      localStorage.setItem("userId", userDetails.id);
+      localStorage.setItem("userData", JSON.stringify(userDetails));
+
+      /* ---------- 5. NAVIGATE ---------- */
+      onLogin?.();
+      navigate("/map");
+    }
+  } catch (error: any) {
+    alert(error.message || "Something went wrong");
   }
+};
+
 
   return (
-    <div style={styles.page}>
-      <div style={styles.overlay}></div>
+    <div className="auth-page">
+      <div className="auth-overlay"></div>
 
-      <div style={styles.card}>
-        <h2 style={styles.title}>
-          {isRegister ? 'CREATE ACCOUNT' : 'SIGN IN'}
+      <div className="auth-card">
+        <h2 className="auth-title">
+          {isRegister ? "CREATE ACCOUNT" : "SIGN IN"}
         </h2>
-        <p style={styles.subtitle}>Railway Route Tracker</p>
+        <p className="auth-subtitle">Railway Route Tracker</p>
 
         {/* Username */}
-        <div style={styles.formGroup}>
-          <label style={styles.label}>Username</label>
-          <input type="text" placeholder="Enter username" style={styles.input} />
+        <div className="form-group">
+          <label className="form-label">MobileNumber / Email</label>
+          <input
+            name="username"
+            type="text"
+            placeholder="Enter mobile or email"
+            className="form-input"
+            onChange={handleChange}
+          />
+          {errors.username && (
+            <p className="error-text">{errors.username}</p>
+          )}
         </div>
 
-        {/* Register-only fields */}
+        {/* Register Fields */}
         {isRegister && (
           <>
-            <div style={styles.formGroup}>
-              <label style={styles.label}>Email</label>
+            <div className="form-group">
+              <label className="form-label">Email</label>
               <input
+                name="email"
                 type="email"
                 placeholder="Enter email"
-                style={styles.input}
+                className="form-input"
+                onChange={handleChange}
               />
+              {errors.email && (
+                <p className="error-text">{errors.email}</p>
+              )}
             </div>
 
-            <div style={styles.formGroup}>
-              <label style={styles.label}>Mobile Number</label>
+            <div className="form-group">
+              <label className="form-label">Mobile</label>
               <input
+                name="mobile"
                 type="tel"
-                placeholder="Enter mobile number"
-                style={styles.input}
+                placeholder="Enter mobile"
+                className="form-input"
+                onChange={handleChange}
               />
+              {errors.mobile && (
+                <p className="error-text">{errors.mobile}</p>
+              )}
             </div>
           </>
         )}
 
         {/* Password */}
-        <div style={styles.formGroup}>
-          <label style={styles.label}>Password</label>
+        <div className="form-group">
+          <label className="form-label">Password</label>
           <input
+            name="password"
             type="password"
             placeholder="Enter password"
-            style={styles.input}
+            className="form-input"
+            onChange={handleChange}
           />
+          {errors.password && (
+            <p className="error-text">{errors.password}</p>
+          )}
         </div>
 
-        <button style={styles.button} onClick={handleSubmit}>
-          {isRegister ? 'Register' : 'Login'}
+        <button
+          className="auth-button"
+          onClick={handleSubmit}
+          disabled={loginMutation.isPending || registerMutation.isPending}
+        >
+          {loginMutation.isPending || registerMutation.isPending
+            ? "Please wait..."
+            : isRegister
+            ? "Register"
+            : "Login"}
         </button>
 
-        <div style={styles.switchText}>
-          {isRegister ? 'Already have an account?' : "Don't have an account?"}{' '}
+        <div className="switch-text">
+          {isRegister
+            ? "Already have an account?"
+            : "Don't have an account?"}{" "}
           <span
-            style={styles.switchBtn}
-            onClick={() => setIsRegister(!isRegister)}
+            className="switch-btn"
+            onClick={() => {
+              setIsRegister(!isRegister);
+              setErrors({});
+            }}
           >
-            {isRegister ? 'Login' : 'Register'}
+            {isRegister ? "Login" : "Register"}
           </span>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Auth
+export default Auth;

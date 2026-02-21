@@ -1,0 +1,101 @@
+.auth-page {
+  height: 100vh;
+  background-image: url("https://images.unsplash.com/photo-1504384308090-c894fdcc538d");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.auth-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 20, 40, 0.75);
+}
+
+.auth-card {
+  position: relative;
+  width: 420px;
+  padding: 40px 32px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(14px);
+  border-radius: 14px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+  color: #fff;
+}
+
+.auth-title {
+  text-align: center;
+  margin-bottom: 6px;
+  letter-spacing: 1px;
+}
+
+.auth-subtitle {
+  text-align: center;
+  margin-bottom: 28px;
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+.form-input {
+  width: 100%;
+  padding: 11px 12px;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+}
+
+.auth-button {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(90deg, #2563eb, #1d4ed8);
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: 0.3s ease;
+}
+
+.auth-button:hover {
+  opacity: 0.9;
+}
+
+.auth-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.switch-text {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+.switch-btn {
+  color: #93c5fd;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.switch-btn:hover {
+  text-decoration: underline;
+}

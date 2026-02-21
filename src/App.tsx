@@ -1,29 +1,31 @@
-import React, { useState } from 'react'
-import { Routes, Route, Navigate } from 'react-router-dom'
-import { publicRoutes } from './routes/publicRoutes'
+import { Routes, Route } from "react-router-dom";
+import Login from "./pages/Login";
+import MapView from "./pages/MapView";
+import UserAccount from "./pages/UserProfile";
+import ProtectedRoute from "./routes/ProtectedRoute";
 
 export default function App() {
-  const [loggedIn, setLoggedIn] = useState(false)
-
   return (
     <Routes>
-      {publicRoutes.map(({ path, element }, idx) => {
-        // If login is required, redirect to "/" if not logged in
-        const protectedElement =
-          loggedIn || path === '/' ? (
-            // Pass onLogin prop to Login dynamically
-            path === '/' ? React.cloneElement(element, { onLogin: () => setLoggedIn(true) }) : (
-              element
-            )
-          ) : (
-            <Navigate to="/" />
-          )
+      <Route path="/" element={<Login />} />
 
-        return <Route key={idx} path={path} element={protectedElement} />
-      })}
+      <Route
+        path="/map"
+        element={
+          <ProtectedRoute>
+            <MapView />
+          </ProtectedRoute>
+        }
+      />
 
-      {/* Fallback route */}
-      <Route path="*" element={<Navigate to="/" />} />
+      <Route
+        path="/userProfile"
+        element={
+          <ProtectedRoute>
+            <UserAccount />
+          </ProtectedRoute>
+        }
+      />
     </Routes>
-  )
+  );
 }
