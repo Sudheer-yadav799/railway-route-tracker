@@ -1,0 +1,222 @@
+/* =========================
+   AUTH PAGE (GLASS STYLE)
+========================= */
+
+.auth-page {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Inter", "Segoe UI", sans-serif;
+
+  /* Premium gradient background */
+  background: linear-gradient(
+    135deg,
+    #0f172a 0%,
+    #1e293b 40%,
+    #0f172a 100%
+  );
+}
+
+/* =========================
+   GLASS CARD
+========================= */
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 45px 40px;
+  border-radius: 18px;
+
+  /* Glassmorphism */
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+
+  color: #ffffff;
+
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+/* Smooth appear animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+   TITLES
+========================= */
+
+.auth-title {
+  text-align: center;
+  margin-bottom: 8px;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.auth-subtitle {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 14px;
+  opacity: 0.75;
+}
+
+/* =========================
+   FORM
+========================= */
+
+.form-group {
+  margin-bottom: 18px;
+  width: 100%;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+/* =========================
+   INPUTS
+========================= */
+
+.form-input {
+  width: 100%;
+  padding: 12px  0px ;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.form-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+  padding: 20px;
+}
+
+.form-input:focus {
+  border-color: #3b82f6;
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+  outline: none;
+}
+
+/* =========================
+   PASSWORD WRAPPER
+========================= */
+
+/* =========================
+   PASSWORD WRAPPER FIX
+========================= */
+
+.password-wrapper {
+  position: relative;
+  width: 100%;
+  display: block;
+}
+
+
+
+.eye-icon {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  transition: 0.2s ease;
+}
+
+.eye-icon:hover {
+  color: #ffffff;
+}
+
+/* =========================
+   BUTTON
+========================= */
+
+.auth-button {
+  width: 100%;
+  padding: 13px;
+  margin-top: 10px;
+  border-radius: 10px;
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+
+  background: linear-gradient(90deg, #2563eb, #3b82f6);
+  color: #ffffff;
+
+  transition: all 0.3s ease;
+}
+
+.auth-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+}
+
+.auth-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* =========================
+   SWITCH LINK
+========================= */
+
+.switch-text {
+  margin-top: 22px;
+  text-align: center;
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.switch-btn {
+  color: #60a5fa;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.switch-btn:hover {
+  text-decoration: underline;
+}
+
+/* =========================
+   ERROR MESSAGE
+========================= */
+
+.error-text {
+  font-size: 12px;
+  color: #f87171;
+  margin-top: 5px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 35px 25px;
+  }
+
+  .auth-title {
+    font-size: 20px;
+  }
+}
