@@ -6,6 +6,8 @@ import App from "./App";
 
 import "leaflet/dist/leaflet.css";
 import "leaflet-measure/dist/leaflet-measure.css";
+import { Provider } from "react-redux";
+import { store } from "./store/store";
 
 const queryClient = new QueryClient();
 
@@ -16,9 +18,11 @@ const queryClient = new QueryClient();
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-   <BrowserRouter>  
-   <App /></BrowserRouter>
-        
+      <Provider store={store}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Provider>
     </QueryClientProvider>
   </React.StrictMode>
 );

@@ -1,0 +1,124 @@
+.layer-card {
+  position: absolute;
+  bottom: 100px;
+  left: 40px;
+  width: 320px;
+  max-height: 70vh;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  font-family: "Inter", sans-serif;
+  z-index: 1000;
+}
+
+/* Header */
+.layer-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 18px;
+  font-weight: 600;
+  font-size: 15px;
+  border-bottom: 1px solid #eee;
+  background: #f9f9f9;
+}
+
+.close-icon {
+  cursor: pointer;
+  font-size: 18px;
+  color: #555;
+}
+
+.close-icon:hover {
+  color: #000;
+}
+
+/* Body */
+.layer-card-body {
+  padding: 12px 18px;
+  max-height: 55vh;
+  overflow-y: auto;
+}
+
+/* Scroll */
+.layer-card-body::-webkit-scrollbar {
+  width: 6px;
+}
+.layer-card-body::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
+
+/* Section */
+.layer-group {
+  margin-bottom: 14px;
+}
+
+.group-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 6px 0;
+}
+
+.group-header:hover {
+  color: #2563eb;
+}
+
+/* Layer row */
+.layer-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  font-size: 13px;
+}
+
+.layer-item .left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.layer-item input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #2563eb;
+  cursor: pointer;
+}
+
+.color-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+
+.floating-toggle {
+  position: absolute;
+  bottom: 20px;
+  left: 40px;
+  background: #ffffff;
+  padding: 10px 18px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  z-index: 1000;
+  transition: 0.2s ease;
+}
+
+.floating-toggle:hover {
+  background: #f3f4f6;
+}
+
+.floating-toggle svg {
+  font-size: 16px;
+}
