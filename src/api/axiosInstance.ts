@@ -50,7 +50,7 @@ axiosInstance.interceptors.response.use(
     /* Unauthorized */
     if (status === 401 || status === 403) {
       localStorage.removeItem("token");
-      window.location.href = "/login";
+      window.location.href = "/";
       return Promise.reject(
         new Error("Session expired. Please login again.")
       );

@@ -1,31 +1,16 @@
-import { Routes, Route } from "react-router-dom";
-import Login from "./pages/Login";
-import MapView from "./pages/MapView";
-import UserAccount from "./pages/UserProfile";
-import ProtectedRoute from "./routes/ProtectedRoute";
+import { useRoutes } from "react-router-dom";
+import { publicRoutes } from "./routes/publicRoutes";
+import { Toaster } from "react-hot-toast";
 
-export default function App() {
+function App() {
+  const element = useRoutes(publicRoutes);
+
   return (
-    <Routes>
-      <Route path="/" element={<Login />} />
-
-      <Route
-        path="/map"
-        element={
-          <ProtectedRoute>
-            <MapView />
-          </ProtectedRoute>
-        }
-      />
-
-      <Route
-        path="/userProfile"
-        element={
-          <ProtectedRoute>
-            <UserAccount />
-          </ProtectedRoute>
-        }
-      />
-    </Routes>
+    <>
+      <Toaster position="top-right" />
+      {element}
+    </>
   );
 }
+
+export default App;

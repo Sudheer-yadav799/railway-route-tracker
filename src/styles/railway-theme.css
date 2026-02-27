@@ -2,6 +2,14 @@
    RAILWAY GIS — Global Theme  |  #F74400 × #F2F1F0
    ============================================================ */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Rajdhani:wght@500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;600;700&display=swap');
+
+
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--admin-bg);
+}
 
 :root {
     /* ── Brand ── */
@@ -11,6 +19,13 @@
     --r-orange-glow: rgba(247, 68, 0, 0.22);
     --r-cream: #F2F1F0;
     --r-cream-dark: #dddbd9;
+
+      --admin-bg: #f5f7fa;
+  --admin-card: #ffffff;
+  --admin-accent: #F74400;
+  --admin-accent-light: #fff1ea;
+  --admin-text: #1f2937;
+  --admin-muted: #6b7280;
 
     /* ── Dark canvas ── */
     --r-bg: #10100f;
