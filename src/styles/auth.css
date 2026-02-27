@@ -1,223 +1,259 @@
-/* =========================
-   AUTH PAGE (GLASS STYLE)
-========================= */
+/* ===================================================
+   Railway GIS — Premium Light Auth UI
+   #F74400 Modern SaaS Design
+   =================================================== */
 
 .auth-page {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: "Inter", "Segoe UI", sans-serif;
-
-  /* Premium gradient background */
-  background: linear-gradient(
-    135deg,
-    #0f172a 0%,
-    #1e293b 40%,
-    #0f172a 100%
-  );
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #f6f7fb 0%, #eef1f5 100%);
+  position: relative;
+  overflow: hidden;
 }
 
-/* =========================
-   GLASS CARD
-========================= */
+/* Soft background blobs */
+.auth-page::before {
+  content: '';
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(247, 68, 0, 0.08), transparent 70%);
+  top: -200px;
+  right: -150px;
+  z-index: 0;
+}
+
+.auth-page::after {
+  content: '';
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(247, 68, 0, 0.05), transparent 70%);
+  bottom: -200px;
+  left: -150px;
+  z-index: 0;
+}
+
+/* ================= LEFT BRAND ================= */
+
+.auth-brand-strip {
+  flex: 0 0 480px;
+  padding: 80px 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 1;
+}
+
+.auth-brand-logo {
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, #F74400, #d93b00);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 34px;
+  color: #fff;
+  margin-bottom: 40px;
+  box-shadow: 0 15px 35px rgba(247, 68, 0, 0.35);
+}
+
+.auth-brand-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 42px;
+  font-weight: 800;
+  line-height: 1.1;
+  color: #1d1d1f;
+  margin-bottom: 18px;
+}
+
+.auth-brand-sub {
+  font-size: 15px;
+  color: #555;
+  max-width: 380px;
+  line-height: 1.7;
+}
+
+.auth-brand-tag {
+  margin-top: 50px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #F74400;
+}
+
+/* ================= RIGHT SIDE ================= */
+
+.auth-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  z-index: 1;
+}
+
+/* ================= CARD ================= */
 
 .auth-card {
   width: 100%;
-  max-width: 420px;
-  padding: 45px 40px;
-  border-radius: 18px;
-
-  /* Glassmorphism */
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
-
-  color: #ffffff;
-
-  animation: fadeIn 0.4s ease-in-out;
+  max-width: 430px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(14px);
+  border-radius: 22px;
+  padding: 50px 42px;
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.08),
+    0 5px 15px rgba(0, 0, 0, 0.04);
+  transition: 0.3s ease;
 }
 
-/* Smooth appear animation */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(15px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.auth-card:hover {
+  transform: translateY(-4px);
 }
 
-/* =========================
-   TITLES
-========================= */
+.auth-card-logo {
+  width: 52px;
+  height: 52px;
+  background: linear-gradient(135deg, #F74400, #d93b00);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  margin: 0 auto 24px;
+  color: #fff;
+  box-shadow: 0 10px 25px rgba(247, 68, 0, 0.3);
+}
 
 .auth-title {
   text-align: center;
-  margin-bottom: 8px;
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  color: #1a1a1a;
 }
 
-.auth-subtitle {
+.auth-title-sub {
   text-align: center;
-  margin-bottom: 30px;
   font-size: 14px;
-  opacity: 0.75;
+  color: #777;
+  margin-bottom: 35px;
 }
 
-/* =========================
-   FORM
-========================= */
+/* ================= FORM ================= */
 
 .form-group {
-  margin-bottom: 18px;
-  width: 100%;
+  margin-bottom: 20px;
 }
 
 .form-label {
-  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #666;
   margin-bottom: 6px;
-  font-size: 13px;
-  opacity: 0.85;
+  display: block;
 }
-
-/* =========================
-   INPUTS
-========================= */
 
 .form-input {
   width: 100%;
-  padding: 12px  0px ;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  background: rgba(255, 255, 255, 0.1);
-  color: #ffffff;
+  padding: 13px 15px;
+  border-radius: 10px;
+  border: 1px solid #e4e6eb;
+  background: #f9fafc;
   font-size: 14px;
   transition: all 0.2s ease;
 }
 
-.form-input::placeholder {
-  color: rgba(255, 255, 255, 0.6);
-  padding: 20px;
-}
-
 .form-input:focus {
-  border-color: #3b82f6;
-  background: rgba(255, 255, 255, 0.15);
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
-  /* outline: none; */
-   padding: 10px;
+  border-color: #F74400;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(247, 68, 0, 0.12);
+  outline: none;
 }
-
-/* =========================
-   PASSWORD WRAPPER
-========================= */
-
-/* =========================
-   PASSWORD WRAPPER FIX
-========================= */
 
 .password-wrapper {
   position: relative;
-  width: 100%;
-  display: block;
 }
 
-
+.password-wrapper .form-input {
+  padding-right: 45px;
+}
 
 .eye-icon {
   position: absolute;
-  right: 14px;
+  right: 15px;
   top: 50%;
   transform: translateY(-50%);
+  color: #aaa;
   cursor: pointer;
-  font-size: 16px;
-  color: rgba(255, 255, 255, 0.7);
-  transition: 0.2s ease;
+  transition: 0.2s;
 }
 
 .eye-icon:hover {
-  color: #ffffff;
+  color: #F74400;
 }
 
-/* =========================
-   BUTTON
-========================= */
+/* ================= BUTTON ================= */
 
 .auth-button {
   width: 100%;
-  padding: 13px;
-  margin-top: 10px;
-  border-radius: 10px;
+  padding: 14px;
+  border-radius: 12px;
   border: none;
-  font-size: 15px;
-  font-weight: 600;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
   cursor: pointer;
-
-  background: linear-gradient(90deg, #2563eb, #3b82f6);
-  color: #ffffff;
-
-  transition: all 0.3s ease;
+  background: linear-gradient(135deg, #F74400, #d93b00);
+  color: #fff;
+  margin-top: 10px;
+  transition: all 0.25s ease;
+  box-shadow: 0 10px 25px rgba(247, 68, 0, 0.3);
 }
 
 .auth-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+  box-shadow: 0 15px 35px rgba(247, 68, 0, 0.4);
 }
 
-.auth-button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-/* =========================
-   SWITCH LINK
-========================= */
+/* ================= SMALL TEXT ================= */
 
 .switch-text {
-  margin-top: 22px;
   text-align: center;
-  font-size: 14px;
-  opacity: 0.8;
+  margin-top: 26px;
+  font-size: 13px;
+  color: #777;
 }
 
 .switch-btn {
-  color: #60a5fa;
-  cursor: pointer;
+  color: #F74400;
   font-weight: 600;
+  cursor: pointer;
+  margin-left: 5px;
 }
 
 .switch-btn:hover {
   text-decoration: underline;
 }
 
-/* =========================
-   ERROR MESSAGE
-========================= */
-
 .error-text {
-  font-size: 12px;
-  color: #f87171;
-  margin-top: 5px;
+  font-size: 11px;
+  color: #ff4d4f;
+  margin-top: 4px;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
+/* ================= MOBILE ================= */
 
-@media (max-width: 480px) {
-  .auth-card {
-    padding: 35px 25px;
+@media (max-width: 900px) {
+  .auth-brand-strip {
+    display: none;
   }
 
-  .auth-title {
-    font-size: 20px;
+  .auth-card {
+    padding: 40px 28px;
   }
 }

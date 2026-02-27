@@ -17,7 +17,6 @@ interface BaseMapProps {
   showDroneLayer: boolean;
   currentZoom: number;
   setCurrentZoom: (zoom: number) => void;
-  // ✅ showMapImageLayer removed — now driven by Redux via DynamicLayerRenderer
 }
 
 const BaseMap: React.FC<BaseMapProps> = ({
@@ -32,7 +31,7 @@ const BaseMap: React.FC<BaseMapProps> = ({
       center={[18.58, 78.22]}
       zoom={15}
       minZoom={5}
-      style={{ height: "calc(100vh - 60px)", width: "100%" }}
+      style={{ height: "100%", width: "100%" }}
       whenCreated={onMapReady}
     >
       <DroneImageWMS enabled={true} />

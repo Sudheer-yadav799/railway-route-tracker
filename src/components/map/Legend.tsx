@@ -1,141 +1,97 @@
 import { useState } from 'react'
+import '../../styles/legend.css'
 
 const Legend = () => {
   const [open, setOpen] = useState(true)
 
+  const infraItems = [
+    { name: 'Bridge', color: '#FF6B6B', icon: '🌉' },
+    { name: 'Culvert', color: '#4ECDC4', icon: '🔩' },
+    { name: 'RUB', color: '#45B7D1', icon: '🛤️' },
+    { name: 'ROB', color: '#FFA07A', icon: '🏗️' },
+  ]
+
   return (
-    <div
-      style={{
-        position: 'absolute',
-        bottom: '20px',
-        right: '20px',
-        background: 'white',
-        borderRadius: '12px',
-        boxShadow: '0 4px 16px rgba(0,0,0,0.2)',
-        zIndex: 1000,
-        maxWidth: '280px',
-        overflow: 'hidden'
-      }}
-    >
-      {/* Header / Toggle */}
-      <div
-        onClick={() => setOpen(!open)}
-        style={{
-          cursor: 'pointer',
-          padding: '12px 16px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          background: 'linear-gradient(135deg,#667eea,#764ba2)',
-          color: '#fff'
-        }}
-      >
-        <span style={{ fontWeight: 600, fontSize: 14 }}>Legend</span>
+    <div className="legend-wrapper">
+
+      <div className="legend-header" onClick={() => setOpen(v => !v)}>
+        <div className="legend-header-left">
+          📋
+          <span className="legend-title">Legend</span>
+        </div>
 
         <span
-          style={{
-            fontSize: 16,
-            transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
-            transition: 'transform 0.25s ease'
-          }}
+          className="legend-chevron"
+          style={{ transform: open ? 'rotate(180deg)' : 'rotate(0deg)' }}
         >
           ▼
         </span>
       </div>
 
-      {/* Legend Content */}
       {open && (
-        <div style={{ padding: '16px' }}>
+        <div className="legend-body">
+
           {/* Infrastructure */}
-          <div style={{ marginBottom: '15px' }}>
-            <div style={{
-              fontSize: '13px',
-              fontWeight: '600',
-              marginBottom: '8px',
-              color: '#555'
-            }}>
-              Infrastructure
+          <div className="legend-section">
+            <div className="legend-section-label">
+              Infrastructure Areas
             </div>
 
-            {[
-              { name: 'Bridge', color: '#FF6B6B' },
-              { name: 'CULVERT', color: '#4ECDC4' },
-              { name: 'RUB', color: '#45B7D1' },
-              { name: 'ROB', color: '#FFA07A' }
-            ].map(item => (
-              <div
-                key={item.name}
-                style={{ display: 'flex', alignItems: 'center', marginBottom: '6px' }}
-              >
-                <div style={{
-                  width: '24px',
-                  height: '16px',
-                  backgroundColor: item.color,
-                  marginRight: '10px',
-                  border: '1px solid #FFD93D',
-                  borderRadius: '3px'
-                }} />
-                <span style={{ fontSize: '13px' }}>{item.name}</span>
+            {infraItems.map(item => (
+              <div key={item.name} className="legend-row">
+                <div
+                  className="legend-area-box"
+                  style={{
+                    background: item.color + '40',
+                    borderColor: item.color
+                  }}
+                />
+                {item.icon} {item.name}
               </div>
             ))}
           </div>
 
+          <div className="legend-divider" />
+
           {/* Railway Lines */}
-          <div>
-            <div style={{
-              fontSize: '13px',
-              fontWeight: '600',
-              marginBottom: '8px',
-              color: '#555'
-            }}>
+          <div className="legend-section">
+            <div className="legend-section-label">
               Railway Lines
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '6px' }}>
-              <div style={{
-                width: '24px',
-                height: '4px',
-                backgroundColor: '#00FFFF',
-                marginRight: '10px',
-                borderRadius: '2px'
-              }} />
-              <span style={{ fontSize: '13px' }}>Mainlines</span>
+            <div className="legend-row">
+              <div
+                className="legend-line"
+                style={{ background: '#F74400', height: 3 }}
+              />
+              Mainlines
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '6px' }}>
-              <div style={{
-                width: '24px',
-                height: '2px',
-                backgroundColor: '#FFFFFF',
-                marginRight: '10px',
-                borderRadius: '2px'
-              }} />
-              <span style={{ fontSize: '13px' }}>Other Lines</span>
-            </div>
-
-            {/* Poles */}
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <div style={{
-                width: '4px',
-                height: '20px',
-                backgroundColor: '#8B4513',
-                marginRight: '10px',
-                marginLeft: '10px',
-                borderRadius: '2px',
-                position: 'relative'
-              }}>
-                <div style={{
-                  position: 'absolute',
-                  top: '2px',
-                  left: '-8px',
-                  width: '20px',
-                  height: '2px',
-                  backgroundColor: '#654321'
-                }} />
-              </div>
-              <span style={{ fontSize: '13px' }}>Poles / Stations</span>
+            <div className="legend-row">
+              <div
+                className="legend-line"
+                style={{ background: '#999', height: 2 }}
+              />
+              Branch Lines
             </div>
           </div>
+
+          <div className="legend-divider" />
+
+          {/* Points */}
+          <div className="legend-section">
+            <div className="legend-section-label">
+              Points of Interest
+            </div>
+
+            <div className="legend-row">🚉 Station</div>
+            <div className="legend-row">
+              <div className="legend-pole" />
+              OHE Pole
+            </div>
+            <div className="legend-row">🔴 Signal</div>
+          </div>
+
         </div>
       )}
     </div>
