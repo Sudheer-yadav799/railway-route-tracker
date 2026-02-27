@@ -23,48 +23,58 @@ const UserAccount: React.FC = () => {
     .join("")
     .toUpperCase();
 
-  return (
-    <div className="user-page">
-      <div className="user-overlay"></div>
+return (
+  <div className="profile-wrapper">
 
-      <div className="user-card">
-        <div className="user-avatar">{initials}</div>
+    {/* Gradient Cover */}
+    <div className="profile-cover"></div>
 
-        <h2 className="user-title">{user.name}</h2>
-        <p className="user-subtitle">
+    {/* Main Card */}
+    <div className="profile-card">
+
+      {/* Avatar Floating */}
+      <div className="profile-avatar">
+        {initials}
+      </div>
+
+      <div className="profile-content">
+
+        <h2 className="profile-name">{user.name}</h2>
+        <p className="profile-role">
           {user.Roles?.[0]?.name || "User"}
         </p>
 
-        <div className="user-info-row">
-          <span className="user-label">Email</span>
-          <span className="user-value">{user.email}</span>
-        </div>
+        {/* Info Section */}
+        <div className="profile-info">
+          <div className="info-item">
+            <span className="info-label">Email</span>
+            <span className="info-value">{user.email}</span>
+          </div>
 
-        <div className="user-info-row">
-          <span className="user-label">Mobile</span>
-          <span className="user-value">{user.mobile_number}</span>
-        </div>
+          <div className="info-item">
+            <span className="info-label">Mobile</span>
+            <span className="info-value">{user.mobile_number}</span>
+          </div>
 
-        <div className="user-info-row">
-          <span className="user-label">Status</span>
-          <span
-            className={`user-value ${user.is_active ? "active" : "inactive"
-              }`}
-          >
-            {user.is_active ? "Active" : "Inactive"}
-          </span>
+          <div className="info-item">
+            <span className="info-label">Status</span>
+            <span className={`info-value status ${user.is_active ? "active" : "inactive"}`}>
+              {user.is_active ? "Active" : "Inactive"}
+            </span>
+          </div>
         </div>
-
 
         <button
-          className="user-button"
+          className="profile-logout"
           onClick={() => logoutMutation.mutate()}
         >
           Logout
         </button>
+
       </div>
     </div>
-  );
+  </div>
+);
 };
 
 export default UserAccount;

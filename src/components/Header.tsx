@@ -1,101 +1,148 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import '../styles/header.css'
 
- const Header: React.FC = () => {
+const Header: React.FC = () => {
   const navigate = useNavigate()
+
   const [menuOpen, setMenuOpen] = useState(false)
+  const [areaOpen, setAreaOpen] = useState(false)
+  const [selectedArea, setSelectedArea] = useState("Hyderabad")
+
   const menuRef = useRef<HTMLDivElement>(null)
+  const areaRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setMenuOpen(false)
-      }
-    }
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [])
+  const userData = JSON.parse(localStorage.getItem('userData') || '{}')
+  const initials =
+    userData?.name?.split(' ').map((w: string) => w[0]).join('').toUpperCase() || 'U'
 
-  const menuItems = [
-    { label: 'Profile', onClick: () => navigate('/userProfile') },
-    { label: 'Settings', onClick: () => alert('Settings clicked') },
-    { label: 'Help', onClick: () => alert('Help clicked') }
+  const areas = [
+    "Hyderabad",
+    "Banjara Hills",
+    "Gachibowli",
+    "Madhapur",
+    "Secunderabad",
+    "Kukatpally"
   ]
 
+  const menuItems = [
+  { icon: '👤', label: 'My Profile', action: () => navigate('/userProfile') },
+  { icon: '📊', label: 'Analytics', action: () => alert('Analytics — coming soon') },
+  { icon: '⚙️', label: 'Settings', action: () => alert('Settings — coming soon') },
+  { icon: '❓', label: 'Help', action: () => alert('Help — coming soon') },
+]
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node))
+        setMenuOpen(false)
+
+      if (areaRef.current && !areaRef.current.contains(e.target as Node))
+        setAreaOpen(false)
+    }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
+  }, [])
+
+  const handleLogout = () => {
+    localStorage.clear()
+    navigate('/')
+  }
+
   return (
-    <header
-      style={{
-        height: '60px',
-        background: 'linear-gradient(90deg, #d60043, #ff4b2b)',
-        color: '#fff',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: '0 16px',
-        fontSize: '22px',
-        fontWeight: '800',
-        textAlign: 'center',
-        fontFamily: 'monospace',
-        position: 'relative'
+    <header className="light-header">
+
+      {/* LEFT BRAND */}
+      <div className="header-left">
+
+        <div className="brand-block">
+          <div className="brand-accent"></div>
+          <div>
+            <div className="brand-tag">RIA</div>
+            <div className="brand-title">Railway Route Infrastructure</div>
+          </div>
+        </div>
+
+        {/* LOCATION */}
+        <div className="location-selector" ref={areaRef}>
+          <button
+            className="location-btn"
+            onClick={() => setAreaOpen(v => !v)}
+          >
+            📍 {selectedArea}
+            <span className="caret">▾</span>
+          </button>
+
+          {areaOpen && (
+            <div className="location-dropdown">
+              {areas.map(area => (
+                <div
+                  key={area}
+                  className="location-item"
+                  onClick={() => {
+                    setSelectedArea(area)
+                    setAreaOpen(false)
+                  }}
+                >
+                  {area}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* CENTER SEARCH */}
+      <div className="header-search">
+        <input placeholder="Search station, pole, route..." />
+      </div>
+
+      {/* RIGHT SIDE */}
+      <div className="header-right">
+        <div className="profile-menu" ref={menuRef}>
+          <div
+            className="profile-circle"
+            onClick={() => setMenuOpen(v => !v)}
+          >
+            {initials}
+          </div>
+
+         {menuOpen && (
+  <div className="profile-dropdown">
+
+    {menuItems.map((item, index) => (
+      <div
+        key={index}
+        className="profile-option"
+        onClick={() => {
+          item.action()
+          setMenuOpen(false)
+        }}
+      >
+        <span className="menu-icon">{item.icon}</span>
+        <span>{item.label}</span>
+      </div>
+    ))}
+
+    <div className="dropdown-divider" />
+
+    <div
+      className="profile-option danger"
+      onClick={() => {
+        handleLogout()
+        setMenuOpen(false)
       }}
     >
-      Railway Route Infrastructure
+      <span className="menu-icon">🚪</span>
+      <span>Logout</span>
+    </div>
 
-      {/* Right-side Menu */}
-      <div style={{ position: 'relative' }} ref={menuRef}>
-        <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          style={{
-            background: 'transparent',
-            border: 'none',
-            color: '#fff',
-            fontSize: 18,
-            cursor: 'pointer',
-            padding: '8px'
-          }}
-        >
-          ☰
-        </button>
+  </div>
+)}
+        </div>
 
-        {menuOpen && (
-          <div
-            style={{
-              position: 'absolute',
-              top: '50px',
-              right: 0,
-              background: '#1f2937',
-              borderRadius: 8,
-              boxShadow: '0 5px 15px rgba(0,0,0,0.3)',
-              overflow: 'hidden',
-              zIndex: 10000
-            }}
-          >
-            {menuItems.map((item, idx) => (
-              <div
-                key={idx}
-                onClick={() => {
-                  item.onClick()
-                  setMenuOpen(false)
-                }}
-                style={{
-                  padding: '10px 20px',
-                  cursor: 'pointer',
-                  color: '#fff',
-                  fontSize: 14,
-                  borderBottom: idx !== menuItems.length - 1 ? '1px solid #374151' : 'none',
-                  transition: 'background 0.2s'
-                }}
-                onMouseEnter={e => (e.currentTarget.style.background = '#374151')}
-                onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
-              >
-                {item.label}
-              </div>
-            ))}
-          </div>
-        )}
       </div>
     </header>
   )
 }
 
- export default Header
+export default Header
