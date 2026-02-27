@@ -24,4 +24,10 @@ export const userService = {
     );
     return response.data;
   },
+  deleteUserById: async ({id,deletedById,}: { id: number | string; deletedById: number | string; }) => {
+    const response = await axiosInstance.delete(
+      API_ENDPOINTS.USERS.DELETE_BY_ID(id, deletedById)
+    );
+    return response.data;
+  },
 };

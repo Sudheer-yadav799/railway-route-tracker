@@ -4,6 +4,8 @@ import { useLogin, useRegister } from "../hooks/useAuth";
 import "../styles/auth.css";
 import { userService } from "../services/user_service";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { setCredentials } from "../store/slices/authSlice";
 
 type Props = { onLogin?: () => void };
 type Errors = { username?: string; email?: string; mobile?: string; password?: string };
@@ -43,28 +45,39 @@ const Auth: React.FC<Props> = ({ onLogin }) => {
     setErrors({ ...errors, [e.target.name]: "" });
   };
 
+  const dispatch = useDispatch();
   /* ── Submit (unchanged logic) ── */
   const handleSubmit = async () => {
     if (!validate()) return;
     try {
       if (isRegister) {
         await registerMutation.mutateAsync(formData);
-        alert("Registration successful. Please login.");
         setIsRegister(false);
       } else {
-        const loginRes = await loginMutation.mutateAsync({ user_id: formData.username, password: formData.password });
-        if (!loginRes?.token) throw new Error("Login failed. No token received.");
+        const loginRes = await loginMutation.mutateAsync({
+          user_id: formData.username,
+          password: formData.password,
+        });
+
+        if (!loginRes?.token) throw new Error("Login failed.");
         localStorage.setItem("token", loginRes.token);
         const userId = loginRes.userId;
         if (!userId) throw new Error("User ID not found in login response.");
         const userDetails = await userService.getUserById(userId);
+        dispatch(
+          setCredentials({
+            user: userDetails,
+            token: loginRes.token,
+          })
+        );
+
         localStorage.setItem("userId", userDetails.id);
         localStorage.setItem("userData", JSON.stringify(userDetails));
         onLogin?.();
         navigate("/map");
       }
     } catch (error: any) {
-      alert(error.message || "Something went wrong");
+      console.error(error.message || "Something went wrong");
     }
   };
 

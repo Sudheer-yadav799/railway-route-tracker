@@ -8,6 +8,7 @@ export const API_ENDPOINTS = {
     CREATE: "/api/users/createuser",
     GET_ALL: "/api/users/getallusers",
     GET_BY_ID: (id: string) => `/api/users/get-id-by-userdetails/${id}`,
+     DELETE_BY_ID: (id: string | number, deletedById: string | number) =>  `/api/users/delete-by-id/${id}/${deletedById}`,
   },
    LAYERS: {
     GET_LAYERS: "/api/layers/get-layers",

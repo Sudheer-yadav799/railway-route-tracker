@@ -26,11 +26,10 @@ const Header: React.FC = () => {
   ]
 
   const menuItems = [
-  { icon: '👤', label: 'My Profile', action: () => navigate('/userProfile') },
-  { icon: '📊', label: 'Analytics', action: () => alert('Analytics — coming soon') },
-  { icon: '⚙️', label: 'Settings', action: () => alert('Settings — coming soon') },
-  { icon: '❓', label: 'Help', action: () => alert('Help — coming soon') },
-]
+    { label: 'My Profile', action: () => navigate('/userProfile') },
+    {  label: 'Analytics', action: () => alert('Analytics — coming soon') },
+    {  label: 'AdminDashbaord', action: () => navigate('/admin-dashboard') },
+  ]
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(e.target as Node))
@@ -106,38 +105,36 @@ const Header: React.FC = () => {
             {initials}
           </div>
 
-         {menuOpen && (
-  <div className="profile-dropdown">
+          {menuOpen && (
+            <div className="profile-dropdown">
 
-    {menuItems.map((item, index) => (
-      <div
-        key={index}
-        className="profile-option"
-        onClick={() => {
-          item.action()
-          setMenuOpen(false)
-        }}
-      >
-        <span className="menu-icon">{item.icon}</span>
-        <span>{item.label}</span>
-      </div>
-    ))}
+              {menuItems.map((item, index) => (
+                <div
+                  key={index}
+                  className="profile-option"
+                  onClick={() => {
+                    item.action()
+                    setMenuOpen(false)
+                  }}
+                >
+                  <span>{item.label}</span>
+                </div>
+              ))}
 
-    <div className="dropdown-divider" />
+              <div className="dropdown-divider" />
 
-    <div
-      className="profile-option danger"
-      onClick={() => {
-        handleLogout()
-        setMenuOpen(false)
-      }}
-    >
-      <span className="menu-icon">🚪</span>
-      <span>Logout</span>
-    </div>
+              <div
+                className="profile-option danger"
+                onClick={() => {
+                  handleLogout()
+                  setMenuOpen(false)
+                }}
+              >
+                <span>Logout</span>
+              </div>
 
-  </div>
-)}
+            </div>
+          )}
         </div>
 
       </div>
