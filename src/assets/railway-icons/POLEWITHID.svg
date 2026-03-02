@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <!-- ground base -->
+  <rect x="20" y="56" width="24" height="6" rx="3" fill="#3a2e1a"/>
+  <!-- pole -->
+  <rect x="28" y="10" width="8" height="48" rx="2.5" fill="#7a6040" stroke="#3a2e1a" stroke-width="1.5"/>
+  <!-- top cross arm (T-shape) -->
+  <rect x="10" y="14" width="44" height="6" rx="2" fill="#5a4a2e" stroke="#3a2e1a" stroke-width="1.2"/>
+  <!-- secondary arm -->
+  <rect x="14" y="24" width="36" height="5" rx="2" fill="#5a4a2e" stroke="#3a2e1a" stroke-width="1.2"/>
+  <!-- insulators -->
+  <circle cx="12" cy="17" r="3.5" fill="#bbcc88" stroke="#4B6A20" stroke-width="1.2"/>
+  <circle cx="32" cy="17" r="3.5" fill="#bbcc88" stroke="#4B6A20" stroke-width="1.2"/>
+  <circle cx="52" cy="17" r="3.5" fill="#bbcc88" stroke="#4B6A20" stroke-width="1.2"/>
+  <!-- wires -->
+  <path d="M2,17 Q12,16 12,17" stroke="#888" stroke-width="1.2" fill="none"/>
+  <path d="M52,17 Q60,16 62,17" stroke="#888" stroke-width="1.2" fill="none"/>
+  <!-- OHE catenary wire -->
+  <path d="M2,22 Q32,20 62,22" stroke="#aaa" stroke-width="1" fill="none" stroke-dasharray="4,2"/>
+  <!-- ID number plate (prominent) -->
+  <rect x="16" y="2" width="32" height="12" rx="3" fill="#FFD700" stroke="#cc9900" stroke-width="2"/>
+  <rect x="18" y="3" width="28" height="10" rx="2" fill="#ffe040"/>
+  <text x="32" y="11" text-anchor="middle" font-size="7.5" fill="#111" font-family="Arial" font-weight="bold">EP-204</text>
+  <!-- ground marker stripes on pole -->
+  <rect x="28" y="50" width="8" height="3" fill="#cc0000"/>
+  <rect x="28" y="54" width="8" height="2" fill="#ffcc00"/>
+</svg>

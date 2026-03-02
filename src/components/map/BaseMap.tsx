@@ -26,10 +26,12 @@ const BaseMap: React.FC<BaseMapProps> = ({
   currentZoom,
   setCurrentZoom,
 }) => {
+
+
   return (
     <MapContainer
-      center={[18.58, 78.22]}
-      zoom={15}
+      center={[25.1013, 76.5119]}
+      zoom={16}
       minZoom={5}
       style={{ height: "100%", width: "100%" }}
       whenCreated={onMapReady}

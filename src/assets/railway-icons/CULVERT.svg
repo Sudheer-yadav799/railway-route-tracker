@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="cearth" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#7a5c3a"/>
+      <stop offset="100%" stop-color="#4a2c0a"/>
+    </linearGradient>
+  </defs>
+  <!-- earth fill above -->
+  <rect x="0" y="4" width="64" height="22" rx="2" fill="url(#cearth)"/>
+  <!-- wing walls -->
+  <polygon points="4,4 14,4 14,28 4,34" fill="#5a7a6a" stroke="#336655" stroke-width="1.5"/>
+  <polygon points="60,4 50,4 50,28 60,34" fill="#5a7a6a" stroke="#336655" stroke-width="1.5"/>
+  <!-- culvert box -->
+  <rect x="14" y="22" width="36" height="18" rx="2" fill="#008080" stroke="#004d4d" stroke-width="2"/>
+  <!-- water inside -->
+  <rect x="16" y="32" width="32" height="6" rx="1" fill="#1e90ff" opacity="0.6"/>
+  <!-- headwall top -->
+  <rect x="4" y="2" width="56" height="6" rx="2" fill="#336655" stroke="#004d4d" stroke-width="1.5"/>
+  <!-- outlet water -->
+  <path d="M14,40 Q32,44 50,40" stroke="#1e90ff" stroke-width="2" fill="none" opacity="0.7"/>
+  <rect x="0" y="44" width="64" height="12" rx="2" fill="#1e90ff" opacity="0.25"/>
+  <!-- opening arch lines -->
+  <line x1="14" y1="22" x2="14" y2="40" stroke="#004d4d" stroke-width="2"/>
+  <line x1="50" y1="22" x2="50" y2="40" stroke="#004d4d" stroke-width="2"/>
+  <text x="32" y="32" text-anchor="middle" font-size="7" fill="white" font-family="Arial" font-weight="bold">CULVERT</text>
+</svg>
