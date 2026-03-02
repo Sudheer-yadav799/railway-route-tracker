@@ -13,4 +13,9 @@ export const API_ENDPOINTS = {
    LAYERS: {
     GET_LAYERS: "/api/layers/get-layers",
   },
+   PROJECTS: {
+    GET_ALL:         "/api/projects/",
+    GET_LAYERS:      (projectId: number | string) => `/api/projects/layers/${projectId}/`,
+    TOGGLE_LAYER:    (projectId: number | string, layerCode: string) => `/api/projects/${projectId}/layers/${layerCode}`,
+  },
 };

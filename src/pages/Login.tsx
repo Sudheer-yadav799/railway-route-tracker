@@ -90,10 +90,9 @@ const Auth: React.FC<Props> = ({ onLogin }) => {
         <div className="auth-brand-logo">🚆</div>
         <div className="auth-brand-title">Railway Route<br />Infrastructure<br />Monitor</div>
         <div className="auth-brand-sub">
-          Real-time GIS tracking, layer management, and infrastructure monitoring
+          Real-time GIS track system, layer management, and infrastructure monitoring
           for the Indian Railway network.
         </div>
-        <div className="auth-brand-tag">Ministry of Railways</div>
       </div>
 
       {/* ── Right form area ── */}
