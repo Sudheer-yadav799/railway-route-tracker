@@ -1,4 +1,4 @@
-import "../styles/admin-layer-styles.css";
+
 
 const layerStyles = [
   // POLYLINES
