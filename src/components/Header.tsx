@@ -5,7 +5,11 @@ import companyLogo from "../assets/images/logo.jpeg";
 import SearchBar from "./map/SearchBar";
 
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  mapRef: React.MutableRefObject<any>;
+}
+
+const Header = ({ mapRef }: HeaderProps) => {
   const navigate = useNavigate();
 
   const [menuOpen, setMenuOpen] = useState(false);
@@ -99,7 +103,7 @@ const Header: React.FC = () => {
       </div>
 
       {/* SEARCH BAR */}
-      <SearchBar />
+      <SearchBar mapRef={mapRef} />
 
       {/* RIGHT */}
       <div className="header-right">

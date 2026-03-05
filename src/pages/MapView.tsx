@@ -22,7 +22,7 @@ const MapView = () => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', background: '#0a0f1e' }}>
-      <Header  mapRef={mapRef}/>
+     <Header mapRef={mapRef} />
 
       {/* Map container — fills remaining height */}
       <div style={{ position: 'relative', flex: 1, overflow: 'hidden' }}>
