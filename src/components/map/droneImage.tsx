@@ -16,34 +16,19 @@ const DroneImageWMS = ({ enabled }: { enabled: boolean }) => {
   return (
 
   
-      <WMSTileLayer
+
+
+   <WMSTileLayer
       url="http://localhost:8082/geoserver/drone/wms"
-      layers="drone:merged_drone"
-      format="image/jpeg"
-      transparent
-      version="1.1.0"
-      attribution="RTK Sample Layer"
-      maxZoom={25}
-      
-      params={{
-         tiled: true,
-      "ngrok-skip-browser-warning": "true",
-  }}
+      layers="drone:cog_rgb"
+      format="image/png"
+      transparent={true}
+      version="1.1.1"
+      opacity={1}
+      zIndex={1000} 
+      maxZoom={25}  
     />
   )
 }
 
 export default DroneImageWMS
-
-  //   <WMSTileLayer
-  //     url="https://roughish-armani-uncorrugated.ngrok-free.dev/geoserver/RailwayDroneImage/wms"
-  //     layers="RailwayDroneImage:droneimage"
-  //     format="image/png"
-  //     transparent
-  //     version="1.1.0"
-  //     attribution="RTK Sample Layer"
-  //     maxZoom={25}
-  //     params={{
-  //     "ngrok-skip-browser-warning": "true",
-  // }}
-  //   />
