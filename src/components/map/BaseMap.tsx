@@ -36,7 +36,7 @@ const BaseMap: React.FC<BaseMapProps> = ({
       style={{ height: "100%", width: "100%" }}
       whenCreated={onMapReady}
     >
-      <DroneImageWMS enabled={true} />
+      {/* <DroneImageWMS enabled={true} /> */}
       <ZoomLogger />
       <MeasureControl />
       <MapReady onReady={onMapReady} />

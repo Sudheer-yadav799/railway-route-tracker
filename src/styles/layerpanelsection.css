@@ -123,15 +123,9 @@
 .close-icon {
 
   cursor: pointer;
-
   font-size: 16px;
-
-  color: #0b1f36;
-
+  color: #374151;
   border-radius: 6px;
-
-  padding: 6px;
-
   transition: 0.2s;
 }
 

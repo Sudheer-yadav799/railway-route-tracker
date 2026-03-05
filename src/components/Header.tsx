@@ -1,20 +1,25 @@
-import React, { useState, useRef, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import '../styles/header.css'
+import React, { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import "../styles/header.css";
+import companyLogo from "../assets/images/logo.jpeg";
+import SearchBar from "./map/SearchBar";
+
 
 const Header: React.FC = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const [menuOpen, setMenuOpen] = useState(false)
-  const [areaOpen, setAreaOpen] = useState(false)
-  const [selectedArea, setSelectedArea] = useState("Hyderabad")
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [areaOpen, setAreaOpen] = useState(false);
+  const [selectedArea, setSelectedArea] = useState("Hyderabad");
 
-  const menuRef = useRef<HTMLDivElement>(null)
-  const areaRef = useRef<HTMLDivElement>(null)
+  const menuRef = useRef<HTMLDivElement>(null);
+  const areaRef = useRef<HTMLDivElement>(null);
 
-  const userData = JSON.parse(localStorage.getItem('userData') || '{}')
+  const userData = JSON.parse(localStorage.getItem("userData") || "{}");
+
   const initials =
-    userData?.name?.split(' ').map((w: string) => w[0]).join('').toUpperCase() || 'U'
+    userData?.name?.split(" ").map((w: string) => w[0]).join("").toUpperCase() ||
+    "U";
 
   const areas = [
     "Hyderabad",
@@ -22,39 +27,41 @@ const Header: React.FC = () => {
     "Gachibowli",
     "Madhapur",
     "Secunderabad",
-    "Kukatpally"
-  ]
+    "Kukatpally",
+  ];
 
   const menuItems = [
-    { label: 'My Profile', action: () => navigate('/userProfile') },
-    {  label: 'Analytics', action: () => alert('Analytics — coming soon') },
-    {  label: 'AdminDashbaord', action: () => navigate('/admin-dashboard') },
-  ]
+    { label: "My Profile", action: () => navigate("/userProfile") },
+    { label: "Analytics", action: () => alert("Analytics — coming soon") },
+    { label: "Admin Dashboard", action: () => navigate("/admin-dashboard") },
+  ];
+
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(e.target as Node))
-        setMenuOpen(false)
+        setMenuOpen(false);
 
       if (areaRef.current && !areaRef.current.contains(e.target as Node))
-        setAreaOpen(false)
-    }
-    document.addEventListener('mousedown', handler)
-    return () => document.removeEventListener('mousedown', handler)
-  }, [])
+        setAreaOpen(false);
+    };
+
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
 
   const handleLogout = () => {
-    localStorage.clear()
-    navigate('/')
-  }
+    localStorage.clear();
+    navigate("/");
+  };
 
   return (
-    <header className="light-header">
+    <header className="app-header">
 
-      {/* LEFT BRAND */}
+      {/* LEFT */}
       <div className="header-left">
 
         <div className="brand-block">
-          <div className="brand-accent"></div>
+          <img src={companyLogo} className="brand-logo" alt="Company Logo" />
           <div>
             <div className="brand-tag">RIA</div>
             <div className="brand-title">Railway Route Infrastructure</div>
@@ -65,7 +72,7 @@ const Header: React.FC = () => {
         <div className="location-selector" ref={areaRef}>
           <button
             className="location-btn"
-            onClick={() => setAreaOpen(v => !v)}
+            onClick={() => setAreaOpen((v) => !v)}
           >
             📍 {selectedArea}
             <span className="caret">▾</span>
@@ -73,13 +80,13 @@ const Header: React.FC = () => {
 
           {areaOpen && (
             <div className="location-dropdown">
-              {areas.map(area => (
+              {areas.map((area) => (
                 <div
                   key={area}
                   className="location-item"
                   onClick={() => {
-                    setSelectedArea(area)
-                    setAreaOpen(false)
+                    setSelectedArea(area);
+                    setAreaOpen(false);
                   }}
                 >
                   {area}
@@ -88,19 +95,18 @@ const Header: React.FC = () => {
             </div>
           )}
         </div>
+
       </div>
 
-      {/* CENTER SEARCH */}
-      <div className="header-search">
-        <input placeholder="Search station, pole, route..." />
-      </div>
+      {/* SEARCH BAR */}
+      <SearchBar />
 
-      {/* RIGHT SIDE */}
+      {/* RIGHT */}
       <div className="header-right">
         <div className="profile-menu" ref={menuRef}>
           <div
             className="profile-circle"
-            onClick={() => setMenuOpen(v => !v)}
+            onClick={() => setMenuOpen((v) => !v)}
           >
             {initials}
           </div>
@@ -113,11 +119,11 @@ const Header: React.FC = () => {
                   key={index}
                   className="profile-option"
                   onClick={() => {
-                    item.action()
-                    setMenuOpen(false)
+                    item.action();
+                    setMenuOpen(false);
                   }}
                 >
-                  <span>{item.label}</span>
+                  {item.label}
                 </div>
               ))}
 
@@ -126,20 +132,20 @@ const Header: React.FC = () => {
               <div
                 className="profile-option danger"
                 onClick={() => {
-                  handleLogout()
-                  setMenuOpen(false)
+                  handleLogout();
+                  setMenuOpen(false);
                 }}
               >
-                <span>Logout</span>
+                Logout
               </div>
 
             </div>
           )}
         </div>
-
       </div>
-    </header>
-  )
-}
 
-export default Header
+    </header>
+  );
+};
+
+export default Header;

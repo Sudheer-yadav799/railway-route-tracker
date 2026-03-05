@@ -1,69 +1,73 @@
-/* =====================================
-   LIGHT ORANGE HEADER — PREMIUM
-   ===================================== */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
 
-.light-header {
-  height: 74px;
+.app-header {
+  height: 70px;
   background: #ffffff;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 32px;
-  box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+  border-bottom: 1px solid #e5e7eb;
+  font-family: "Manrope", sans-serif;
   position: relative;
   z-index: 999;
 }
 
 /* LEFT */
+
 .header-left {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 20px;
 }
 
 .brand-block {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
-.brand-accent {
-  width: 4px;
-  height: 30px;
-  background: linear-gradient(#F74400, #ff7a45);
-  border-radius: 4px;
+.brand-logo {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
 }
 
 .brand-tag {
   font-size: 10px;
-  letter-spacing: 0.12em;
-  color: #F74400;
+  letter-spacing: .12em;
+  color: #1b64d1;
   font-weight: 700;
 }
 
 .brand-title {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 800;
-  color: #222;
+  color: #111827;
 }
 
 /* LOCATION */
+
 .location-selector {
   position: relative;
 }
 
 .location-btn {
-  background: #fff7f2;
-  border: 1px solid #ffd7c7;
-  padding: 8px 16px;
-  border-radius: 12px;
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  padding: 7px 14px;
+  border-radius: 5px;
   font-size: 13px;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 8px;
-  color: #F74400;
+  gap: 6px;
+  color: #374151;
   font-weight: 600;
+}
+
+.location-btn:hover {
+  border-color: #3aa4ff;
 }
 
 .location-dropdown {
@@ -72,87 +76,137 @@
   left: 0;
   width: 200px;
   background: white;
-  border-radius: 12px;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, .1);
   overflow: hidden;
 }
 
 .location-item {
-  padding: 12px 16px;
+  padding: 10px 14px;
   cursor: pointer;
-  transition: 0.2s;
-  color: #222;
+  font-size: 13px;
+  color: #374151;
 }
 
 .location-item:hover {
-  background: #fff3ec;
+  background: #f9fafb;
 }
 
-/* SEARCH */
+/* SEARCH BAR */
+
 .header-search {
+
+  position: relative;
   flex: 1;
-  max-width: 600px;
-  margin: 0 40px;
+  max-width: 520px;
+  margin: 0 30px;
+  display: flex;
+  align-items: center;
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  border-radius: 5px;
+  padding: 4px;
 }
+
+/* FILTER */
+
+.search-filter {
+  border: none;
+  background: transparent;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-right: 1px solid #e5e7eb;
+  color: #374151;
+  cursor: pointer;
+}
+
+/* INPUT */
 
 .header-search input {
-  width: 100%;
-  padding: 12px 18px;
-  border-radius: 20px;
-  border: 1px solid #ffd7c7;
-  background: #fff;
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 10px 14px;
   font-size: 14px;
-  transition: 0.2s;
+
 }
 
 .header-search input:focus {
   outline: none;
-  border-color: #F74400;
-  box-shadow: 0 0 0 4px rgba(247,68,0,0.1);
+}
+
+/* SUGGESTIONS */
+
+.search-suggestions {
+  position: absolute;
+  top: 52px;
+  left: 0;
+  width: 100%;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, .15);
+  list-style: none;
+  padding: 6px 0;
+  margin: 0;
+  max-height: 260px;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.search-suggestions li {
+
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+
+  cursor: pointer;
+
+  font-size: 13px;
+
+  transition: background .15s;
+
+}
+
+.search-suggestions li:hover {
+  background: #f3f4f6;
+}
+
+.suggest-layer {
+
+  font-size: 11px;
+
+  color: #1b64d1;
+
+  background: #f1f5f9;
+
+  padding: 2px 8px;
+
+  border-radius: 5px;
+
 }
 
 /* RIGHT */
+
 .header-right {
   display: flex;
   align-items: center;
-  gap: 20px;
 }
 
-/* LIVE */
-.live-badge-light {
-  background: #e8fff1;
-  border: 1px solid #b4f5cc;
-  color: #16a34a;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.live-dot {
-  width: 8px;
-  height: 8px;
-  background: #16a34a;
-  border-radius: 50%;
-  animation: pulse-live 1.5s infinite;
-}
-
-/* PROFILE */
 .profile-circle {
-  width: 38px;
-  height: 38px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #F74400, #ff7a45);
+  background: linear-gradient(135deg, #1b64d1, #3aa4ff);
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
   font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 6px 16px rgba(247,68,0,0.3);
+  box-shadow: 0 6px 16px rgba(27, 100, 209, .25);
 }
 
 .profile-menu {
@@ -165,20 +219,80 @@
   top: 120%;
   width: 180px;
   background: white;
-  border-radius: 12px;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, .12);
   overflow: hidden;
 }
 
 .profile-option {
-  padding: 12px 16px;
+  padding: 11px 14px;
   cursor: pointer;
-  transition: 0.2s;
-  color: #222;
+  font-size: 13px;
+  color: #374151;
 }
 
+.profile-option:hover {
+  background: #f9fafb;
+}
+
+.dropdown-divider {
+  height: 1px;
+  background: #e5e7eb;
+}
+
+.profile-option.danger:hover {
+  color: #ef4444;
+}
+
+/* FILTER */
 
 
-.profile-option.danger {
-  color: #222;
+.search-filter-btn {
+
+  border: none;
+  padding: 7px 12px;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #374151;
+}
+
+.search-filter-btn:hover {
+  border-color: #3aa4ff;
+}
+
+/* FILTER DROPDOWN */
+
+.search-filter-dropdown {
+  border: none;
+  position: absolute;
+  top: 110%;
+  left: 0;
+  width: 120px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+  z-index: 1000;
+}
+
+.search-filter-option {
+  padding: 11px 14px;
+  cursor: pointer;
+  font-size: 13px;
+
+  color: #374151;
+}
+
+.search-filter-option:hover {
+  background: #bed5ec;
+}
+
+.filter-caret {
+  font-size: 11px;
+  color: #6b7280;
 }

@@ -14,10 +14,6 @@ const DroneImageWMS = ({ enabled }: { enabled: boolean }) => {
   if (zoom <= 15) return null
 
   return (
-
-  
-
-
    <WMSTileLayer
       url="http://localhost:8082/geoserver/drone/wms"
       layers="drone:cog_rgb"
