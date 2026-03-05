@@ -67,7 +67,7 @@ const Legend = ({ activeFeatureKeys }: LegendProps) => {
     L.DomEvent.disableClickPropagation(wrapperRef.current)
   }, [])
 
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
 
   const visibleGroups = Object.entries(PDF_GROUPS)
     .map(([group, keys]) => ({
