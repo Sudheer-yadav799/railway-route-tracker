@@ -2,14 +2,14 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./styles/admin-dashboard.css";
 import UsersScreen         from "./UsersScreen";
-import ProjectLayersScreen from "./ProjectLayersScreen";
 import OverviewScreen      from "./OverviewScreen";
 import LayerStylesScreen   from "./LayerStylesScreen";
 import ProjectsScreen      from "./ProjectsScreen";
 import { useProjects }     from "../hooks/useLayers";
 import { FiUser } from "react-icons/fi";
+import UserProjectAssignScreen from "./UserProjectAssignScreen";
 
-type ActiveScreen = "overview" | "users" | "layers" | "projects" | "project-layers";
+type ActiveScreen = "overview" | "users" | "layers" | "projects" | "project-layers" |"user-projects";
 
 const AdminDashboard = () => {
   const [active, setActive]                   = useState<ActiveScreen>("overview");
@@ -28,7 +28,7 @@ const AdminDashboard = () => {
     { key: "overview", icon: "⊞",  label: "Dashboard"   },
     { key: "users",    icon: "👥", label: "Users"        },
     { key: "layers",   icon: "🗺️", label: "Layer Styles" },
-    { key: "projects", icon: "🚉", label: "Projects"     },
+    { key: "user-projects", icon: "🔗", label: "User Projects" }
   ];
 
   return (
@@ -98,19 +98,8 @@ const AdminDashboard = () => {
         {active === "overview"       && <OverviewScreen />}
         {active === "users"          && <UsersScreen />}
         {active === "layers"         && <LayerStylesScreen />}
-        {active === "projects"       && (
-          <ProjectsScreen
-            projects={projects}
-            isLoading={projectsLoading}
-            onSelectProject={handleProjectClick}
-          />
-        )}
-        {active === "project-layers" && (
-          <ProjectLayersScreen
-            projectId={selectedProject}
-            onBack={() => setActive("projects")}
-          />
-        )}
+        {active === "user-projects" && <UserProjectAssignScreen />}
+        
       </main>
     </div>
   );

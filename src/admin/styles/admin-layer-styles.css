@@ -64,7 +64,7 @@
 }
 
 .filter-btn:hover  { border-color: var(--primary); color: var(--primary); background: var(--primary-light); }
-.filter-btn.active { background: var(--primary); border-color: var(--primary); color: #fff; box-shadow: 0 3px 10px var(--primary-glow); }
+.filter-btn.active { background: var(--primary); border-color: var(--primary); color: #facc15; box-shadow: 0 3px 10px var(--primary-glow); }
 
 .pl-select {
   padding: 8px 12px;
@@ -124,8 +124,9 @@
 }
 
 .layer-style-row.header {
-  background: #f8f9fc;
-  color: var(--text-soft);
+  /* background: #f8f9fc; */
+  /* color: var(--text-soft); */
+  color: #facc15;
   font-weight: 700;
   font-size: 10px;
   text-transform: uppercase;
@@ -133,7 +134,7 @@
   border-bottom: 2px solid var(--border);
 }
 
-.layer-style-row:not(.header):hover { background: #fafbff; }
+.layer-style-row:not(.header):hover {  background: #163b5f;; }
 .layer-style-row:last-child          { border-bottom: none; }
 
 /* ── CELLS ── */
@@ -312,7 +313,7 @@
 }
 
 .pl-stat-card {
-  background: var(--white);
+  /* background: var(--white); */
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 12px 22px;

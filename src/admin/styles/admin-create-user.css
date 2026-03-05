@@ -66,17 +66,21 @@
   padding: 12px;
   border-radius: 10px;
   border: 1px solid #e5e7eb;
-  background: #fafafa;
+  background: rgba(255, 255, 255, 0.05);
   font-size: 14px;
+   color: #fff;
   transition: 0.2s;
 }
 
 .form-field input:focus,
-.form-field select:focus {
-  border-color: #F74400;
-  background: #fff;
+.form-field select:focus, .form-field option {
+  border-color: #facc15 !important;
+  background: none;
   outline: none;
+  color:  white  !important;
+
 }
+
 
 /* Buttons */
 .form-actions {
@@ -87,19 +91,20 @@
 }
 
 .primary-btn {
-  background: #F74400;
+  background: #facc15;
   color: white;
   padding: 10px 16px;
   border-radius: 10px;
-  border: none;
+  /* border: none; */
+  border-color: #facc15;
   cursor: pointer;
 }
 
 .secondary-btn {
-  background: #f3f4f6;
+  background: #cfa80c69 !important;
   color: #333;
   padding: 10px 16px;
-  border-radius: 10px;
+  border-radius: 5px;
   border: none;
   cursor: pointer;
 }

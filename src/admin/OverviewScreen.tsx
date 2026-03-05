@@ -55,23 +55,7 @@ export const OverviewScreen = () => {
           </div>
         </div>
 
-        {/* ── QUICK ACTIONS ── */}
-        <div className="quick-actions-grid">
-          {[
-            { icon: "🚉", title: "Manage Projects", desc: "View and configure GIS railway projects", iconBg: "#fff4f0", arrow: "→", arrowColor: "#E84400" },
-            { icon: "🗺️", title: "Layer Styles",    desc: "Configure map layer styling standards",  iconBg: "#dbeafe", arrow: "→", arrowColor: "#2563eb" },
-            { icon: "👥", title: "User Management", desc: "Manage admin users and permissions",      iconBg: "#ede9fe", arrow: "→", arrowColor: "#7c3aed" },
-          ].map(a => (
-            <div key={a.title} className="quick-action-card">
-              <div className="quick-action-icon" style={{ background: a.iconBg }}>{a.icon}</div>
-              <div>
-                <div className="quick-action-title">{a.title}</div>
-                <div className="quick-action-desc">{a.desc}</div>
-              </div>
-              <div className="quick-action-arrow" style={{ color: a.arrowColor }}>{a.arrow}</div>
-            </div>
-          ))}
-        </div>
+
 
         {/* ── PROJECTS TABLE ── */}
         <h3 className="section-title">

@@ -1,0 +1,312 @@
+/* ================================
+   MAIN LAYOUT
+================================ */
+
+.project-user-layout{
+display:flex;
+height:100%;
+background:#0f1f2f;
+color:#e6edf3;
+font-family:Inter,Segoe UI,Arial;
+}
+
+
+/* ================================
+   LEFT PROJECT SIDEBAR
+================================ */
+
+.project-list{
+width:300px;
+background:#0b223a;
+border-right:1px solid #1f3b57;
+padding:18px;
+overflow-y:auto;
+}
+
+.project-list h3{
+color:#facc15;
+font-size:16px;
+font-weight:600;
+margin-bottom:12px;
+}
+
+
+/* project item */
+
+.project-row{
+padding:10px 12px;
+cursor:pointer;
+border-radius:6px;
+margin-bottom:6px;
+color:#cbd5e1;
+font-size:14px;
+transition:all .15s ease;
+}
+
+.project-row:hover{
+background:#163b5f;
+}
+
+.project-row.active{
+background:olive;
+color:white;
+/* opacity: 0.5; */
+font-weight:600;
+}
+
+
+/* ================================
+   RIGHT PANEL
+================================ */
+
+.users-panel{
+flex:1;
+padding:24px;
+overflow-y:auto;
+background:#0f1f2f;
+}
+
+
+/* ================================
+   HEADER
+================================ */
+
+.panel-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:15px;
+}
+
+.panel-header h2{
+font-size:20px;
+font-weight:600;
+}
+
+.panel-desc{
+font-size:13px;
+color:#9ca3af;
+margin-top:2px;
+}
+
+
+/* ================================
+   SEARCH
+================================ */
+
+.search-input{
+width:300px;
+padding:8px 10px;
+border-radius:6px;
+border:1px solid #1f3b57;
+background:#0b223a;
+color:white;
+outline:none;
+}
+
+.search-input::placeholder{
+color:#64748b;
+}
+
+
+/* ================================
+   TABS
+================================ */
+
+.tabs{
+display:flex;
+gap:12px;
+margin:18px 0;
+border-bottom:1px solid #1f3b57;
+}
+
+.tabs button{
+background:none;
+border:none;
+padding:8px 14px;
+cursor:pointer;
+font-weight:500;
+color:#9ca3af;
+transition:.2s;
+}
+
+.tabs button:hover{
+color:white;
+}
+
+.tabs button.active{
+color:#facc15;
+border-bottom:2px solid #facc15;
+}
+
+
+/* ================================
+   TABLE
+================================ */
+
+.users-table{
+width:100%;
+border-collapse:collapse;
+background:#0b223a;
+border-radius:10px;
+overflow:hidden;
+}
+
+.users-table th{
+text-align:left;
+padding:12px;
+background:#163b5f;
+font-size:13px;
+font-weight:600;
+}
+
+.users-table td{
+padding:12px;
+border-bottom:1px solid #1f3b57;
+font-size:14px;
+}
+
+.users-table tr:hover{
+background:#112c46;
+}
+
+
+/* ================================
+   ROLE BADGES
+================================ */
+
+.role-badge{
+padding:4px 10px;
+border-radius:5px;
+font-size:12px;
+font-weight:600;
+display:inline-block;
+}
+
+
+/* ADMIN */
+
+.role-admin{
+background:#fef3c7;
+color:#92400e;
+}
+
+
+/* CUSTOMER */
+
+.role-customer{
+background:#dbeafe;
+color:#1e40af;
+}
+
+
+/* GUEST */
+
+.role-guest{
+background:#e9d5ff;
+color:#6b21a8;
+}
+
+
+/* DEFAULT */
+
+.role-default{
+background:#e5e7eb;
+color:#374151;
+}
+
+
+/* ================================
+   STATUS BADGES
+================================ */
+
+.badge-assigned{
+background:#dcfce7;
+color:#166534;
+padding:4px 8px;
+border-radius:6px;
+font-size:12px;
+}
+
+.badge-not{
+background:#fee2e2;
+color:#991b1b;
+padding:4px 8px;
+border-radius:6px;
+font-size:12px;
+}
+
+
+/* ================================
+   BUTTONS
+================================ */
+
+.assign-btn{
+background:#2563eb;
+color:white;
+border:none;
+padding:6px 14px;
+border-radius:6px;
+cursor:pointer;
+font-size:13px;
+transition:.2s;
+}
+
+.assign-btn:hover{
+background:#1d4ed8;
+}
+
+
+.remove-btn{
+background:#facc15;
+/* color:white; */
+border:none;
+padding:6px 14px;
+border-radius:6px;
+cursor:pointer;
+font-size:13px;
+transition:.2s;
+}
+
+.remove-btn:hover{
+background:#facc15;
+}
+
+
+/* ================================
+   EMPTY STATES
+================================ */
+
+.empty-state{
+text-align:center;
+color:#9ca3af;
+margin-top:120px;
+}
+
+.empty-state h3{
+font-size:18px;
+margin-bottom:6px;
+}
+
+.table-empty{
+text-align:center;
+padding:30px;
+color:#9ca3af;
+font-size:14px;
+}
+
+
+/* ================================
+   SCROLLBAR
+================================ */
+
+.project-list::-webkit-scrollbar,
+.users-panel::-webkit-scrollbar{
+width:6px;
+}
+
+.project-list::-webkit-scrollbar-thumb,
+.users-panel::-webkit-scrollbar-thumb{
+background:#1f3b57;
+border-radius:4px;
+}
