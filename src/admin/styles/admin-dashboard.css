@@ -8,7 +8,7 @@
 
   --primary: #0b1622;
   --primary-light: #fff4f0;
-  --primary-dark: #c23800;
+  --primary-dark: olive;
   --primary-glow: rgba(232, 68, 0, 0.18);
 
   --sidebar-bg: #0f1f2f;
@@ -36,7 +36,7 @@
   --purple: #8b5cf6;
   --purple-bg: #ede9fe;
 
-  --amber: #f59e0b;
+  --amber: olive;
   --amber-bg: #fef3c7;
 
   --cyan: #06b6d4;
@@ -105,6 +105,10 @@
   border-bottom: 1px solid var(--sidebar-border);
 }
 
+
+.brand-logo {
+  height: 40px;
+}
 .admin-brand {
 
   display: flex;

@@ -4,13 +4,17 @@ import BaseMap from "../components/map/BaseMap";
 import LayerPanelSection from "../components/map/LayerPanelSection";
 import Legend from "../components/map/Legend";
 import DynamicLayerRenderer from "../components/map/DynamicLayerRenderer";
-import { useDispatch } from "react-redux";
-import { useLayers } from "../hooks/useLayers";
+import { useDispatch, useSelector } from "react-redux";
+import { useUserProjectLayers } from "../hooks/useLayers";
 import { setLayers } from "../store/slices/layersSlice";
 
 const MapView = () => {
   const dispatch = useDispatch();
-  const { data } = useLayers();
+  const projectIds = useSelector(
+  (state: any) => state.auth.user?.projectIds || []
+);
+
+   const { data } = useUserProjectLayers(projectIds);
   const [currentZoom, setCurrentZoom] = useState(15);
   const mapRef = useRef<any>(null);
 

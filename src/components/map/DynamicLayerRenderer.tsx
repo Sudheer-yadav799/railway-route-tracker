@@ -6,48 +6,49 @@ import { railwayStyleConfig } from "../../utils/railwayStyleConfig";
 import RailwayMarkerLayer from "./MarkerLayer";
 import { buildPopupHTML } from "../../utils/popups/popup";
 import Legend from "./Legend";
+import DroneImageWMS from "./droneImage";
 
 const DynamicLayerRenderer = () => {
   const sections = useSelector((state: any) => state.layers.sections);
   const [geoJsonCache, setGeoJsonCache] = useState<any>({});
 
-  
-const [activeFeatureKeys, setActiveFeatureKeys] = useState<Set<string>>(new Set())
+
+  const [activeFeatureKeys, setActiveFeatureKeys] = useState<Set<string>>(new Set())
 
 
   /* --------------------------
      Load GeoJSON dynamically
   -------------------------- */
-useEffect(() => {
-  sections?.forEach((section: any) => {
-    section.layers.forEach((layer: any) => {
-      if (
-        layer.isenabled &&
-        ["polygonlayer", "linelayer"].includes(layer.type) &&
-        !geoJsonCache[layer.id]
-      ) {
-        const workspace = layer.geoserverWorkSpace;
-        const layerName = layer.apiendpoint;
+  useEffect(() => {
+    sections?.forEach((section: any) => {
+      section.layers.forEach((layer: any) => {
+        if (
+          layer.isenabled &&
+          ["polygonlayer", "linelayer"].includes(layer.type) &&
+          !geoJsonCache[layer.id]
+        ) {
+          const workspace = layer.geoserverWorkSpace;
+          const layerName = layer.apiendpoint;
 
-        const wfsUrl = `http://localhost:8082/geoserver/${workspace}/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=${workspace}:${layerName}&outputFormat=application/json&srsName=EPSG:4326`;
+          const wfsUrl = `http://localhost:8082/geoserver/${workspace}/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=${workspace}:${layerName}&outputFormat=application/json&srsName=EPSG:4326`;
 
-        fetch(wfsUrl)
-          .then((res) => res.json())
-          .then((data) => {
-            setGeoJsonCache((prev: any) => ({
-              ...prev,
-              [layer.id]: data
-            }));
-             const keys: string[] = data.features
-    ?.map((f: any) => f.properties?.layer?.trim().toUpperCase())
-    .filter(Boolean) ?? []
+          fetch(wfsUrl)
+            .then((res) => res.json())
+            .then((data) => {
+              setGeoJsonCache((prev: any) => ({
+                ...prev,
+                [layer.id]: data
+              }));
+              const keys: string[] = data.features
+                ?.map((f: any) => f.properties?.layer?.trim().toUpperCase())
+                .filter(Boolean) ?? []
 
-  setActiveFeatureKeys(prev => new Set([...prev, ...keys]))
-          });
-      }
+              setActiveFeatureKeys(prev => new Set([...prev, ...keys]))
+            });
+        }
+      });
     });
-  });
-}, [sections]);
+  }, [sections]);
 
 
 
@@ -83,50 +84,56 @@ useEffect(() => {
           );
         }
 
-          /* -------------------- TILE -------------------- */
-          if (layer.type === "tilelayer") {
-            if (layer.id === "osm_tile") {
-              return (
-                <TileLayer
-                  key={layer.id}
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-              );
-            }
-            if (layer.id === "google_street") {
-              return (
-                <TileLayer
-                  key={layer.id}
-                  url="http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"
-                  subdomains={["mt0", "mt1", "mt2", "mt3"]}
-                />
-              );
-            }
-            if (layer.id === "satellite_tile") {
-              return (
-                <TileLayer
-                  key={layer.id}
-                  url="http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
-                  subdomains={["mt0", "mt1", "mt2", "mt3"]}
-                />
-              );
-            }
-            // ✅ Generic tile layer: any tilelayer with a url field
-            if (layer.url) {
-              return (
-                <TileLayer
-                  key={layer.id}
-                  url={layer.url}
-                  attribution={layer.attribution || ""}
-                  maxZoom={layer.maxZoom || 25}
-                  subdomains={layer.subdomains || "abc"}
-                />
-              );
-            }
-            return null;
+        if (layer.type === "droneimagelayer") {
+          return (
+            <DroneImageWMS
+              key={layer.id}
+              layer={layer}
+            />
+          );
+        }
+
+        /* -------------------- TILE -------------------- */
+        if (layer.type === "tilelayer") {
+          if (layer.id === "osm_tile") {
+            return (
+              <TileLayer
+                key={layer.id}
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+            );
           }
-
-
+          if (layer.id === "google_street") {
+            return (
+              <TileLayer
+                key={layer.id}
+                url="http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"
+                subdomains={["mt0", "mt1", "mt2", "mt3"]}
+              />
+            );
+          }
+          if (layer.id === "satellite_tile") {
+            return (
+              <TileLayer
+                key={layer.id}
+                url="http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
+                subdomains={["mt0", "mt1", "mt2", "mt3"]}
+              />
+            );
+          }
+          if (layer.url) {
+            return (
+              <TileLayer
+                key={layer.id}
+                url={layer.url}
+                attribution={layer.attribution || ""}
+                maxZoom={layer.maxZoom || 25}
+                subdomains={layer.subdomains || "abc"}
+              />
+            );
+          }
+          return null;
+        }
         /* -------------------- GEOJSON -------------------- */
         /* ===============================
            1️⃣ MARKER LAYER (SEPARATE)
@@ -162,7 +169,7 @@ useEffect(() => {
                   fillColor: styleConfig.fillColor,
                   fillOpacity: styleConfig.fillOpacity,
                 };
-              } }
+              }}
               onEachFeature={(feature, layerInstance) => {
                 const popupField = layer.popupFieldName;
                 if (popupField) {
@@ -170,7 +177,7 @@ useEffect(() => {
                   const layerName = feature.properties?.layer || layer.name || "";
                   layerInstance.bindPopup(buildPopupHTML(layerName, fieldValue));
                 }
-              } } />
+              }} />
           );
         }
 

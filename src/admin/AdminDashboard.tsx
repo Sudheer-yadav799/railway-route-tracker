@@ -6,30 +6,57 @@ import OverviewScreen      from "./OverviewScreen";
 import LayerStylesScreen   from "./LayerStylesScreen";
 import ProjectsScreen      from "./ProjectsScreen";
 import { useProjects }     from "../hooks/useLayers";
-import { FiUser } from "react-icons/fi";
+import { FiLogOut, FiMap, FiUser } from "react-icons/fi";
 import UserProjectAssignScreen from "./UserProjectAssignScreen";
+import companyLogo from "../assets/images/logo.jpeg";
+import { useLogout } from "../hooks/useAuth";
 
-type ActiveScreen = "overview" | "users" | "layers" | "projects" | "project-layers" |"user-projects";
+import {
+  FaTachometerAlt,
+  FaUsers,
+  FaLayerGroup,
+  FaProjectDiagram
+} from "react-icons/fa";
+type ActiveScreen = "dashboardoverview" | "users" | "layers" | "projects" | "project-layers";
 
 const AdminDashboard = () => {
-  const [active, setActive]                   = useState<ActiveScreen>("overview");
+  const [active, setActive]                   = useState<ActiveScreen>("dashboardoverview");
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
   const navigate = useNavigate();
 
   const { data: projectsData, isLoading: projectsLoading } = useProjects();
   const projects = projectsData?.data || [];
+  const logoutMutation = useLogout();
 
   const handleProjectClick = (id: number) => {
     setSelectedProject(id);
     setActive("project-layers");
   };
 
-  const NAV = [
-    { key: "overview", icon: "⊞",  label: "Dashboard"   },
-    { key: "users",    icon: "👥", label: "Users"        },
-    { key: "layers",   icon: "🗺️", label: "Layer Styles" },
-    { key: "user-projects", icon: "🔗", label: "User Projects" }
-  ];
+
+const NAV = [
+  {
+    key: "dashboardoverview",
+    icon: <FaTachometerAlt />,
+    label: "Dashboard"
+  },
+  {
+    key: "users",
+    icon: <FaUsers />,
+    label: "Users"
+  },
+  {
+    key: "layers",
+    icon: <FaLayerGroup />,
+    label: "Map Layers"
+  },
+  {
+    key: "projects",
+    icon: <FaProjectDiagram />,
+    label: "Projects"
+  }
+];
+
 
   return (
     <div className="admin-layout">
@@ -41,6 +68,7 @@ const AdminDashboard = () => {
         <div className="admin-brand-block">
           <div className="admin-brand" onClick={() => navigate("/map")}>
             <div>
+              <img src={companyLogo} className="brand-logo" alt="Company Logo" />
               <div className="admin-brand-text">RIA Admin</div>
               <div className="admin-brand-sub">Railway Infrastrure Board</div>
             </div>
@@ -79,8 +107,8 @@ const AdminDashboard = () => {
         <div className="admin-sidebar-bottom">
           {[
             { icon: <FiUser/>, label: "Profile"  ,action: () => navigate("/userprofile")},
-            { icon: "🌐", label: "View Map",  action: () => navigate("/map") },
-            { icon: "🚪", label: "Sign Out" },
+            { icon: <FiMap/>, label: "View Map",  action: () => navigate("/map") },
+            { icon:  <FiLogOut/>, label: "Sign Out" ,action:() => logoutMutation.mutate() },
           ].map(item => (
             <div
               key={item.label}
@@ -95,10 +123,10 @@ const AdminDashboard = () => {
 
       {/* ══ RIGHT PANEL ══ */}
       <main className="admin-content">
-        {active === "overview"       && <OverviewScreen />}
+        {active === "dashboardoverview"       && <OverviewScreen />}
         {active === "users"          && <UsersScreen />}
         {active === "layers"         && <LayerStylesScreen />}
-        {active === "user-projects" && <UserProjectAssignScreen />}
+        {active === "projects" && <UserProjectAssignScreen />}
         
       </main>
     </div>

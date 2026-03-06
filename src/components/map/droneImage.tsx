@@ -1,30 +1,39 @@
-import { useState } from "react"
-import { useMap, useMapEvents, WMSTileLayer } from "react-leaflet"
+import { useState } from "react";
+import { useMap, useMapEvents, WMSTileLayer } from "react-leaflet";
 
-const DroneImageWMS = ({ enabled }: { enabled: boolean }) => {
-  const map = useMap()
-  const [zoom, setZoom] = useState<number>(map.getZoom())
+interface DroneImageWMSProps {
+  layer: any;
+}
+
+const DroneImageWMS = ({ layer }: DroneImageWMSProps) => {
+  const map = useMap();
+  const [zoom, setZoom] = useState<number>(map.getZoom());
 
   useMapEvents({
     zoomend: () => setZoom(map.getZoom()),
-  })
+  });
 
-  // Zoom rule
-  if (!enabled) return null
-  if (zoom <= 15) return null
+  if (!layer?.isenabled) return null;
 
+  if (zoom <= 15) return null;
+
+  const workspace = layer.geoserverWorkSpace;
+  const layerName = layer.apiendpoint;
+  const wmsUrl = `http://localhost:8082/geoserver/${workspace}/wms`;
   return (
-   <WMSTileLayer
-      url="http://localhost:8082/geoserver/drone/wms"
-      layers="drone:cog_rgb"
+    <WMSTileLayer
+      key={layer.id}
+      url={wmsUrl}
+      layers={`${workspace}:${layerName}`}
       format="image/png"
-      transparent={true}
+      transparent
       version="1.1.1"
-      opacity={1}
-      zIndex={1000} 
-      maxZoom={25}  
+      tiled
+      opacity={parseFloat(layer.opacity || "1")}
+      zIndex={1000}
+      maxZoom={25}
     />
-  )
-}
+  );
+};
 
-export default DroneImageWMS
+export default DroneImageWMS;

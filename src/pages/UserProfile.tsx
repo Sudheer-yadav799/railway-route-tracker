@@ -1,80 +1,120 @@
 import React from "react";
+import {
+  FaEnvelope,
+  FaPhone,
+  FaShieldAlt,
+  FaSignOutAlt,
+  FaArrowLeft
+} from "react-icons/fa";
+
+import { useNavigate } from "react-router-dom";
 
 import "../styles/user-account.css";
 import { useGetUserById } from "../hooks/useUsers";
 import { useLogout } from "../hooks/useAuth";
 
 const UserAccount: React.FC = () => {
+
+  const navigate = useNavigate();
+
   const userId = localStorage.getItem("userId") || "";
-  const { data: user, isLoading } = useGetUserById(userId);
+  const { data, isLoading } = useGetUserById(userId);
   const logoutMutation = useLogout();
 
-  if (isLoading) {
-    return <div className="loading-text">Loading profile...</div>;
-  }
+  const user = data?.data;
 
-  if (!user) {
-    return <div className="error-text">User not found</div>;
-  }
+  if (isLoading) return <div className="profile-loading">Loading...</div>;
+  if (!user) return <div className="profile-error">User not found</div>;
 
   const initials = user.name
     ?.split(" ")
-    .map((word: string) => word[0])
+    .map((w: string) => w[0])
     .join("")
     .toUpperCase();
 
-return (
-  <div className="profile-wrapper">
+  const role = user.Roles?.[0]?.name || "User";
 
-    {/* Gradient Cover */}
-    <div className="profile-cover"></div>
+  return (
+    <div className="profile-page">
 
-    {/* Main Card */}
-    <div className="profile-card">
+      {/* BACK BUTTON */}
+      <button
+        className="profile-back"
+        onClick={() => navigate(-1)}
+      >
+        <FaArrowLeft /> Back
+      </button>
 
-      {/* Avatar Floating */}
-      <div className="profile-avatar">
-        {initials}
-      </div>
+      <div className="profile-card">
 
-      <div className="profile-content">
+        {/* HEADER */}
+        <div className="profile-header" />
 
-        <h2 className="profile-name">{user.name}</h2>
-        <p className="profile-role">
-          {user.Roles?.[0]?.name || "User"}
-        </p>
+        {/* AVATAR */}
+        <div className="profile-avatar">
+          {initials}
+        </div>
 
-        {/* Info Section */}
-        <div className="profile-info">
-          <div className="info-item">
-            <span className="info-label">Email</span>
-            <span className="info-value">{user.email}</span>
-          </div>
+        {/* USER INFO */}
+        <div className="profile-user">
+          <h2>{user.name}</h2>
+          <p>#USR-{user.id}</p>
 
-          <div className="info-item">
-            <span className="info-label">Mobile</span>
-            <span className="info-value">{user.mobile_number}</span>
-          </div>
+          <span className="profile-role">
+            {role}
+          </span>
+        </div>
 
-          <div className="info-item">
-            <span className="info-label">Status</span>
-            <span className={`info-value status ${user.is_active ? "active" : "inactive"}`}>
-              {user.is_active ? "Active" : "Inactive"}
-            </span>
+        {/* STATS */}
+        <div className="profile-stats">
+          <div>
+            <strong>{user.projectIds?.length || 0}</strong>
+            <span>PROJECTS</span>
           </div>
         </div>
 
+        {/* INFO BLOCKS */}
+        <div className="profile-info">
+
+          <div className="info-row">
+            <FaEnvelope />
+            <div>
+              <span>Email</span>
+              <p>{user.email}</p>
+            </div>
+          </div>
+
+          <div className="info-row">
+            <FaPhone />
+            <div>
+              <span>Mobile</span>
+              <p>{user.mobile_number || "—"}</p>
+            </div>
+          </div>
+
+          <div className="info-row">
+            <FaShieldAlt />
+            <div>
+              <span>Account Status</span>
+              <p className={user.is_active ? "active" : "inactive"}>
+                {user.is_active ? "Active" : "Inactive"}
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+        {/* LOGOUT */}
         <button
           className="profile-logout"
           onClick={() => logoutMutation.mutate()}
         >
-          Logout
+          <FaSignOutAlt /> Sign Out
         </button>
 
       </div>
     </div>
-  </div>
-);
+  );
 };
 
 export default UserAccount;

@@ -7,7 +7,7 @@ import {
   useProjectUsers
 } from "../hooks/useUserProjects";
 
-const CURRENT_USER_ID = 1;
+
 
 import "../styles/projects-screen.css"
 
@@ -26,6 +26,8 @@ const UserProjectsScreen = () => {
 
   const { data: assignedUsersData } = useProjectUsers(selectedProject?.id);
 
+
+   const userId = localStorage.getItem("userId") || "";
   const assignedUsers = assignedUsersData?.data || [];
 
   const assignMutation = useAssignProject();
@@ -37,15 +39,17 @@ const UserProjectsScreen = () => {
     assignMutation.mutate({
       user_id: userId,
       project_id: selectedProject.id,
-      assigned_by: CURRENT_USER_ID
+      assigned_by: userId
     });
   };
 
   const removeProject = (userId: number) => {
+
+     console.log("data",userId);
     removeMutation.mutate({
       user_id: userId,
       project_id: selectedProject.id,
-      removed_by: CURRENT_USER_ID
+      removed_by: userId
     });
   };
 
@@ -198,13 +202,13 @@ const UserProjectsScreen = () => {
 
                       ))}
 
-                       {filteredUsers.length === 0 && (
-                <tr>
-                  <td colSpan={3} className="table-empty">
-                    No users found
-                  </td>
-                </tr>
-              )}
+                    {filteredUsers.length === 0 && (
+                      <tr>
+                        <td colSpan={3} className="table-empty">
+                          No users found
+                        </td>
+                      </tr>
+                    )}
 
                   </tbody>
 
@@ -213,8 +217,8 @@ const UserProjectsScreen = () => {
 
               )}
 
-             
-             
+
+
               {/* ASSIGNED TAB */}
 
               {tab === "assigned" && (
@@ -247,7 +251,7 @@ const UserProjectsScreen = () => {
 
                           <button
                             className="remove-btn"
-                            onClick={() => removeProject(u.user_id)}
+                            onClick={() => removeProject(u.id)}
                           >
                             Remove
                           </button>
@@ -257,20 +261,20 @@ const UserProjectsScreen = () => {
                       </tr>
 
                     ))}
-                     {filteredAssigned.length === 0 && (
-                <tr>
-                  <td colSpan={3} className="table-empty">
-                    No users assigned to this project
-                  </td>
-                </tr>
-              )}
+                    {filteredAssigned.length === 0 && (
+                      <tr>
+                        <td colSpan={3} className="table-empty">
+                          No users assigned to this project
+                        </td>
+                      </tr>
+                    )}
 
                   </tbody>
 
                 </table>
-                   
+
               )}
-                
+
             </>
 
           )}

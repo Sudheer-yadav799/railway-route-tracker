@@ -1,6 +1,7 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { authService } from "../services/auth_service";
 import toast from "react-hot-toast";
+import { persistor } from "../store/store";
 
 
 export const useLogin = () => {
@@ -46,11 +47,17 @@ export const useRegister = () => {
 
 
 export const useLogout = () => {
+
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: authService.logout,
-    onSuccess: () => {
-      localStorage.removeItem("token");
-      localStorage.removeItem("userId");
+
+    onSuccess: async () => {
+      queryClient.clear();
+      await persistor.purge();
+
+      localStorage.clear();
       window.location.href = "/";
     },
   });

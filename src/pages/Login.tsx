@@ -83,13 +83,18 @@ const Auth: React.FC<Props> = ({ onLogin }) => {
 
         const userDetails = await userService.getUserById(loginRes.userId);
 
+        const user = userDetails.data;
+
         dispatch(setCredentials({
-          user: userDetails,
+          user,
           token: loginRes.token
         }));
-
-        localStorage.setItem("userId", userDetails.id);
+        localStorage.setItem("userId", loginRes.userId);
         localStorage.setItem("userData", JSON.stringify(userDetails));
+        localStorage.setItem(
+          "projectIds",
+          JSON.stringify(userDetails.data.projectIds)
+        );
 
         onLogin?.();
 
