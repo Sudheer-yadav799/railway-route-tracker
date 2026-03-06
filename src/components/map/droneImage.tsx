@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useMap, useMapEvents, WMSTileLayer } from "react-leaflet";
 
+const GEOSERVER_URL = import.meta.env.VITE_GEOSERVER_URL
 interface DroneImageWMSProps {
   layer: any;
 }
@@ -19,10 +20,11 @@ const DroneImageWMS = ({ layer }: DroneImageWMSProps) => {
 
   const workspace = layer.geoserverWorkSpace;
   const layerName = layer.apiendpoint;
-  const wmsUrl = `http://localhost:8082/geoserver/${workspace}/wms`;
+const wmsUrl = `${GEOSERVER_URL}/${workspace}/wms`;
   return (
     <WMSTileLayer
       key={layer.id}
+      
       url={wmsUrl}
       layers={`${workspace}:${layerName}`}
       format="image/png"

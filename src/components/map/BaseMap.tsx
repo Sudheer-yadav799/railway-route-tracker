@@ -1,5 +1,5 @@
 import { useEffect, ReactNode } from "react";
-import { MapContainer, useMapEvents, useMap } from "react-leaflet";
+import { MapContainer, useMapEvents, useMap, Pane } from "react-leaflet";
 import MeasureControl from "./MeasureControl";
 import DroneImageWMS from "./droneImage";
 
@@ -36,7 +36,8 @@ const BaseMap: React.FC<BaseMapProps> = ({
       style={{ height: "100%", width: "100%" }}
       whenCreated={onMapReady}
     >
-      {/* <DroneImageWMS enabled={true} /> */}
+
+
       <ZoomLogger />
       <MeasureControl />
       <MapReady onReady={onMapReady} />

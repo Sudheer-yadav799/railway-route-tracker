@@ -2,7 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import L from "leaflet";
 import { railwayMarkerIcons } from "../../utils/config/railwayMarkerIcons";
 
-const GEOSERVER = "http://localhost:8082/geoserver/railwaytestgis/ows";
+import { useSelector,shallowEqual  } from "react-redux";
+const GEOSERVER = import.meta.env.VITE_GEOSERVER_URL;
 
 type FeatureType = "poles" | "areas";
 
@@ -24,10 +25,11 @@ const SearchBar = ({ mapRef }: SearchBarProps) => {
   const [suggestions, setSuggestions] = useState<any[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
 
+ const sections = useSelector((state: any) => state.layers.sections,shallowEqual);
+
   // ── holds the raw Leaflet marker instance for the selected feature ──
   const highlightMarkerRef = useRef<L.Marker | null>(null);
 
-  // ── cleanup highlight marker when component unmounts ───────────
   useEffect(() => {
     return () => {
       if (highlightMarkerRef.current) {
@@ -37,37 +39,61 @@ const SearchBar = ({ mapRef }: SearchBarProps) => {
     };
   }, []);
 
-  const fetchSuggestions = async (keyword: string) => {
-    if (!keyword) { setSuggestions([]); return; }
+const fetchSuggestions = async (keyword: string) => {
+  if (!keyword) {
+    setSuggestions([]);
+    return;
+  }
 
-    let typeName = "";
-    let field = "";
+  try {
+    let selectedLayer: any = null;
 
-    if (filterType === "poles") {
-      typeName = "railwaytestgis:srikalyanpua_boran_main_pole_points";
-      field = "name";
+    for (const section of sections) {
+      for (const layer of section.layers) {
+        if (filterType === "poles" && layer.type === "markerlayer") {
+          selectedLayer = layer;
+          break;
+        }
+
+        if (filterType === "areas" && layer.type === "polygonlayer") {
+          selectedLayer = layer;
+          break;
+        }
+      }
+      if (selectedLayer) break;
     }
-    if (filterType === "areas") {
-      typeName = "railwaytestgis:srikalyanpua_boran_main_pole_areas";
-      field = "layer";
+
+    if (!selectedLayer) {
+      console.warn("No active layer found for search");
+      return;
     }
+
+    const workspace = selectedLayer.geoserverWorkSpace;
+    const layerName = selectedLayer.name;
+
+    const typeName = `${workspace}:${layerName}`;
+
+    // field used for search
+    const field = filterType === "poles" ? "name" : "layer";
 
     const cql = `${field} ILIKE '%${keyword}%'`;
+
     const url =
-      `${GEOSERVER}?service=WFS&version=1.0.0&request=GetFeature`
+      `${GEOSERVER}/${workspace}/ows?service=WFS&version=1.0.0&request=GetFeature`
       + `&typeName=${typeName}`
-      + `&outputFormat=application/json&srsName=EPSG:4326`
+      + `&outputFormat=application/json`
+      + `&srsName=EPSG:4326`
       + `&maxFeatures=10`
       + `&CQL_FILTER=${encodeURIComponent(cql)}`;
 
-    try {
-      const res = await fetch(url);
-      const data = await res.json();
-      setSuggestions(data.features || []);
-    } catch (err) {
-      console.error("Search error:", err);
-    }
-  };
+    const res = await fetch(url);
+    const data = await res.json();
+
+    setSuggestions(data.features || []);
+  } catch (err) {
+    console.error("Search error:", err);
+  }
+};
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;

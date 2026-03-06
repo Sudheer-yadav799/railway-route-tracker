@@ -1,8 +1,10 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { layerService }   from "../services/layer_service";
+import { layerService } from "../services/layer_service";
 import { projectService } from "../services/project_service";
 
-
+/* -----------------------------
+   All Layers
+----------------------------- */
 
 export const useLayers = () => {
   return useQuery({
@@ -11,52 +13,72 @@ export const useLayers = () => {
   });
 };
 
-
+/* -----------------------------
+   Layers by Project IDs
+----------------------------- */
 
 export const useUserProjectLayers = (projectIds?: number[]) => {
-
-   console.log("useUserProjectLayers",projectIds);
   return useQuery({
-    queryKey: ["project-layers", projectIds],
+    queryKey: ["user-project-layers", projectIds],
 
     queryFn: () => layerService.getLayersByProjectId(projectIds),
 
-    enabled: Array.isArray(projectIds) && projectIds.length > 0
-  });
+    enabled: !!projectIds && projectIds.length > 0,
 
+    staleTime: 0,
+  });
 };
+
+/* -----------------------------
+   Projects
+----------------------------- */
 
 export const useProjects = () => {
   return useQuery({
     queryKey: ["projects"],
-    queryFn:  projectService.getAllProjects,
+    queryFn: projectService.getAllProjects,
   });
 };
 
+/* -----------------------------
+   Project Layers
+----------------------------- */
 
 export const useProjectLayers = (projectId: number | string | null) => {
   return useQuery({
     queryKey: ["project-layers", projectId],
-    queryFn:  () => projectService.getProjectLayers(projectId!),
-    enabled:  !!projectId,
+
+    queryFn: () => projectService.getProjectLayers(projectId!),
+
+    enabled: !!projectId,
   });
 };
 
+/* -----------------------------
+   Toggle Layer
+----------------------------- */
 
 export const useToggleLayer = (projectId: number | string) => {
   const qc = useQueryClient();
+
   return useMutation({
-    mutationFn: ({ layerCode, isenabled }: { layerCode: string; isenabled: boolean }) =>
-      projectService.toggleLayer(projectId, layerCode, isenabled),
+    mutationFn: ({
+      layerCode,
+      isenabled,
+    }: {
+      layerCode: string;
+      isenabled: boolean;
+    }) => projectService.toggleLayer(projectId, layerCode, isenabled),
+
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["project-layers", projectId] });
     },
   });
 };
 
-
-
-
+/* -----------------------------
+   Create Layer
+----------------------------- */
 
 export const useCreateLayer = () => {
   const qc = useQueryClient();
@@ -70,6 +92,9 @@ export const useCreateLayer = () => {
   });
 };
 
+/* -----------------------------
+   Update Layer
+----------------------------- */
 
 export const useUpdateLayer = () => {
   const qc = useQueryClient();
@@ -82,6 +107,10 @@ export const useUpdateLayer = () => {
     },
   });
 };
+
+/* -----------------------------
+   Delete Layer
+----------------------------- */
 
 export const useDeleteLayer = () => {
   const qc = useQueryClient();

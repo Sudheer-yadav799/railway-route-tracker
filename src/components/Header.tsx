@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "../styles/header.css";
 import companyLogo from "../assets/images/logo.jpeg";
 import SearchBar from "./map/SearchBar";
-
+import { useSelector } from "react-redux";
 
 interface HeaderProps {
   mapRef: React.MutableRefObject<any>;
@@ -19,11 +19,13 @@ const Header = ({ mapRef }: HeaderProps) => {
   const menuRef = useRef<HTMLDivElement>(null);
   const areaRef = useRef<HTMLDivElement>(null);
 
-  const userData = JSON.parse(localStorage.getItem("userData") || "{}");
+  const user = useSelector((state: any) => state.auth.user);
+  const isAdmin = user?.Roles?.some(
+  (role: any) => role.name.toLowerCase() === "admin"
+);
 
   const initials =
-    userData?.name?.split(" ").map((w: string) => w[0]).join("").toUpperCase() ||
-    "U";
+    user?.name?.split(" ").map((w: string) => w[0]).join("").toUpperCase() || "A";
 
   const areas = [
     "Hyderabad",
@@ -34,11 +36,13 @@ const Header = ({ mapRef }: HeaderProps) => {
     "Kukatpally",
   ];
 
-  const menuItems = [
-    { label: "My Profile", action: () => navigate("/userProfile") },
-    { label: "Analytics", action: () => alert("Analytics — coming soon") },
-    { label: "Admin Dashboard", action: () => navigate("/admin-dashboard") },
-  ];
+const menuItems = [
+  { label: "My Profile", action: () => navigate("/userProfile") },
+
+  ...(isAdmin
+    ? [{ label: "Admin Dashboard", action: () => navigate("/admin-dashboard") }]
+    : []),
+];
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {

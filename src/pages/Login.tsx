@@ -90,7 +90,7 @@ const Auth: React.FC<Props> = ({ onLogin }) => {
           token: loginRes.token
         }));
         localStorage.setItem("userId", loginRes.userId);
-        localStorage.setItem("userData", JSON.stringify(userDetails));
+        localStorage.setItem("userData", JSON.stringify(user));
         localStorage.setItem(
           "projectIds",
           JSON.stringify(userDetails.data.projectIds)

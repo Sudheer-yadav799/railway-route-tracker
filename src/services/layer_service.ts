@@ -18,7 +18,6 @@ export const layerService = {
   // PROJECT LAYERS
   // ─────────────────────────
 getLayersByProjectId: async (projectIds?: number[] | string) => {
- console.log("projectIds",projectIds)
   const params: Record<string, any> = {};
 
   if (Array.isArray(projectIds) && projectIds.length > 0) {

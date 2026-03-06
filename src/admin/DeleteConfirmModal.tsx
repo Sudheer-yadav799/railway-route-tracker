@@ -21,9 +21,6 @@ export const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({
   onCancel,
 }) => {
   if (!target) return null;
-
-
-   console.log("target",target)
   return (
     <div className="modal-overlay" onClick={() => { if (!isDeleting) onCancel(); }}>
       <div className="delete-modal" onClick={(e) => e.stopPropagation()}>

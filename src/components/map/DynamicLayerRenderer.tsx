@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector ,shallowEqual} from "react-redux";
 import { GeoJSON, WMSTileLayer, TileLayer } from "react-leaflet";
 import L from "leaflet";
 import { railwayStyleConfig } from "../../utils/railwayStyleConfig";
@@ -9,11 +9,13 @@ import Legend from "./Legend";
 import DroneImageWMS from "./droneImage";
 
 const DynamicLayerRenderer = () => {
-  const sections = useSelector((state: any) => state.layers.sections);
+ const sections = useSelector(
+  (state: any) => state.layers.sections,
+  shallowEqual
+);
   const [geoJsonCache, setGeoJsonCache] = useState<any>({});
-
-
   const [activeFeatureKeys, setActiveFeatureKeys] = useState<Set<string>>(new Set())
+const GEOSERVER_URL = import.meta.env.VITE_GEOSERVER_URL;
 
 
   /* --------------------------
@@ -30,7 +32,7 @@ const DynamicLayerRenderer = () => {
           const workspace = layer.geoserverWorkSpace;
           const layerName = layer.apiendpoint;
 
-          const wfsUrl = `http://localhost:8082/geoserver/${workspace}/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=${workspace}:${layerName}&outputFormat=application/json&srsName=EPSG:4326`;
+          const wfsUrl = `${GEOSERVER_URL}/${workspace}/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=${workspace}:${layerName}&outputFormat=application/json&srsName=EPSG:4326`;
 
           fetch(wfsUrl)
             .then((res) => res.json())
@@ -68,7 +70,6 @@ const DynamicLayerRenderer = () => {
   return (
     <><>
       {sections?.map((section: any) => section.layers.map((layer: any) => {
-        // ✅ Skip rendering entirely when layer is disabled
         if (!layer.isenabled) return null;
 
         /* -------------------- WMS -------------------- */
@@ -76,7 +77,7 @@ const DynamicLayerRenderer = () => {
           return (
             <WMSTileLayer
               key={layer.id}
-              url={`http://localhost:8082/geoserver/${layer.geoserverWorkSpace}/wms`}
+              url={`${GEOSERVER_URL}/${layer.geoserverWorkSpace}/wms`}
               layers={layer.apiendpoint}
               format="image/png"
               transparent
@@ -95,10 +96,10 @@ const DynamicLayerRenderer = () => {
 
         /* -------------------- TILE -------------------- */
         if (layer.type === "tilelayer") {
-          if (layer.id === "osm_tile") {
+          if (layer.layerCode === "osm_tile") {
             return (
               <TileLayer
-                key={layer.id}
+                key={layer.layerCode}
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
             );
@@ -106,7 +107,7 @@ const DynamicLayerRenderer = () => {
           if (layer.id === "google_street") {
             return (
               <TileLayer
-                key={layer.id}
+                key={layer.layerCode}
                 url="http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"
                 subdomains={["mt0", "mt1", "mt2", "mt3"]}
               />
@@ -115,7 +116,7 @@ const DynamicLayerRenderer = () => {
           if (layer.id === "satellite_tile") {
             return (
               <TileLayer
-                key={layer.id}
+                key={layer.layerCode}
                 url="http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
                 subdomains={["mt0", "mt1", "mt2", "mt3"]}
               />

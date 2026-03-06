@@ -9,6 +9,7 @@ const CHUNK_SIZE = 100
 const EXTENT_BUFFER = 0.25
 const LOAD_DELAY    = 150   // chunk render delay
 const PAN_DEBOUNCE  = 300   // wait ms after panning stops before fetching
+const GEOSERVER_URL  = `${import.meta.env.VITE_GEOSERVER_URL}`;
 
 const normalizeLayerName = (value?: string) => {
   if (!value) return "DEFAULT"
@@ -93,7 +94,7 @@ const RailwayMarkerLayer = ({ layer }: any) => {
     const layerName = layer.apiendpoint
 
     const wfsUrl =
-      `http://localhost:8082/geoserver/${workspace}/ows` +
+      `${GEOSERVER_URL}/${workspace}/ows` +
       `?service=WFS&version=1.0.0&request=GetFeature` +
       `&typeName=${workspace}:${layerName}` +
       `&outputFormat=application/json&srsName=EPSG:4326` +
@@ -108,7 +109,6 @@ const RailwayMarkerLayer = ({ layer }: any) => {
         dispatch(setGeoJson(json))
       })
       .catch(err => {
-        // AbortError is expected on pan — don't log it as a real error
         if (err.name !== "AbortError") {
           console.error("WFS fetch error:", err)
         }

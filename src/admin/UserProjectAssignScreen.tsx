@@ -45,7 +45,6 @@ const UserProjectsScreen = () => {
 
   const removeProject = (userId: number) => {
 
-     console.log("data",userId);
     removeMutation.mutate({
       user_id: userId,
       project_id: selectedProject.id,
