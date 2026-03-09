@@ -3,6 +3,7 @@ import layersReducer from "./slices/layersSlice";
 import authReducer from "./slices/authSlice";
 import railwayGeoReducer from "./slices/railwayGeoSlice";
 import mapNavigationReducer from "./slices/mapNavigationSlice";
+import projectReducer from "./slices/projectSlice";
 
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   auth: authReducer,
   railwayGeo: railwayGeoReducer,
   mapNavigation: mapNavigationReducer,
+  project: projectReducer 
 });
 
 /* -----------------------------

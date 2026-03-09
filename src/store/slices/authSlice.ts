@@ -6,6 +6,12 @@ interface Role {
   description: string;
 }
 
+interface Projects{
+  id :number;
+  name : string;
+ map_view_center :string;
+}
+
 interface User {
   id: number;
   name: string;
@@ -13,7 +19,7 @@ interface User {
   mobile_number: string;
   is_active: boolean;
   Roles: Role[];
-  projectIds: number[];
+  // project: Projects[];
 }
 
 interface AuthState {

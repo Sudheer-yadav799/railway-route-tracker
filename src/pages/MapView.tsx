@@ -7,17 +7,15 @@ import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { useUserProjectLayers } from "../hooks/useLayers";
 import { setLayers } from "../store/slices/layersSlice";
 
-const EMPTY_ARRAY: number[] = [];
 
 const MapView = () => {
   const dispatch = useDispatch();
 
-  const projectIds = useSelector(
-    (state: any) => state.auth.user?.projectIds ?? EMPTY_ARRAY,
-    shallowEqual
-  );
 
-  const { data } = useUserProjectLayers(projectIds);
+ const selectedProjectId = useSelector(
+  (state: any) => state.project?.projectId
+);
+  const { data } = useUserProjectLayers(selectedProjectId);
 
   const [currentZoom, setCurrentZoom] = useState(15);
   const mapRef = useRef<any>(null);
@@ -27,6 +25,8 @@ const MapView = () => {
       dispatch(setLayers(data.data));
     }
   }, [data?.success, data?.data, dispatch]);
+
+
 
   return (
     <div

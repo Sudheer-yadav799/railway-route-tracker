@@ -55,9 +55,9 @@ const LAYER_TYPE_OPTIONS: string[] = [
 ];
 
 const SECTION_OPTIONS: SectionOption[] = [
-  { id: 1, label: "Section 1" },
-  { id: 2, label: "Section 2" },
-  { id: 3, label: "Section 3" },
+  { id: 1, label: "Infrastructure" },
+  { id: 2, label: "Drone Image " },
+  { id: 3, label: "Tile Layer" },
 ];
 
 const isValidHex = (v: string): boolean => /^#[0-9A-Fa-f]{6}$/.test(v);

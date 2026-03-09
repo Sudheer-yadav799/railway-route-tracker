@@ -502,57 +502,88 @@
   background: #112c46;
 
 }
-
 /* =========================================================
    TABLE
 ========================================================= */
 
 .overview-table {
-
   background: #0f1f2f;
-
   border-radius: var(--radius-lg);
-
   overflow: hidden;
-
-  border: 1px solid var(--border);
-
+  border: 1px solid #1e3a55;
+  width: 100%;
 }
+
+/* ROW */
 
 .overview-row {
-
   display: grid;
+  grid-template-columns: 
+    50px
+    2.5fr
+    120px
+    1.2fr
+    1.2fr
+    130px
+    90px
+    170px;
 
-  grid-template-columns: 44px 2.2fr 110px 1fr 1fr 120px 70px;
-
-  padding: 13px 20px;
-
+  padding: 14px 22px;
   border-bottom: 1px solid #1f3b57;
-
   align-items: center;
-
   font-size: 13px;
-
+  transition: background 0.2s ease;
 }
+
+/* HEADER */
 
 .overview-row.header {
-
   background: #112c46;
-
-  font-size: 10px;
-
+  font-size: 11px;
   text-transform: uppercase;
-
-  color: var(--text-soft);
-
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  color: #7fa6c9;
 }
+
+/* HOVER */
 
 .overview-row:hover {
-
   background: #163b5f;
-
 }
 
+/* PROJECT NAME */
+
+.overview-row-name {
+  font-weight: 600;
+  color: #e3f2ff;
+}
+
+/* CODE BADGE */
+
+.code-badge {
+  background: #173a57;
+  color: #6fd3ff;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* MAP COORDINATES */
+
+.map-coords {
+  font-family: var(--mono);
+  color: #8fb8da;
+  font-size: 12px;
+}
+
+/* LAST ROW BORDER FIX */
+
+.overview-row:last-child {
+  border-bottom: none;
+}
 /* =========================================================
    TOGGLE SWITCH
 ========================================================= */
@@ -665,4 +696,138 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: #2563eb;
+}
+
+/* ===============================
+PROJECT TABLE WRAPPER
+=============================== */
+
+.overview-table-wrapper{
+margin-top:24px;
+background:var(--sidebar-bg);
+border:1px solid var(--border);
+border-radius:var(--radius-lg);
+overflow:hidden;
+box-shadow:var(--shadow);
+}
+
+
+/* ===============================
+TABLE HEADER
+=============================== */
+
+.overview-table-header{
+padding:18px 22px;
+border-bottom:1px solid var(--border);
+display:flex;
+align-items:center;
+justify-content:space-between;
+}
+
+
+/* ===============================
+SECTION TITLE
+=============================== */
+
+.section-title{
+font-size:16px;
+font-weight:600;
+color:var(--text-dark);
+display:flex;
+gap:10px;
+align-items:center;
+}
+
+.section-title-count{
+background:var(--primary-dark);
+color:white;
+padding:2px 8px;
+border-radius:6px;
+font-size:12px;
+}
+
+
+/* ===============================
+TABLE
+=============================== */
+
+.overview-table{
+width:100%;
+}
+
+
+.overview-row{
+display:grid;
+grid-template-columns:
+60px
+2fr
+1fr
+1fr
+1fr
+1fr
+1fr
+1.5fr;
+
+padding:14px 20px;
+border-bottom:1px solid var(--border);
+align-items:center;
+font-size:14px;
+}
+
+
+.overview-row.header{
+background:#10283f;
+font-size:12px;
+color:var(--text-soft);
+text-transform:uppercase;
+letter-spacing:.5px;
+font-weight:600;
+}
+
+
+/* ===============================
+ROW STYLES
+=============================== */
+
+.overview-row:hover{
+background:#10283f;
+}
+
+.overview-row-name{
+font-weight:600;
+color:var(--text-dark);
+}
+
+
+.row-index{
+font-family:var(--mono);
+font-weight:700;
+color:var(--text-soft);
+}
+
+
+.track-length{
+font-weight:600;
+color:var(--text-dark);
+}
+
+
+.stations-count{
+font-weight:600;
+color:var(--text-dark);
+}
+
+
+/* ===============================
+CODE BADGE
+=============================== */
+
+.code-badge{
+background:#163b5f;
+color:#7dd3fc;
+padding:4px 8px;
+border-radius:6px;
+font-family:var(--mono);
+font-size:12px;
+font-weight:600;
 }

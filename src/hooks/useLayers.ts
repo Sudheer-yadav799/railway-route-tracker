@@ -17,15 +17,16 @@ export const useLayers = () => {
    Layers by Project IDs
 ----------------------------- */
 
-export const useUserProjectLayers = (projectIds?: number[]) => {
+export const useUserProjectLayers = (projectId?: number) => {
   return useQuery({
-    queryKey: ["user-project-layers", projectIds],
+    queryKey: ["user-project-layers", projectId],
 
-    queryFn: () => layerService.getLayersByProjectId(projectIds),
+    queryFn: () => layerService.getLayersByProjectId(projectId),
 
-    enabled: !!projectIds && projectIds.length > 0,
+    enabled: !!projectId,
 
-    staleTime: 0,
+    staleTime: 1000 * 60 * 5,
+    refetchOnWindowFocus: false,
   });
 };
 
@@ -51,6 +52,12 @@ export const useProjectLayers = (projectId: number | string | null) => {
     queryFn: () => projectService.getProjectLayers(projectId!),
 
     enabled: !!projectId,
+
+    staleTime: 0,       
+    cacheTime: 0,        
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
+    keepPreviousData: false
   });
 };
 

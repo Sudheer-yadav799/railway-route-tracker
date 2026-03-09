@@ -13,7 +13,7 @@ const roles = [
   { id: 3, name: "guest", label: "Guest", icon: <FaUserFriends /> },
 ];
 
-const AdminCreateUser: React.FC<Props> = ({ onClose }) => {a
+const AdminCreateUser: React.FC<Props> = ({ onClose }) => {
   const [form, setForm] = useState({
     name: "",
     email: "",

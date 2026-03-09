@@ -39,6 +39,18 @@ export const userProjectService = {
     );
     return res.data;
   },
+   getUsersWithProjects: async () => {
+    const res = await axiosInstance.get(
+      API_ENDPOINTS.USER_PROJECTS.GET_USERS_WITH_PROJECTS
+    );
+    return res.data;
+  },
 
+   getProjectUsersById: async (projectId?: number | string) => {
+    const res = await axiosInstance.get(
+      API_ENDPOINTS.USER_PROJECTS.GET_PROJECTS_BY_USER_ID(projectId)
+    );
+    return res.data;
+  }
 
 };

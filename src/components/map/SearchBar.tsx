@@ -69,7 +69,7 @@ const fetchSuggestions = async (keyword: string) => {
     }
 
     const workspace = selectedLayer.geoserverWorkSpace;
-    const layerName = selectedLayer.name;
+    const layerName = selectedLayer.apiendpoint;
 
     const typeName = `${workspace}:${layerName}`;
 

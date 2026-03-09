@@ -17,12 +17,16 @@ export const layerService = {
   // ─────────────────────────
   // PROJECT LAYERS
   // ─────────────────────────
-getLayersByProjectId: async (projectIds?: number[] | string) => {
+getLayersByProjectId: async (projectIds?: number | number[] | string) => {
+
   const params: Record<string, any> = {};
 
   if (Array.isArray(projectIds) && projectIds.length > 0) {
     params.project_id = projectIds.join(",");
   } 
+  else if (typeof projectIds === "number") {
+    params.project_id = projectIds;
+  }
   else if (typeof projectIds === "string" && projectIds) {
     params.project_id = projectIds;
   }
