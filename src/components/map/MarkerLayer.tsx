@@ -186,9 +186,11 @@ const RailwayMarkerLayer = ({ layer }: any) => {
           >
             <Popup>
               <div style={{ minWidth: "250px" }}>
-                <strong>{f.properties.name}</strong>
-                <br />
+                 <span>{f.properties.id}</span>
                 {f.properties.layer}
+                <br />
+               
+                 <strong>{f.properties.name}</strong>
               </div>
             </Popup>
           </Marker>

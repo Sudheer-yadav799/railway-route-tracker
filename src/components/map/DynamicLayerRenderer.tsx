@@ -128,7 +128,7 @@ const GEOSERVER_URL = import.meta.env.VITE_GEOSERVER_URL;
                 key={layer.id}
                 url={layer.url}
                 attribution={layer.attribution || ""}
-                maxZoom={layer.maxZoom || 25}
+                // maxZoom={la |25}
                 subdomains={layer.subdomains || "abc"}
               />
             );
@@ -176,7 +176,7 @@ const GEOSERVER_URL = import.meta.env.VITE_GEOSERVER_URL;
                 if (popupField) {
                   const fieldValue = feature.properties?.[popupField] || "No Data";
                   const layerName = feature.properties?.layer || layer.name || "";
-                  layerInstance.bindPopup(buildPopupHTML(layerName, fieldValue));
+                  layerInstance.bindPopup(buildPopupHTML(fieldValue,layerName));
                 }
               }} />
           );

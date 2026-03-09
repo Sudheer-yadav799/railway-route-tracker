@@ -9,11 +9,12 @@ export const API_ENDPOINTS = {
     GET_ALL: "/api/users/getallusers",
     GET_BY_ID: (id: string) => `/api/users/get-id-by-userdetails/${id}`,
     DELETE_BY_ID: (id: string | number, deletedById: string | number) => `/api/users/delete-by-id/${id}/${deletedById}`,
+    USERSEASSIONS :'/api/auth/today-user-sessions'
   },
   LAYERS: {
     GET_LAYERS: "/api/layers/get-layers",
     GET_LAYERS_BY_ID: (projectId: number | string) => `/api/layers/get-layers/${projectId}`,
-    CREATE_LAYER: "/api/create-layers",
+    CREATE_LAYER: "/api/layers/create-layers",
     UPDATE_LAYER: (layerId: number | string) => `/api/layers/update-layers/${layerId}`,
     DELETE_LAYER: (layerId: number | string) => `/api/layers/delete-layers/${layerId}`,
   },

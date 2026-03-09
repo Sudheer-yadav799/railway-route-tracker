@@ -528,10 +528,10 @@
 .company-info-page{
   width:100%;
   min-height:100vh;
-  background:#f5f7fa;
   display:flex;
   justify-content:center;
   align-items:center;
+  color: white;
 }
 
 .company-info-container{
@@ -542,7 +542,7 @@
   text-align:center;
   font-size:28px;
   font-weight:700;
-  color:#1c355e;
+  color:#f5a623;
   margin-bottom:40px;
 }
 
@@ -560,10 +560,11 @@
 
 .service-item{
   margin-bottom:25px;
+  
 }
 
 .service-item h3{
-  color:#1c355e;
+  color:#ffd25a;
   font-size:18px;
   margin-bottom:6px;
 }
@@ -581,4 +582,14 @@
   color:white;
   border-radius:6px;
   cursor:pointer;
+}
+
+.company-left a {
+ color : white;
+
+ padding: 20px;
+}
+
+.company-left {
+ margin-top: 100px;
 }

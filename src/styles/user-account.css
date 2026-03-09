@@ -281,7 +281,7 @@
 }
 
 .us-page-btns button{
-  min-width:34px;
+  min-width:80px;
   height:32px;
   border:1px solid var(--sidebar-border);
   background:transparent;

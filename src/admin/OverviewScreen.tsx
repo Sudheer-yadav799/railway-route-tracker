@@ -1,6 +1,9 @@
 import { useProjects } from "../hooks/useLayers";
 import ProjectsOverviewTable from "../pages/ProjectsOverviewTable";
 import "./styles/admin-dashboard.css";
+import UserSessionsSection from "./UserSessionsSection";
+import UserSessionsTable from "./UserSessionsTable";
+import UsersProjectsSection from "./UsersProjectsSection";
 
 export const OverviewScreen = () => {
 
@@ -75,11 +78,13 @@ export const OverviewScreen = () => {
           </div>
 
         </div>
-
-
+        <UserSessionsSection />
         {/* PROJECT TABLE */}
-
         <ProjectsOverviewTable projects={projects} />
+        <UsersProjectsSection />
+        <UserSessionsTable />
+
+
 
       </div>
 

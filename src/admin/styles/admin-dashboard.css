@@ -831,3 +831,170 @@ font-family:var(--mono);
 font-size:12px;
 font-weight:600;
 }
+
+
+/* user assing project  List */
+
+.dashboard-section{
+  background: #0f1f2f;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid #1e3a55;
+  width: 100%;
+  padding: 20px;
+  margin-top: 30px;
+}
+
+.users-grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+gap:22px;
+margin-top:18px;
+}
+.user-card{
+background:#0e2b3d;
+border-radius:12px;
+padding:18px;
+border:1px solid rgba(255,255,255,0.06);
+transition:all .25s ease;
+min-height:150px;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+}
+
+.user-card:hover{
+transform:translateY(-4px);
+border-color:#3fa9f5;
+box-shadow:0 8px 18px rgba(0,0,0,0.25);
+}
+
+.user-avatar{
+width:42px;
+height:42px;
+border-radius:50%;
+background:#3fa9f5;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:600;
+font-size:16px;
+color:white;
+}
+
+.role-badge{
+display:inline-block;
+padding:4px 10px;
+border-radius:20px;
+font-size:12px;
+font-weight:500;
+width:fit-content;
+margin-top:10px;
+}
+
+/* ROLE COLORS */
+
+.role-admin{
+background:#ffe08a;
+color:#7a5a00;
+}
+
+.role-customer{
+background:#a7f3d0;
+color:#065f46;
+}
+
+.role-guest{
+background:#dbeafe;
+color:#1e40af;
+}
+
+.user-projects{
+margin-top:12px;
+display:flex;
+flex-wrap:wrap;
+gap:6px;
+}
+
+.project-chip{
+background:#1c425d;
+padding:4px 8px;
+border-radius:6px;
+font-size:12px;
+color:#9fd6ff;
+border:1px solid rgba(255,255,255,0.05);
+}
+
+.no-project{
+font-size:12px;
+opacity:0.65;
+margin-top:6px;
+}
+.user-card-header{
+  display: flex;
+  padding: 4px;
+  justify-content: space-between;
+}
+
+
+/* SESSION TABLE */
+
+.session-table-container {
+  margin-top: 20px;
+  background: #13293d;
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.table-header {
+  margin-bottom: 12px;
+}
+
+.table-header h4 {
+  color: #e2e8f0;
+  font-size: 16px;
+}
+
+/* TABLE */
+
+.session-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.session-table thead {
+  background: #1f3b56;
+}
+
+.session-table th {
+  text-align: left;
+  padding: 10px;
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.session-table td {
+  padding: 10px;
+  border-top: 1px solid #223f5c;
+  color: #e2e8f0;
+  font-size: 13px;
+}
+
+/* STATUS BADGES */
+
+.status-badge {
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  text-transform: capitalize;
+}
+
+.status-badge.active {
+  background: rgba(34,197,94,0.2);
+  color: #22c55e;
+}
+
+.status-badge.loggedout {
+  background: rgba(239,68,68,0.2);
+  color: #ef4444;
+}

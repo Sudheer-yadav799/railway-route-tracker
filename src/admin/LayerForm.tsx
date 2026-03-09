@@ -51,7 +51,7 @@ export interface LayerFormProps {
 
 /* ── constants ── */
 const LAYER_TYPE_OPTIONS: string[] = [
-  "tilelayer", "markerlayer", "linelayer", "polygonlayer", "wmslayer",
+  "tilelayer", "markerlayer", "linelayer", "polygonlayer", "wmslayer", "droneimagelayer"
 ];
 
 const SECTION_OPTIONS: SectionOption[] = [
