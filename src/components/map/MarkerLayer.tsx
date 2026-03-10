@@ -1,9 +1,11 @@
-import { Marker, Popup, useMap } from "react-leaflet"
+import { Marker, Popup, useMap  ,Tooltip} from "react-leaflet"
 import { useEffect, useRef, useState, useCallback } from "react"
 import { useDispatch } from "react-redux"
 import L from "leaflet"
 import { railwayMarkerIcons } from "../../utils/config/railwayMarkerIcons"
 import { setGeoJson, setLoading } from "../../store/slices/railwayGeoSlice"
+
+import "../../styles/map.css"
 
 const CHUNK_SIZE = 100
 const EXTENT_BUFFER = 0.25
@@ -98,7 +100,7 @@ const RailwayMarkerLayer = ({ layer }: any) => {
       `?service=WFS&version=1.0.0&request=GetFeature` +
       `&typeName=${workspace}:${layerName}` +
       `&outputFormat=application/json&srsName=EPSG:4326` +
-      `&bbox=${bbox}&maxFeatures=1000`
+      `&bbox=${bbox}&maxFeatures=500`
 
     dispatch(setLoading(true))
 
@@ -172,30 +174,79 @@ const RailwayMarkerLayer = ({ layer }: any) => {
 
   return (
     <>
-      {visibleFeatures.map((f: any, index: number) => {
-        const [lng, lat] = f.geometry.coordinates
-        const layerValue = normalizeLayerName(f.properties?.layer)
-        const baseIcon   = railwayMarkerIcons[layerValue] || railwayMarkerIcons["DEFAULT"]
-        const icon       = getDynamicIcon(baseIcon)
+{visibleFeatures.map((f: any, index: number) => {
+  const [lng, lat] = f.geometry.coordinates
+  const layerValue = normalizeLayerName(f.properties?.layer)
+  const baseIcon = railwayMarkerIcons[layerValue] || railwayMarkerIcons["DEFAULT"]
+  const icon = getDynamicIcon(baseIcon)
 
-        return (
-          <Marker
-            key={`${layer.id}-${index}`}
-            position={[lat, lng]}
-            icon={icon}
-          >
-            <Popup>
-              <div style={{ minWidth: "250px" }}>
-                 <span>{f.properties.id}</span>
-                {f.properties.layer}
-                <br />
-               
-                 <strong>{f.properties.name}</strong>
+  return (
+    <Marker
+      key={`${layer.id}-${index}`}
+      position={[lat, lng]}
+      icon={icon}
+    >
+      {/* Tooltip acts like hover popup */}
+      <Tooltip
+        direction="top"
+        offset={[0, -10]}
+        opacity={1}
+        interactive={true}      // allows mouse to hover inside
+      >
+        <div className="railway-popup">
+          <div className="popup-header"> {f.properties.layer}</div>
+          <div className="popup-body">
+            <div className="popup-row">
+              <span className="label">Pole ID</span>
+              <span className="value">{f.properties.name}</span>
+            </div>
+            {f.properties.id && (
+              <div className="popup-row">
+                <span className="label">Feature ID</span>
+                <span className="value">{f.properties.id}</span>
               </div>
-            </Popup>
-          </Marker>
-        )
-      })}
+            )}
+            <div className="popup-row">
+              <span className="label">Latitude</span>
+              <span className="value">{lat.toFixed(6)}</span>
+            </div>
+            <div className="popup-row">
+              <span className="label">Longitude</span>
+              <span className="value">{lng.toFixed(6)}</span>
+            </div>
+          </div>
+        </div>
+      </Tooltip>
+
+      {/* Popup still opens on click */}
+      <Popup offset={[0, -10]}>
+        <div className="railway-popup">
+          <div className="popup-header"> {f.properties.layer}</div>
+          <div className="popup-body">
+            <div className="popup-row">
+              <span className="label">Pole ID</span>
+              <span className="value">{f.properties.name}</span>
+            </div>
+            {f.properties.id && (
+              <div className="popup-row">
+                <span className="label">Feature ID</span>
+                <span className="value">{f.properties.id}</span>
+              </div>
+            )}
+            <div className="popup-row">
+              <span className="label">Latitude</span>
+              <span className="value">{lat.toFixed(6)}</span>
+            </div>
+            <div className="popup-row">
+              <span className="label">Longitude</span>
+              <span className="value">{lng.toFixed(6)}</span>
+            </div>
+          </div>
+        </div>
+      </Popup>
+    </Marker>
+  )
+})}
     </>
   )
 }

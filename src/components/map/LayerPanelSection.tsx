@@ -71,39 +71,42 @@ const LayerPanelSection = () => {
 
           {/* Body */}
           <div className="layer-card-body">
-            {sections?.map((section: any) => {
-              const isCollapsed = collapsed.includes(section.section);
+            {sections
+              ?.slice() // avoid mutating redux state
+              .sort((a: any, b: any) => a.section - b.section) // ascending order
+              .map((section: any) => {
+                const isCollapsed = collapsed.includes(section.section);
 
-              return (
-                <div key={section.section} className="layer-group">
-                  <div
-                    className="group-header"
-                    onClick={() => toggleCollapse(section.section)}
-                  >
-                    <span>{section.title}</span>
-                    {isCollapsed ? <FiChevronDown /> : <FiChevronUp />}
-                  </div>
+                return (
+                  <div key={section.section} className="layer-group">
+                    <div
+                      className="group-header"
+                      onClick={() => toggleCollapse(section.section)}
+                    >
+                      <span>{section.title}</span>
+                      {isCollapsed ? <FiChevronDown /> : <FiChevronUp />}
+                    </div>
 
-                  {!isCollapsed &&
-                    section.layers.map((layer: any) => (
-                      <div key={layer.id} className="layer-item">
-                        <div className="left">
-                          <input
-                            type="checkbox"
-                            checked={layer.isenabled}
-                            onChange={() => dispatch(toggleLayer(layer.id))}
+                    {!isCollapsed &&
+                      section.layers.map((layer: any) => (
+                        <div key={layer.id} className="layer-item">
+                          <div className="left">
+                            <input
+                              type="checkbox"
+                              checked={layer.isenabled}
+                              onChange={() => dispatch(toggleLayer(layer.id))}
+                            />
+                            <span>{layer.name}</span>
+                          </div>
+                          <span
+                            className="color-dot"
+                            style={{ background: layer.color || "#00c8ff" }}
                           />
-                          <span>{layer.name}</span>
                         </div>
-                        <span
-                          className="color-dot"
-                          style={{ background: layer.color || "#00c8ff" }}
-                        />
-                      </div>
-                    ))}
-                </div>
-              );
-            })}
+                      ))}
+                  </div>
+                );
+              })}
           </div>
         </div>
       )}

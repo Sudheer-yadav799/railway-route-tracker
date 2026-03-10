@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSelector ,shallowEqual} from "react-redux";
+import { useSelector, shallowEqual } from "react-redux";
 import { GeoJSON, WMSTileLayer, TileLayer } from "react-leaflet";
 import L from "leaflet";
 import { railwayStyleConfig } from "../../utils/railwayStyleConfig";
@@ -7,15 +7,16 @@ import RailwayMarkerLayer from "./MarkerLayer";
 import { buildPopupHTML } from "../../utils/popups/popup";
 import Legend from "./Legend";
 import DroneImageWMS from "./droneImage";
+import VectorLayerRenderer from "./VectorLayerRenderer";
 
 const DynamicLayerRenderer = () => {
- const sections = useSelector(
-  (state: any) => state.layers.sections,
-  shallowEqual
-);
+  const sections = useSelector(
+    (state: any) => state.layers.sections,
+    shallowEqual
+  );
   const [geoJsonCache, setGeoJsonCache] = useState<any>({});
   const [activeFeatureKeys, setActiveFeatureKeys] = useState<Set<string>>(new Set())
-const GEOSERVER_URL = import.meta.env.VITE_GEOSERVER_URL;
+  const GEOSERVER_URL = import.meta.env.VITE_GEOSERVER_URL;
 
 
   /* --------------------------
@@ -81,7 +82,9 @@ const GEOSERVER_URL = import.meta.env.VITE_GEOSERVER_URL;
               layers={layer.apiendpoint}
               format="image/png"
               transparent
-              opacity={parseFloat(layer.opacity || "1")} />
+              opacity={2}
+              maxzoom ={29}
+               />
           );
         }
 
@@ -128,7 +131,6 @@ const GEOSERVER_URL = import.meta.env.VITE_GEOSERVER_URL;
                 key={layer.id}
                 url={layer.url}
                 attribution={layer.attribution || ""}
-                // maxZoom={la |25}
                 subdomains={layer.subdomains || "abc"}
               />
             );
@@ -149,36 +151,12 @@ const GEOSERVER_URL = import.meta.env.VITE_GEOSERVER_URL;
           );
         }
         if (layer.type === "polygonlayer" || layer.type === "linelayer") {
-          const geoData = geoJsonCache[layer.id];
-          if (!geoData) return null;
           return (
-            <GeoJSON
-              key={`vector-${layer.id}`}
-              data={geoData}
-              style={(feature: any) => {
-                const layerName = feature.properties?.layer?.toUpperCase();
-                const styleConfig = railwayStyleConfig[layerName];
-
-                if (!styleConfig) {
-                  return { color: "#c70d0d", weight: 2 };
-                }
-
-                return {
-                  color: styleConfig.color,
-                  weight: styleConfig.weight || 2,
-                  dashArray: styleConfig.dashArray,
-                  fillColor: styleConfig.fillColor,
-                  fillOpacity: styleConfig.fillOpacity,
-                };
-              }}
-              onEachFeature={(feature, layerInstance) => {
-                const popupField = layer.popupFieldName;
-                if (popupField) {
-                  const fieldValue = feature.properties?.[popupField] || "No Data";
-                  const layerName = feature.properties?.layer || layer.name || "";
-                  layerInstance.bindPopup(buildPopupHTML(fieldValue,layerName));
-                }
-              }} />
+            <VectorLayerRenderer
+              key={layer.id}
+              layer={layer}
+              geoData={geoJsonCache[layer.id]}
+            />
           );
         }
 
