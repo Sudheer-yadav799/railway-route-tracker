@@ -25,6 +25,7 @@ export const API_ENDPOINTS = {
     DELETE: (projectId: number | string) => `/api/projects/delete-project/${projectId}`,
     GET_LAYERS: (projectId: number | string) => `/api/projects/layers/${projectId}`,
     TOGGLE_LAYER: (projectId: number | string, layerCode: string) =>`/api/projects/${projectId}/layers/${layerCode}`,
+    UPDATE_PROJECT_BY_ID :(projectId: number | string) => `/api/projects/update-project/${projectId}`
   },
   USER_PROJECTS: {
     ASSIGN: "/api/assignproject/assign-project",

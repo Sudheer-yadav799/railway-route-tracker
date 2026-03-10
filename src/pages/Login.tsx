@@ -144,7 +144,6 @@ const Auth: React.FC<Props> = ({ onLogin }) => {
             alt="Dharani Geospatial Technologies"
             className="company-logo-img"
           />
-
           <div>
 
             <div className="auth-company-name">
@@ -330,7 +329,7 @@ const Auth: React.FC<Props> = ({ onLogin }) => {
                 : "Sign In"}
 
             </button>
-
+{/* 
             <div className="auth-divider">or</div>
 
             <div className="switch-text">
@@ -350,7 +349,7 @@ const Auth: React.FC<Props> = ({ onLogin }) => {
 
               </span>
 
-            </div>
+            </div> */}
 
           </div>
 

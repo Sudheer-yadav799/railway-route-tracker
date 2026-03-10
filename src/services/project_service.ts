@@ -23,6 +23,16 @@ export const projectService = {
     return res.data;
   },
 
+
+  updateProject: async ({ projectId, data }: any) => {
+  const res = await axiosInstance.patch(
+    API_ENDPOINTS.PROJECTS.UPDATE_PROJECT_BY_ID(projectId),
+    data
+  );
+
+  return res.data;
+},
+
   deleteProject: async (projectId: number | string) => {
     const res = await axiosInstance.delete(
       API_ENDPOINTS.PROJECTS.DELETE(projectId)

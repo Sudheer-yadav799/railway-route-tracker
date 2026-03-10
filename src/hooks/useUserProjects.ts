@@ -54,6 +54,27 @@ export const useCreateProject = () => {
 };
 
 
+export const useUpdateProject = () => {
+  const qc = useQueryClient();
+
+  return useMutation({
+    mutationFn: projectService.updateProject,
+
+    onSuccess: () => {
+      toast.success("Project updated successfully");
+
+      qc.invalidateQueries({
+        queryKey: ["projects"]
+      });
+    },
+
+    onError: () => {
+      toast.error("Failed to update project");
+    }
+  });
+};
+
+
 /* ======================
 DELETE PROJECT
 ====================== */
