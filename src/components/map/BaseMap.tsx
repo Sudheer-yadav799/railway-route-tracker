@@ -30,6 +30,8 @@ const BaseMap: React.FC<BaseMapProps> = ({
       center={[25.1013, 76.5119]} // initial center
       zoom={16}
       minZoom={5}
+  maxZoom={30}
+  zoomControl={false}
       style={{ height: "100%", width: "100%" }}
       whenCreated={onMapReady}
     >
@@ -59,7 +61,7 @@ const ProjectMapUpdater = () => {
 
     if(lat && lng){
 
-      map.flyTo([lat,lng], 14,{
+      map.flyTo([lat,lng], 15,{
         animate:true,
         duration:1.5
       });

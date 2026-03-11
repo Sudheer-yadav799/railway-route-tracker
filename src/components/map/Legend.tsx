@@ -57,7 +57,7 @@ interface LegendProps {
   activeFeatureKeys: Set<string>
 }
 
-const Legend = ({ activeFeatureKeys }: LegendProps) => {
+const LegendView = ({ activeFeatureKeys }: LegendProps) => {
   const wrapperRef = useRef<HTMLDivElement>(null)
 
   // ✅ Stop Leaflet from receiving mouse/scroll/touch events on this element
@@ -126,4 +126,4 @@ const Legend = ({ activeFeatureKeys }: LegendProps) => {
   )
 }
 
-export default Legend
+export default LegendView

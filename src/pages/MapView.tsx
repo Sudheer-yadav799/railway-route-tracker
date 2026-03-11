@@ -2,10 +2,11 @@ import React, { useEffect, useState, useRef } from "react";
 import Header from "../components/Header";
 import BaseMap from "../components/map/BaseMap";
 import LayerPanelSection from "../components/map/LayerPanelSection";
-import DynamicLayerRenderer from "../components/map/DynamicLayerRenderer";
+
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { useUserProjectLayers } from "../hooks/useLayers";
 import { setLayers } from "../store/slices/layersSlice";
+import DynamicLayerRenderer from "../components/map/layers/DynamicLayerRenderer";
 
 
 const MapView = () => {

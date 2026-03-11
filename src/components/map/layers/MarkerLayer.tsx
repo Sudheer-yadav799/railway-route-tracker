@@ -2,10 +2,10 @@ import { Marker, Popup, useMap  ,Tooltip} from "react-leaflet"
 import { useEffect, useRef, useState, useCallback } from "react"
 import { useDispatch } from "react-redux"
 import L from "leaflet"
-import { railwayMarkerIcons } from "../../utils/config/railwayMarkerIcons"
-import { setGeoJson, setLoading } from "../../store/slices/railwayGeoSlice"
+import { setGeoJson, setLoading } from "../../../store/slices/railwayGeoSlice"
+import { railwayMarkerIcons } from "../../../utils/config/railwayMarkerIcons"
 
-import "../../styles/map.css"
+import "../../../styles/map.css"
 
 const CHUNK_SIZE = 100
 const EXTENT_BUFFER = 0.25
@@ -46,10 +46,20 @@ const RailwayMarkerLayer = ({ layer }: any) => {
   const popupOpen     = useRef(false)           // ← track popup state
 
   /* ---------------- Icon Resize ---------------- */
-  const getDynamicIcon = useCallback((baseIcon: L.Icon) => {
-    if (zoom > 20) return L.icon({ ...baseIcon.options, iconSize: [40, 40] })
-    return baseIcon
-  }, [zoom])
+const getDynamicIcon = useCallback((baseIcon: L.Icon) => {
+
+  if (zoom >= 22)
+    return L.icon({ ...baseIcon.options, iconSize: [55,55] })
+
+  if (zoom >= 20)
+    return L.icon({ ...baseIcon.options, iconSize: [45,45] })
+
+  if (zoom >= 18)
+    return L.icon({ ...baseIcon.options, iconSize: [28,28] })
+
+  return L.icon({ ...baseIcon.options, iconSize: [22,22] })
+
+}, [zoom])
 
   /* ---------------- Chunk Rendering ---------------- */
   const loadChunkIdle = useCallback(() => {

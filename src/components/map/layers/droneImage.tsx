@@ -32,7 +32,7 @@ const wmsUrl = `${GEOSERVER_URL}/${workspace}/wms`;
       version="1.1.1"
       tiled
       opacity={parseFloat(layer.opacity || "1")}
-      zIndex={1000}
+      zIndex={400}
       maxZoom={25}
     />
   );

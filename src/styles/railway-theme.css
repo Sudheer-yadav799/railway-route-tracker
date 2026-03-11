@@ -122,3 +122,6 @@ body {
 }
 
 
+.leaflet-container {
+  cursor: pointer;
+}

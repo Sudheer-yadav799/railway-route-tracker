@@ -1,7 +1,8 @@
 import React from "react";
 import { GeoJSON } from "react-leaflet";
-import { railwayStyleConfig } from "../../utils/railwayStyleConfig";
-import { buildPopupHTML } from "../../utils/popups/popup";
+
+import { railwayStyleConfig } from "../../../utils/railwayStyleConfig";
+import { buildPopupHTML } from "../../../utils/popups/popup";
 
 interface Props {
   layer: any;

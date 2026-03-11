@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useSelector, shallowEqual } from "react-redux";
 import { GeoJSON, WMSTileLayer, TileLayer } from "react-leaflet";
 import L from "leaflet";
-import { railwayStyleConfig } from "../../utils/railwayStyleConfig";
 import RailwayMarkerLayer from "./MarkerLayer";
-import { buildPopupHTML } from "../../utils/popups/popup";
-import Legend from "./Legend";
+
+
 import DroneImageWMS from "./droneImage";
+
+import WMSFeatureInfo from "./WMSFeatureInfo";
 import VectorLayerRenderer from "./VectorLayerRenderer";
+import LegendView from "../Legend";
 
 const DynamicLayerRenderer = () => {
   const sections = useSelector(
@@ -76,15 +78,23 @@ const DynamicLayerRenderer = () => {
         /* -------------------- WMS -------------------- */
         if (layer.type === "wmslayer") {
           return (
-            <WMSTileLayer
-              key={layer.id}
-              url={`${GEOSERVER_URL}/${layer.geoserverWorkSpace}/wms`}
-              layers={layer.apiendpoint}
-              format="image/png"
-              transparent
-              opacity={2}
-              maxzoom ={29}
-               />
+            <>
+              <WMSTileLayer
+                key={layer.id}
+                url={`${GEOSERVER_URL}/${layer.geoserverWorkSpace}/wms`}
+                layers={layer.apiendpoint}
+                format="image/png"
+                transparent
+                opacity={1}
+                maxZoom={30}
+                zIndex={500}
+              />
+
+              <WMSFeatureInfo
+                layer={layer}
+                GEOSERVER_URL={GEOSERVER_URL}
+              />
+            </>
           );
         }
 
@@ -104,24 +114,30 @@ const DynamicLayerRenderer = () => {
               <TileLayer
                 key={layer.layerCode}
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                maxZoom={30}
+                maxNativeZoom={19}
               />
             );
           }
-          if (layer.id === "google_street") {
+          if (layer.layerCode === "google_street") {
             return (
               <TileLayer
                 key={layer.layerCode}
                 url="http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"
                 subdomains={["mt0", "mt1", "mt2", "mt3"]}
+                maxZoom={30}
+                maxNativeZoom={19}
               />
             );
           }
-          if (layer.id === "satellite_tile") {
+          if (layer.layerCode === "satellite_tile") {
             return (
               <TileLayer
                 key={layer.layerCode}
                 url="http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
                 subdomains={["mt0", "mt1", "mt2", "mt3"]}
+                maxZoom={30}
+                maxNativeZoom={20}
               />
             );
           }
@@ -163,7 +179,7 @@ const DynamicLayerRenderer = () => {
         return null;
       })
       )}
-    </><Legend activeFeatureKeys={activeFeatureKeys} /></>
+    </><LegendView activeFeatureKeys={activeFeatureKeys} /></>
   );
 };
 
