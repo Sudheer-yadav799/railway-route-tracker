@@ -1,22 +1,32 @@
 import { FiNavigation, FiWind, FiMap, FiCamera, FiGlobe, FiLayers, FiUsers, FiAward, FiCompass } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 
 const services = [
-  { Icon: FiNavigation, title: "Aerial LiDAR",             desc: "A LiDAR system uses a laser sensor with a GPS receiver and INS unit for precise terrain mapping." },
-  { Icon: FiWind,       title: "UAV Mapping",              desc: "GIS-based UAV surveys capture, store and analyse spatially referenced mapping data efficiently." },
-  { Icon: FiMap,        title: "Mobile LiDAR",             desc: "Mobile LiDAR offers numerous benefits over conventional ground surveys and aerial mapping." },
-  { Icon: FiCamera,     title: "Ortho Photography",        desc: "Aerial LiDAR topography with rectified orthophotography and direct geo-references." },
-  { Icon: FiLayers,     title: "Digital Photogrammetry",   desc: "State-of-the-art facilities covering a wide range of photogrammetric service requirements." },
-  { Icon: FiGlobe,      title: "GIS",                      desc: "Tools to capture, store, analyse and manage spatially referenced geographic mapping data." }
+  { Icon: FiNavigation, title: "Aerial LiDAR", desc: "A LiDAR system uses a laser sensor with a GPS receiver and INS unit for precise terrain mapping." },
+  { Icon: FiWind, title: "UAV Mapping", desc: "GIS-based UAV surveys capture, store and analyse spatially referenced mapping data efficiently." },
+  { Icon: FiMap, title: "Mobile LiDAR", desc: "Mobile LiDAR offers numerous benefits over conventional ground surveys and aerial mapping." },
+  { Icon: FiCamera, title: "Ortho Photography", desc: "Aerial LiDAR topography with rectified orthophotography and direct geo-references." },
+  { Icon: FiLayers, title: "Digital Photogrammetry", desc: "State-of-the-art facilities covering a wide range of photogrammetric service requirements." },
+  { Icon: FiGlobe, title: "GIS", desc: "Tools to capture, store, analyse and manage spatially referenced geographic mapping data." }
 ];
 
 const stats = [
-  { Icon: FiAward,   value: "15+",  label: "Years" },
-  { Icon: FiLayers,  value: "200+", label: "Projects" },
-  { Icon: FiUsers,   value: "40+",  label: "Experts" },
-  { Icon: FiCompass, value: "18+",  label: "Countries" }
+  { Icon: FiAward, value: "15+", label: "Years" },
+  { Icon: FiLayers, value: "200+", label: "Projects" },
+  { Icon: FiUsers, value: "40+", label: "Experts" },
+  { Icon: FiCompass, value: "18+", label: "Countries" }
 ];
 
+
+
 export default function CompanyInfo() {
+    const navigate = useNavigate();
+
+    
+ const  onexploremap =()=>{
+  
+        navigate("/map");
+ }
   return (
     <div style={s.page}>
       <div style={s.wrap}>
@@ -46,10 +56,10 @@ export default function CompanyInfo() {
             <div style={s.divider} />
 
             <p style={s.body} >
-           From Inception, our company engages well experienced domain expertise to provide customized and innovative Geospatial services. We hire the most capable resources, provide continuous technical training and ensure them to be updated with latest technology, so that they can deliver superior value to our global clients.
+              From Inception, our company engages well experienced domain expertise to provide customized and innovative Geospatial services. We hire the most capable resources, provide continuous technical training and ensure them to be updated with latest technology, so that they can deliver superior value to our global clients.
             </p>
             <p style={s.body}> We have executed several complex projects and earned industry reputation for delivering high quality products under demanding and stipulated deadlines. Our commitment is to set technical standards in the industry and deliver reliable and accurate services to global clientele.
-</p>
+            </p>
             <p style={s.body}>
               We enable clients to execute projects successfully through our specialized staff
               and strategic partners worldwide.
@@ -86,14 +96,15 @@ export default function CompanyInfo() {
         </div>
 
         {/* CTA */}
-        <div style={s.bottom}>
+        <div style={s.bottom} onClick={onexploremap(a)}>
           <button
             style={s.btn}
             onMouseEnter={e => (e.currentTarget.style.background = "#d4891a")}
             onMouseLeave={e => (e.currentTarget.style.background = "#f5a623")}
+          
           >
             <FiMap size={15} style={{ marginRight: 8 }} />
-            Explore Map View
+            Explore Map View 
           </button>
         </div>
 

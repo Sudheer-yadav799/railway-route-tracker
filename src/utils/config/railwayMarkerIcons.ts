@@ -9,10 +9,10 @@ const createIcon = (iconName: string, size = 24) =>
 export const railwayMarkerIcons: Record<string, L.Icon> = {
   "POLE WITH ID": createIcon("POLEWITHID", 22),
   "POLE ID": createIcon("POLEID", 22),
-  "SIGNALS": createIcon("Signals", 24),
+  "SIGNALS": createIcon("SIGNALS", 24),
   "KM": createIcon("KM", 26),
   "KM STONE": createIcon("KM STONE", 26),
-  "STATION CENTER": createIcon("STATIONCENTER", 26),
+  "STATION CENTER": createIcon("STATION CENTER", 26),
   "TOWER": createIcon("TOWER", 26),
   "FIELD GEARS": createIcon("FIELDGEARS", 24),
   "LC GATE": createIcon("LCGATE", 24),
@@ -27,7 +27,6 @@ export const railwayMarkerIcons: Record<string, L.Icon> = {
   "RUB": createIcon("RUB", 24),
   "ROB": createIcon("ROB", 24),
   "ISSUES": createIcon("Points", 22),
-
   // Default fallback icon
   "DEFAULT": createIcon("Points", 20),
 };

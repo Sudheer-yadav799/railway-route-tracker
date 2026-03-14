@@ -161,9 +161,7 @@ const Auth: React.FC<Props> = ({ onLogin }) => {
         <div className="auth-brand-hero">
 
           <div className="auth-brand-title">
-            Railway Route<br />
-            Infrastructure<br />
-            Monitor
+            Welcome to Geospatial Consulting Services
           </div>
 
           <div className="auth-brand-sub">
