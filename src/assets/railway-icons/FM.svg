@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <!-- post -->
+  <rect x="30" y="50" width="4" height="14" fill="#555"/>
+  <rect x="24" y="62" width="16" height="2" rx="1" fill="#444"/>
+  <!-- diamond-shaped board (IR indicator style) -->
+  <polygon points="32,6 56,28 32,50 8,28" fill="#FF00FF" stroke="#990099" stroke-width="2"/>
+  <polygon points="32,12 50,28 32,44 14,28" fill="white" stroke="#FF00FF" stroke-width="1"/>
+  <text x="32" y="32" text-anchor="middle" font-size="13" fill="#FF00FF" font-family="Arial" font-weight="bold">FM</text>
+</svg>

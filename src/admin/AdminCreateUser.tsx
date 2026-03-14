@@ -1,26 +1,26 @@
 import { useState } from "react";
 import { useCreateUser } from "../hooks/useUsers";
 import "./styles/admin-create-user.css";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
+import { FaEye, FaEyeSlash, FaUserShield, FaUser, FaLink, FaUserFriends } from "react-icons/fa";
 
 interface Props {
   onClose: () => void;
 }
+
+const roles = [
+  { id: 1, name: "admin", label: "Admin", icon: <FaUserShield /> },
+  { id: 2, name: "customer", label: "Customer", icon: <FaUser /> },
+  { id: 3, name: "guest", label: "Guest", icon: <FaUserFriends /> },
+];
 
 const AdminCreateUser: React.FC<Props> = ({ onClose }) => {
   const [form, setForm] = useState({
     name: "",
     email: "",
     mobile: "",
-    role: "admin",
+    role: "customer",
     password: "",
   });
-
-
-  const currentUser = useSelector((state: RootState) => state.auth.user);
-  
 
   const [errors, setErrors] = useState<any>({});
   const [showPassword, setShowPassword] = useState(false);
@@ -32,60 +32,53 @@ const AdminCreateUser: React.FC<Props> = ({ onClose }) => {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  // 🔥 Validation
   const validate = () => {
     const newErrors: any = {};
 
-    if (!form.name.trim()) {
-      newErrors.name = "Name is required";
-    }
+    if (!form.name.trim()) newErrors.name = "Name is required";
 
-    if (!form.email.trim()) {
-      newErrors.email = "Email is required";
-    } else if (!/^\S+@\S+\.\S+$/.test(form.email)) {
-      newErrors.email = "Invalid email format";
-    }
+    if (!form.email.trim()) newErrors.email = "Email is required";
+    else if (!/^\S+@\S+\.\S+$/.test(form.email))
+      newErrors.email = "Invalid email";
 
-    if (!form.mobile.trim()) {
-      newErrors.mobile = "Mobile number is required";
-    } else if (!/^\d{10}$/.test(form.mobile)) {
-      newErrors.mobile = "Mobile must be exactly 10 digits";
-    }
+    if (!form.mobile.trim()) newErrors.mobile = "Mobile is required";
+    else if (!/^\d{10}$/.test(form.mobile))
+      newErrors.mobile = "Mobile must be 10 digits";
 
-    if (!form.password.trim()) {
-      newErrors.password = "Password is required";
-    } else if (form.password.length < 6) {
-      newErrors.password = "Password must be at least 6 characters";
-    }
+    if (!form.password.trim()) newErrors.password = "Password required";
+    else if (form.password.length < 6)
+      newErrors.password = "Min 6 characters";
 
     setErrors(newErrors);
+
     return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = () => {
     if (!validate()) return;
 
+    const selectedRole = roles.find((r) => r.name === form.role);
+
     const payload = {
       name: form.name,
       email: form.email,
       mobile_number: form.mobile,
       password: form.password,
-      roleId :currentUser?.Roles?.[0]?.id,
-      roleName: form.role,
+      roleId: selectedRole?.id,
+      roleName: selectedRole?.name,
     };
 
     mutate(payload);
   };
 
-   console.log("user",currentUser?.Roles?.[0]?.id)
   return (
     <div className="create-user-overlay">
       <div className="create-user-card">
+
+        {/* Header */}
         <div className="create-user-header">
           <h2>Create New User</h2>
-          <button className="close-btn" onClick={onClose}>
-            ✕
-          </button>
+          <button className="close-btn" onClick={onClose}>✕</button>
         </div>
 
         <div className="form-grid">
@@ -103,7 +96,7 @@ const AdminCreateUser: React.FC<Props> = ({ onClose }) => {
 
           {/* Email */}
           <div className="form-field">
-            <label>Email</label>
+            <label>Email Address</label>
             <input
               name="email"
               value={form.email}
@@ -114,7 +107,7 @@ const AdminCreateUser: React.FC<Props> = ({ onClose }) => {
 
           {/* Mobile */}
           <div className="form-field">
-            <label>Mobile</label>
+            <label>Mobile Number</label>
             <input
               name="mobile"
               maxLength={10}
@@ -127,6 +120,7 @@ const AdminCreateUser: React.FC<Props> = ({ onClose }) => {
           {/* Password */}
           <div className="form-field">
             <label>Password</label>
+
             <div className="password-wrapper">
               <input
                 type={showPassword ? "text" : "password"}
@@ -134,34 +128,50 @@ const AdminCreateUser: React.FC<Props> = ({ onClose }) => {
                 value={form.password}
                 onChange={handleChange}
               />
+
               <span
                 className="toggle-password"
                 onClick={() => setShowPassword(!showPassword)}
               >
-                 {showPassword ? <FaEyeSlash /> : <FaEye />}
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
               </span>
             </div>
+
             {errors.password && (
               <p className="error-text">{errors.password}</p>
             )}
           </div>
 
-          {/* Role */}
-          <div className="form-field">
-            <label>Role</label>
-            <select name="role" value={form.role} onChange={handleChange}>
-              <option value="admin">Admin</option>
-              <option value="customer">Customer</option>
-              <option value="guest">Guest</option>
-            </select>
+          {/* Role Selector */}
+          <div className="form-field role-field">
+            <label>Assign Role</label>
+
+            <div className="role-selector">
+              {roles.map((role) => (
+                <div
+                  key={role.id}
+                  className={`role-card ${
+                    form.role === role.name ? "active" : ""
+                  }`}
+                  onClick={() =>
+                    setForm((prev) => ({ ...prev, role: role.name }))
+                  }
+                >
+                  <div className="role-icon">{role.icon}</div>
+                  <span>{role.label}</span>
+                </div>
+              ))}
+            </div>
           </div>
 
         </div>
 
+        {/* Buttons */}
         <div className="form-actions">
           <button className="secondary-btn" onClick={onClose}>
             Cancel
           </button>
+
           <button
             className="primary-btn"
             onClick={handleSubmit}
@@ -170,6 +180,7 @@ const AdminCreateUser: React.FC<Props> = ({ onClose }) => {
             {isPending ? "Creating..." : "Create User"}
           </button>
         </div>
+
       </div>
     </div>
   );

@@ -30,4 +30,11 @@ export const userService = {
     );
     return response.data;
   },
+getAllUsersSeassion: async () => {
+    const response = await axiosInstance.get(
+      API_ENDPOINTS.USERS.USERSEASSIONS
+    );
+    return response.data;
+  },
+  
 };

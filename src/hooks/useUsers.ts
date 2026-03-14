@@ -63,3 +63,11 @@ export const useDeleteUser = () => {
     },
   });
 };
+
+export const useUserSessions = () => {
+  return useQuery({
+    queryKey: ["user-sessions"],
+    queryFn: () => userService.getAllUsersSeassion(),
+    staleTime: 60000
+  });
+};

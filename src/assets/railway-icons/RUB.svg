@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="rub_bridge" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#228B22"/>
+      <stop offset="100%" stop-color="#004000"/>
+    </linearGradient>
+  </defs>
+  <!-- railway bridge deck (top) -->
+  <rect x="2" y="6" width="60" height="10" rx="2" fill="url(#rub_bridge)" stroke="#003300" stroke-width="2"/>
+  <!-- rail lines on bridge -->
+  <line x1="2" y1="9" x2="62" y2="9" stroke="#aaffaa" stroke-width="1.5"/>
+  <line x1="2" y1="13" x2="62" y2="13" stroke="#aaffaa" stroke-width="1.5"/>
+  <!-- bridge arch / span -->
+  <path d="M10,16 Q32,26 54,16" stroke="#006400" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  <!-- pillars/abutments -->
+  <rect x="4" y="14" width="10" height="36" rx="2" fill="#006400" stroke="#003300" stroke-width="1.5"/>
+  <rect x="50" y="14" width="10" height="36" rx="2" fill="#006400" stroke="#003300" stroke-width="1.5"/>
+  <!-- road underneath (going through) -->
+  <rect x="14" y="22" width="36" height="24" rx="1" fill="#555" opacity="0.6"/>
+  <line x1="32" y1="23" x2="32" y2="45" stroke="#fff" stroke-width="1.2" stroke-dasharray="3,3" opacity="0.5"/>
+  <!-- road approach lines -->
+  <rect x="0" y="38" width="14" height="8" rx="0" fill="#444"/>
+  <rect x="50" y="38" width="14" height="8" rx="0" fill="#444"/>
+  <!-- RUB label -->
+  <rect x="20" y="52" width="24" height="10" rx="2" fill="#006400"/>
+  <text x="32" y="60" text-anchor="middle" font-size="8" fill="white" font-family="Arial" font-weight="bold">RUB</text>
+</svg>

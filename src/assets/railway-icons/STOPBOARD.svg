@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <!-- post -->
+  <rect x="30" y="52" width="4" height="12" fill="#555"/>
+  <rect x="24" y="62" width="16" height="2" rx="1" fill="#444"/>
+  <!-- octagon -->
+  <polygon points="22,4 42,4 56,18 56,38 42,52 22,52 8,38 8,18"
+    fill="#CC0000" stroke="#800000" stroke-width="2.5"/>
+  <!-- white inner ring -->
+  <polygon points="24,8 40,8 52,20 52,36 40,48 24,48 12,36 12,20"
+    fill="none" stroke="white" stroke-width="2"/>
+  <!-- STOP text -->
+  <text x="32" y="26" text-anchor="middle" font-size="11" fill="white" font-family="Arial" font-weight="bold">STOP</text>
+  <line x1="14" y1="30" x2="50" y2="30" stroke="white" stroke-width="1.5"/>
+  <text x="32" y="42" text-anchor="middle" font-size="8" fill="white" font-family="Arial">BOARD</text>
+</svg>

@@ -1,12 +1,13 @@
+
+
 import { useEffect, ReactNode } from "react";
 import { MapContainer, useMapEvents, useMap } from "react-leaflet";
+import { useSelector } from "react-redux";
 import MeasureControl from "./MeasureControl";
-import DroneImageWMS from "./droneImage";
 
 const ZoomLogger = () => {
   const map = useMapEvents({
     zoomend: () => console.log("Current Zoom Level:", map.getZoom()),
-    load: () => console.log("Initial Zoom Level:", map.getZoom()),
   });
   return null;
 };
@@ -22,28 +23,55 @@ interface BaseMapProps {
 const BaseMap: React.FC<BaseMapProps> = ({
   children,
   onMapReady,
-  showDroneLayer,
-  currentZoom,
-  setCurrentZoom,
 }) => {
+
   return (
     <MapContainer
-      center={[18.58, 78.22]}
-      zoom={15}
+      center={[25.1013, 76.5119]} // initial center
+      zoom={16}
       minZoom={5}
+  maxZoom={30}
+  zoomControl={false}
       style={{ height: "100%", width: "100%" }}
       whenCreated={onMapReady}
     >
-      <DroneImageWMS enabled={true} />
       <ZoomLogger />
       <MeasureControl />
+
+      {/* Project map center updater */}
+      <ProjectMapUpdater />
+
       <MapReady onReady={onMapReady} />
+
       {children}
     </MapContainer>
   );
 };
 
 export default BaseMap;
+
+const ProjectMapUpdater = () => {
+
+  const map = useMap();
+
+  const lat = useSelector((state:any)=>state.project.lat);
+  const lng = useSelector((state:any)=>state.project.lng);
+
+  useEffect(()=>{
+
+    if(lat && lng){
+
+      map.flyTo([lat,lng], 15,{
+        animate:true,
+        duration:1.5
+      });
+
+    }
+
+  },[lat,lng,map]);
+
+  return null;
+};
 
 export const MapReady = ({ onReady }: { onReady: (map: any) => void }) => {
   const map = useMap();

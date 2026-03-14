@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="water" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e90ff"/>
+      <stop offset="100%" stop-color="#003399"/>
+    </linearGradient>
+    <linearGradient id="stone" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#6699bb"/>
+      <stop offset="100%" stop-color="#003366"/>
+    </linearGradient>
+  </defs>
+  <!-- water -->
+  <rect x="0" y="44" width="64" height="16" rx="2" fill="url(#water)" opacity="0.85"/>
+  <path d="M0,50 Q16,46 32,50 Q48,54 64,50" stroke="#66aaff" stroke-width="1.5" fill="none" opacity="0.6"/>
+  <!-- bridge deck -->
+  <rect x="2" y="34" width="60" height="8" rx="2" fill="url(#stone)" stroke="#001a33" stroke-width="1.5"/>
+  <!-- arch -->
+  <path d="M8,42 Q32,14 56,42" stroke="#003366" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <!-- pillars -->
+  <rect x="10" y="38" width="6" height="20" rx="2" fill="#003366" stroke="#001a33" stroke-width="1"/>
+  <rect x="48" y="38" width="6" height="20" rx="2" fill="#003366" stroke="#001a33" stroke-width="1"/>
+  <!-- railing posts -->
+  <line x1="12" y1="34" x2="12" y2="28" stroke="#445566" stroke-width="1.5"/>
+  <line x1="22" y1="34" x2="22" y2="26" stroke="#445566" stroke-width="1.5"/>
+  <line x1="32" y1="34" x2="32" y2="24" stroke="#445566" stroke-width="1.5"/>
+  <line x1="42" y1="34" x2="42" y2="26" stroke="#445566" stroke-width="1.5"/>
+  <line x1="52" y1="34" x2="52" y2="28" stroke="#445566" stroke-width="1.5"/>
+  <line x1="12" y1="28" x2="52" y2="28" stroke="#445566" stroke-width="1.2"/>
+  <!-- rail lines on deck -->
+  <line x1="2" y1="37" x2="62" y2="37" stroke="#aabbcc" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="2" y1="39" x2="62" y2="39" stroke="#aabbcc" stroke-width="1" stroke-dasharray="4,3"/>
+</svg>

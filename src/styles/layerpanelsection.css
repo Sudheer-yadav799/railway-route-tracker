@@ -1,105 +1,147 @@
 /* ==================================================
-   Layer Panel — Railway GIS Light Orange Theme
+   Layer Panel — Railway GIS (White Panel Theme)
    ================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
 
 .layer-panel-wrap {
   position: absolute;
   bottom: 24px;
   left: 20px;
   z-index: 1500;
-  font-family: var(--f-ui);
+  font-family: "Manrope", sans-serif;
 }
 
-/* ── Floating toggle button ── */
+/* ───────────────── Floating Toggle ───────────────── */
+
 .floating-toggle {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: linear-gradient(135deg, #fff5ef, #ffffff);
-  border: 1px solid #ffd6c7;
+
+  background: #ffffff;
+
+  border: 1px solid #8fa9dd;
+
   border-radius: 12px;
-  padding: 10px 18px;
+
+  padding: 9px 16px;
+
   font-size: 13px;
   font-weight: 600;
-  color: var(--r-orange);
+
+  color: #374151;
+
   cursor: pointer;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+
   transition: all 0.2s ease;
 }
 
 .floating-toggle:hover {
-  background: #fff0e8;
-  border-color: var(--r-orange);
-  transform: translateY(-2px);
+  border-color: #3aa4ff;
+  transform: translateY(-1px);
 }
 
 .floating-toggle svg {
   font-size: 16px;
-  color: var(--r-orange);
+  color: #1b64d1;
 }
 
-/* ── Main panel card ── */
+/* ───────────────── Panel Card ───────────────── */
+
 .layer-card {
+
   width: 320px;
   max-height: 72vh;
-  background: rgba(255,255,255,0.96);
-  backdrop-filter: blur(12px);
-  border-radius: 16px;
-  border: 1px solid #ffe1d6;
-  box-shadow: 0 18px 40px rgba(0,0,0,0.12);
+
+  background: #ffffff;
+
+  border-radius: 14px;
+
+  border: 1px solid #e5e7eb;
+
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.12);
+
   overflow: hidden;
-  animation: fade-in-up 0.2s ease;
 }
 
-/* ── Panel header ── */
+/* ───────────────── Header ───────────────── */
+
 .layer-card-header {
+
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   padding: 14px 18px;
-  background: linear-gradient(90deg, #fff3ec, transparent);
-  border-bottom: 1px solid #ffe1d6;
+
+  border-bottom: 1px solid #f1f1f1;
 }
 
 .layer-card-header-left {
+
   display: flex;
   align-items: center;
   gap: 8px;
+
   font-weight: 700;
-  font-size: 13px;
-  color: var(--r-orange);
+  font-size: 12px;
+
   letter-spacing: 0.08em;
   text-transform: uppercase;
+
+  color: #374151;
 }
+
+.layer-card-header-left svg {
+  color: #1b64d1;
+}
+
+/* badge */
 
 .layer-count-badge {
-  background: #fff0e8;
-  border: 1px solid #ffd6c7;
+
+  background: rgba(58, 164, 255, 0.12);
+
+  border: 1px solid rgba(58, 164, 255, 0.25);
+
   border-radius: 20px;
+
   padding: 2px 8px;
+
   font-size: 10px;
-  color: var(--r-orange);
-  font-weight: 600;
+
+  color: #1b64d1;
+
+  font-weight: 700;
 }
 
+/* close icon */
+
 .close-icon {
+
   cursor: pointer;
   font-size: 16px;
-  color: #999;
+  color: #374151;
   border-radius: 6px;
-  padding: 4px;
   transition: 0.2s;
 }
 
 .close-icon:hover {
-  color: #ff4757;
-  background: #fff0f0;
+  color: #ef4444;
+  background: #f9fafb;
 }
 
-/* ── Scrollable body ── */
+/* ───────────────── Scroll Body ───────────────── */
+
 .layer-card-body {
+
   padding: 12px 16px 16px;
+
   max-height: 58vh;
+
   overflow-y: auto;
 }
 
@@ -108,47 +150,70 @@
 }
 
 .layer-card-body::-webkit-scrollbar-thumb {
-  background: #ffd6c7;
+  background: #f1f1f1;
   border-radius: 10px;
 }
 
-/* ── Section group ── */
+/* ───────────────── Groups ───────────────── */
+
 .layer-group {
+
   margin-bottom: 8px;
-  border: 1px solid #f2f2f2;
+
+  border: 1px solid #f1f1f1;
+
   border-radius: 10px;
+
   overflow: hidden;
 }
 
+/* group header */
+
 .group-header {
+
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 14px;
+
+  padding: 9px 14px;
+
   font-size: 11px;
+
   font-weight: 700;
+
   letter-spacing: 0.08em;
+
   text-transform: uppercase;
-  color: #fff;
-  background: #da8c44b0;
+
+  color: #0b1f36;
+
+  background: #d7e9ffa8;
+
   cursor: pointer;
+
   transition: 0.2s;
 }
 
 .group-header:hover {
-  background: #fff3ec;
-  color: var(--r-orange);
+  background: #f3f4f6;
 }
 
-/* ── Layer item row ── */
+/* ───────────────── Layer Item ───────────────── */
+
 .layer-item {
+
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 9px 14px;
+
+  padding: 8px 14px;
+
   font-size: 13px;
-  color: #444;
-  border-bottom: 1px solid #f2f2f2;
+
+  color: #374151;
+
+  border-bottom: 1px solid #f3f4f6;
+
   transition: 0.15s;
 }
 
@@ -157,7 +222,7 @@
 }
 
 .layer-item:hover {
-  background: #fff7f3;
+  background: #f9fafb;
 }
 
 .layer-item .left {
@@ -166,39 +231,61 @@
   gap: 10px;
 }
 
-/* Custom checkbox */
+/* ───────────────── Checkbox ───────────────── */
+
 .layer-item input[type="checkbox"] {
+
   appearance: none;
+
   width: 16px;
   height: 16px;
-  border: 2px solid #ffd6c7;
+
+  border: 2px solid #cbd5e1;
+
   border-radius: 4px;
-  background: #fff;
+
+  background: #ffffff;
+
   cursor: pointer;
+
   position: relative;
+
   transition: 0.2s;
 }
 
 .layer-item input[type="checkbox"]:checked {
-  background: var(--r-orange);
-  border-color: var(--r-orange);
+
+  background: linear-gradient(135deg, #1b64d1, #3aa4ff);
+
+  border-color: #1b64d1;
 }
 
 .layer-item input[type="checkbox"]:checked::after {
-  content: '✓';
+
+  content: "✓";
+
   position: absolute;
+
   top: -2px;
   left: 2px;
+
   color: white;
+
   font-size: 12px;
+
   font-weight: 900;
 }
 
-/* Color swatch */
+/* ───────────────── Color Dot ───────────────── */
+
 .color-dot {
+
   width: 12px;
   height: 12px;
+
   border-radius: 50%;
-  border: 2px solid #fff;
-  box-shadow: 0 0 0 1px #ffd6c7;
+
+  border: 2px solid #ffffff;
+
+  box-shadow: 0 0 0 1px #e5e7eb;
 }

@@ -1,50 +1,132 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { layerService }   from "../services/layer_service";
+import { layerService } from "../services/layer_service";
 import { projectService } from "../services/project_service";
 
-// ─────────────────────────────────────────
-// GET /api/layers/get-layers
-// ─────────────────────────────────────────
+/* -----------------------------
+   All Layers
+----------------------------- */
+
 export const useLayers = () => {
   return useQuery({
     queryKey: ["layers"],
-    queryFn:  layerService.getLayers,
+    queryFn: layerService.getLayers,
   });
 };
 
-// ─────────────────────────────────────────
-// GET /api/projects/
-// ─────────────────────────────────────────
+/* -----------------------------
+   Layers by Project IDs
+----------------------------- */
+
+export const useUserProjectLayers = (projectId?: number) => {
+  return useQuery({
+    queryKey: ["user-project-layers", projectId],
+
+    queryFn: () => layerService.getLayersByProjectId(projectId),
+
+    enabled: !!projectId,
+
+    staleTime: 1000 * 60 * 5,
+    refetchOnWindowFocus: false,
+  });
+};
+
+/* -----------------------------
+   Projects
+----------------------------- */
+
 export const useProjects = () => {
   return useQuery({
     queryKey: ["projects"],
-    queryFn:  projectService.getAllProjects,
+    queryFn: projectService.getAllProjects,
   });
 };
 
-// ─────────────────────────────────────────
-// GET /api/projects/layers/:projectId/
-// only fetches when projectId is provided
-// ─────────────────────────────────────────
+/* -----------------------------
+   Project Layers
+----------------------------- */
+
 export const useProjectLayers = (projectId: number | string | null) => {
   return useQuery({
     queryKey: ["project-layers", projectId],
-    queryFn:  () => projectService.getProjectLayers(projectId!),
-    enabled:  !!projectId,
+
+    queryFn: () => projectService.getProjectLayers(projectId!),
+
+    enabled: !!projectId,
+
+    staleTime: 0,       
+    cacheTime: 0,        
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
+    keepPreviousData: false
   });
 };
 
-// ─────────────────────────────────────────
-// PATCH /api/projects/:projectId/layers/:layerCode
-// auto-refetches project layers after toggle
-// ─────────────────────────────────────────
+/* -----------------------------
+   Toggle Layer
+----------------------------- */
+
 export const useToggleLayer = (projectId: number | string) => {
   const qc = useQueryClient();
+
   return useMutation({
-    mutationFn: ({ layerCode, isenabled }: { layerCode: string; isenabled: boolean }) =>
-      projectService.toggleLayer(projectId, layerCode, isenabled),
+    mutationFn: ({
+      layerCode,
+      isenabled,
+    }: {
+      layerCode: string;
+      isenabled: boolean;
+    }) => projectService.toggleLayer(projectId, layerCode, isenabled),
+
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["project-layers", projectId] });
+    },
+  });
+};
+
+/* -----------------------------
+   Create Layer
+----------------------------- */
+
+export const useCreateLayer = () => {
+  const qc = useQueryClient();
+
+  return useMutation({
+    mutationFn: layerService.createLayer,
+
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["layers"] });
+    },
+  });
+};
+
+/* -----------------------------
+   Update Layer
+----------------------------- */
+
+export const useUpdateLayer = () => {
+  const qc = useQueryClient();
+
+  return useMutation({
+    mutationFn: layerService.updateLayer,
+
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["layers"] });
+    },
+  });
+};
+
+/* -----------------------------
+   Delete Layer
+----------------------------- */
+
+export const useDeleteLayer = () => {
+  const qc = useQueryClient();
+
+  return useMutation({
+    mutationFn: layerService.deleteLayer,
+
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["layers"] });
     },
   });
 };
