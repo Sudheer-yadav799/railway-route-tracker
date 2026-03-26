@@ -69,8 +69,8 @@ const NAV = [
           <div className="admin-brand" onClick={() => navigate("/map")}>
             <div>
               <img src={companyLogo} className="brand-logo" alt="Company Logo" />
-              <div className="admin-brand-text">RIA Admin</div>
-              <div className="admin-brand-sub">Railway Infrastrure Board</div>
+              <div className="admin-brand-text">DGT Admin</div>
+              <div className="admin-brand-sub">Dharani Geo Portal</div>
             </div>
           </div>
         </div>

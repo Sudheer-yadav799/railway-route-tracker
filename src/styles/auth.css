@@ -354,6 +354,11 @@
 
   color: white;
 
+<<<<<<< HEAD
+  -webkit-appearance: none;
+  appearance: none;
+=======
+>>>>>>> bd0893bbba46a0e529a9346238f37165fd8c1335
   font-size: 14px;
 
 }
@@ -592,4 +597,17 @@
 
 .company-left {
  margin-top: 100px;
+<<<<<<< HEAD
+}
+
+/* Hide browser native password reveal icon */
+.form-input::-ms-reveal,
+.form-input::-ms-clear {
+  display: none;
+}
+
+.form-input::-webkit-credentials-auto-fill-button {
+  display: none;
+=======
+>>>>>>> bd0893bbba46a0e529a9346238f37165fd8c1335
 }

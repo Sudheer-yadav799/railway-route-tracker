@@ -3,7 +3,11 @@ import { useEffect, useRef, useState, useCallback } from "react"
 import { useDispatch } from "react-redux"
 import L from "leaflet"
 import { setGeoJson, setLoading } from "../../../store/slices/railwayGeoSlice"
+<<<<<<< HEAD
+import { getLabelText, railwayMarkerIcons } from "../../../utils/config/railwayMarkerIcons"
+=======
 import { railwayMarkerIcons } from "../../../utils/config/railwayMarkerIcons"
+>>>>>>> bd0893bbba46a0e529a9346238f37165fd8c1335
 
 import "../../../styles/map.css"
 
@@ -207,7 +211,11 @@ const getDynamicIcon = useCallback((baseIcon: L.Icon) => {
           <div className="popup-header"> {f.properties.layer}</div>
           <div className="popup-body">
             <div className="popup-row">
+<<<<<<< HEAD
+               <span className="label">{getLabelText(f.properties.layer)}</span>
+=======
               <span className="label">Pole ID</span>
+>>>>>>> bd0893bbba46a0e529a9346238f37165fd8c1335
               <span className="value">{f.properties.name}</span>
             </div>
             {f.properties.id && (
@@ -234,7 +242,11 @@ const getDynamicIcon = useCallback((baseIcon: L.Icon) => {
           <div className="popup-header"> {f.properties.layer}</div>
           <div className="popup-body">
             <div className="popup-row">
+<<<<<<< HEAD
+                <span className="label">{getLabelText(f.properties.layer)}</span>
+=======
               <span className="label">Pole ID</span>
+>>>>>>> bd0893bbba46a0e529a9346238f37165fd8c1335
               <span className="value">{f.properties.name}</span>
             </div>
             {f.properties.id && (

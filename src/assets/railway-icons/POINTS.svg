@@ -1,4 +1,41 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+<<<<<<< HEAD
+  <defs>
+    <linearGradient id="poleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FF6B35"/>
+      <stop offset="100%" stop-color="#E05A2B"/>
+    </linearGradient>
+    <linearGradient id="headGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1565C0"/>
+      <stop offset="100%" stop-color="#0D47A1"/>
+    </linearGradient>
+  </defs>
+
+  <!-- ground shadow -->
+  <ellipse cx="32" cy="61" rx="11" ry="3" fill="#333" opacity="0.3"/>
+
+  <!-- pole shaft -->
+  <rect x="29" y="28" width="6" height="33" rx="2.5" fill="url(#poleGrad)" stroke="#C0440A" stroke-width="1.2"/>
+
+  <!-- pole head / sign board - hexagonal shape for points -->
+  <polygon points="32,4 48,12 48,30 32,38 16,30 16,12" fill="url(#headGrad)" stroke="#0A2E6E" stroke-width="2"/>
+
+  <!-- inner highlight ring -->
+  <polygon points="32,8 44,15 44,27 32,34 20,27 20,15" fill="none" stroke="#5C9CE6" stroke-width="1" opacity="0.6"/>
+
+  <!-- Track diverge symbol inside head - two lines splitting -->
+  <!-- Main line -->
+  <line x1="22" y1="24" x2="42" y2="24" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Diverging line going upper right -->
+  <line x1="32" y1="24" x2="42" y2="15" stroke="#F1C40F" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Switch wedge dot -->
+  <circle cx="32" cy="24" r="3" fill="#F1C40F" stroke="#E07B00" stroke-width="1"/>
+
+  <!-- base band stripes -->
+  <rect x="29" y="51" width="6" height="4" fill="#E74C3C"/>
+  <rect x="29" y="55" width="6" height="4" fill="#F1C40F"/>
+</svg>
+=======
   <!-- rails -->
   <rect x="4" y="28" width="56" height="5" rx="1" fill="#0066CC"/>
   <rect x="4" y="34" width="56" height="2" rx="1" fill="#004499" opacity="0.5"/>
@@ -15,3 +52,4 @@
   <rect x="38" y="25" width="4" height="14" rx="1" fill="#555"/>
   <rect x="48" y="25" width="4" height="14" rx="1" fill="#555"/>
 </svg>
+>>>>>>> bd0893bbba46a0e529a9346238f37165fd8c1335

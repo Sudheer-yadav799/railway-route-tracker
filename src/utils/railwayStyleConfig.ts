@@ -2,60 +2,60 @@
 // Railway Web GIS Styling Standard
 // (All Layer Keys Uppercase)
 // ================================
-
 export const railwayStyleConfig: Record<string, any> = {
+
   /* ---------- POLYLINES ---------- */
 
   "MAIN LINES": {
     type: "line",
-    color: "#E10600",
+    color: "#FF3B30", // strong red (primary track)
     weight: 4,
   },
 
   "OTHER LINES": {
     type: "line",
-    color: "#555555",
+    color: "#1E90FF", // blue
     weight: 3,
   },
 
   "LOOP LINES": {
     type: "line",
-    color: "#FF8C00",
+    color: "#FF9500", // orange
     weight: 3,
     dashArray: "6,4",
   },
 
   "SHUNTS": {
     type: "line",
-    color: "#800080",
+    color: "#AF52DE", // violet
     weight: 2,
     dashArray: "2,4",
   },
 
   "GLUE JOINTS": {
     type: "line",
-    color: "#C0C0C0",
+    color: "#FFD60A", // yellow (visible on imagery)
     weight: 2,
     dashArray: "4,4",
   },
 
   "OHE": {
     type: "line",
-    color: "#00BFFF",
+    color: "#00C7BE", // cyan
     weight: 2,
     dashArray: "6,3,2,3",
   },
 
   "RAILWAY BOUNDARY": {
     type: "line",
-    color: "#000000",
-    weight: 5,
-    dashArray: "8,4,2,4",
+    color: "#34C759", // green boundary
+    weight: 4,
+    dashArray: "8,4",
   },
 
   "FOOT OVER BRIDGE": {
     type: "line",
-    color: "#4682B4",
+    color: "#5AC8FA", // light blue
     weight: 4,
   },
 
@@ -63,61 +63,57 @@ export const railwayStyleConfig: Record<string, any> = {
 
   "BRIDGE": {
     type: "mixed",
-    color: "#003366",
-    weight: 5,
-    fillColor: "#003366",
+    color: "#0A84FF",
+    fillColor: "#0A84FF",
     fillOpacity: 0.6,
   },
 
   "CULVERT": {
     type: "mixed",
-    color: "#008080",
-    weight: 4,
-    fillColor: "#008080",
+    color: "#30D158",
+    fillColor: "#30D158",
     fillOpacity: 0.6,
   },
 
   "RUB": {
     type: "mixed",
-    color: "#006400",
-    weight: 4,
-    fillColor: "#006400",
+    color: "#64D2FF",
+    fillColor: "#64D2FF",
     fillOpacity: 0.6,
   },
 
   "ROB": {
     type: "mixed",
-    color: "#4B0082",
-    weight: 4,
-    fillColor: "#4B0082",
+    color: "#BF5AF2",
+    fillColor: "#BF5AF2",
     fillOpacity: 0.6,
   },
 
   "BUILDING": {
     type: "polygon",
-    color: "#D2B48C",
-    fillColor: "#D2B48C",
+    color: "#FF9F0A",
+    fillColor: "#FF9F0A",
     fillOpacity: 0.7,
   },
 
   "PLATFORM": {
     type: "polygon",
-    color: "#FFC0CB",
-    fillColor: "#FFC0CB",
+    color: "#FFD60A",
+    fillColor: "#FFD60A",
     fillOpacity: 0.7,
   },
 
   "PARKING": {
     type: "polygon",
-    color: "#87CEFA",
-    fillColor: "#87CEFA",
+    color: "#32D74B",
+    fillColor: "#32D74B",
     fillOpacity: 0.7,
   },
 
   "IB HUT": {
     type: "polygon",
-    color: "#FF8C00",
-    fillColor: "#FF8C00",
+    color: "#FF6B00",
+    fillColor: "#FF6B00",
     fillOpacity: 0.7,
   },
 
@@ -125,69 +121,67 @@ export const railwayStyleConfig: Record<string, any> = {
 
   "FIELD GEARS": {
     type: "point",
-    color: "#8B4513",
+    color: "#A2845E",
     radius: 6,
   },
 
   "SIGNALS": {
     type: "point",
-    color: "#008000",
+    color: "#34C759", // green signal
     radius: 7,
   },
 
   "POINTS": {
     type: "point",
-    color: "#0066CC",
+    color: "#007AFF",
     radius: 6,
   },
 
   "SAND HUMP": {
     type: "point",
-    color: "#5A2D0C",
+    color: "#C17F2E",
     radius: 6,
   },
 
   "DEAD END": {
     type: "point",
-    color: "#000000",
+    color: "#FF453A",
     radius: 6,
   },
 
   "LC GATE": {
     type: "point",
-    color: "#FFD700",
+    color: "#FFD60A",
     radius: 7,
   },
 
   "BSLB": {
     type: "point",
-    color: "#00CED1",
+    color: "#00C7BE",
     radius: 6,
   },
 
   "FM": {
     type: "point",
-    color: "#FF00FF",
+    color: "#AF52DE",
     radius: 6,
   },
 
   "KM STONE": {
     type: "point",
-    color: "#000000",
-    fillColor: "#FFFFFF",
+    color: "#FF9F0A",
     radius: 7,
-    weight: 2,
   },
 
   "STATION CENTER": {
     type: "point",
-    color: "#FF0000",
+    color: "#FF3B30",
     radius: 7,
   },
 
   "TOWER": {
     type: "point",
-    color: "#8B0000",
+    color: "#BF5AF2",
     radius: 7,
   },
-};
+}

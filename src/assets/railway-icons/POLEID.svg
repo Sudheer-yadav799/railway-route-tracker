@@ -1,4 +1,25 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+<<<<<<< HEAD
+  <!-- ground shadow -->
+  <ellipse cx="32" cy="61" rx="13" ry="3.5" fill="#5C3D11" opacity="0.5"/>
+  <!-- pole shaft -->
+  <rect x="29" y="14" width="6" height="47" rx="2.5" fill="#E07B39" stroke="#A0522D" stroke-width="1.5"/>
+  <!-- top cross arm -->
+  <rect x="11" y="18" width="42" height="5" rx="2.5" fill="#2E86AB" stroke="#1A5276" stroke-width="1.2"/>
+  <!-- secondary arm -->
+  <rect x="16" y="28" width="32" height="4" rx="2" fill="#2E86AB" stroke="#1A5276" stroke-width="1.2"/>
+  <!-- insulators -->
+  <circle cx="13" cy="21" r="3.2" fill="#A8E6CF" stroke="#27AE60" stroke-width="1.2"/>
+  <circle cx="32" cy="21" r="3.2" fill="#A8E6CF" stroke="#27AE60" stroke-width="1.2"/>
+  <circle cx="51" cy="21" r="3.2" fill="#A8E6CF" stroke="#27AE60" stroke-width="1.2"/>
+  <!-- OHE wires -->
+  <line x1="2" y1="21" x2="13" y2="21" stroke="#B0BEC5" stroke-width="1.5"/>
+  <line x1="51" y1="21" x2="62" y2="21" stroke="#B0BEC5" stroke-width="1.5"/>
+  <!-- band stripes at base -->
+  <rect x="29" y="52" width="6" height="4" fill="#E74C3C"/>
+  <rect x="29" y="56" width="6" height="3" fill="#F1C40F"/>
+</svg>
+=======
   <!-- ground -->
   <ellipse cx="32" cy="60" rx="14" ry="4" fill="#3a2e1a" opacity="0.6"/>
   <!-- pole shaft -->
@@ -17,3 +38,4 @@
   <rect x="20" y="4" width="24" height="10" rx="2" fill="#FFD700" stroke="#cc9900" stroke-width="1.5"/>
   <text x="32" y="12" text-anchor="middle" font-size="7" fill="#000" font-family="Arial" font-weight="bold">P-101</text>
 </svg>
+>>>>>>> bd0893bbba46a0e529a9346238f37165fd8c1335
