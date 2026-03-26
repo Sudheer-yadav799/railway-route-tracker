@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <svg xmlns="http://www.w3.org/2000/svg" width="64" height="80" viewBox="0 0 64 80">
   <defs>
     <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -38,3 +39,26 @@
   <line x1="10" y1="32" x2="10" y2="76" stroke="#AAAAAA" stroke-width="1"/>
   <line x1="54" y1="32" x2="54" y2="76" stroke="#CCCCCC" stroke-width="0.8"/>
 </svg>
+=======
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="stone" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#e0e0e0"/>
+      <stop offset="100%" stop-color="#a8a8a8"/>
+    </linearGradient>
+  </defs>
+  <!-- stone body -->
+  <polygon points="32,4 52,14 52,54 12,54 12,14" fill="url(#stone)" stroke="#555" stroke-width="2"/>
+  <!-- top arch -->
+  <ellipse cx="32" cy="14" rx="20" ry="8" fill="#d0d0d0" stroke="#555" stroke-width="1.5"/>
+  <!-- dividing line -->
+  <line x1="12" y1="30" x2="52" y2="30" stroke="#333" stroke-width="2"/>
+  <!-- top half: black background -->
+  <polygon points="32,5 51,13 51,30 13,30 13,13" fill="#111"/>
+  <ellipse cx="32" cy="13" rx="19" ry="7.5" fill="#111"/>
+  <!-- KM text -->
+  <text x="32" y="24" text-anchor="middle" font-size="10" fill="white" font-family="Arial" font-weight="bold">KM</text>
+  <!-- distance number -->
+  <text x="32" y="46" text-anchor="middle" font-size="12" fill="#111" font-family="Arial" font-weight="bold">42</text>
+</svg>
+>>>>>>> bd0893bbba46a0e529a9346238f37165fd8c1335

@@ -20,6 +20,7 @@ const stats = [
 
 
 export default function CompanyInfo() {
+<<<<<<< HEAD
   const navigate = useNavigate();
 
 
@@ -27,6 +28,15 @@ export default function CompanyInfo() {
 
     navigate("/map");
   }
+=======
+    const navigate = useNavigate();
+
+    
+ const  onexploremap =()=>{
+  
+        navigate("/map");
+ }
+>>>>>>> bd0893bbba46a0e529a9346238f37165fd8c1335
   return (
     <div style={s.page}>
       <div style={s.wrap}>
@@ -96,6 +106,7 @@ export default function CompanyInfo() {
         </div>
 
         {/* CTA */}
+<<<<<<< HEAD
         <div style={s.bottom}>
           <button
             style={s.btn}
@@ -105,6 +116,17 @@ export default function CompanyInfo() {
           >
             <FiMap size={15} style={{ marginRight: 8 }} />
             Explore Map View
+=======
+        <div style={s.bottom} onClick={onexploremap(a)}>
+          <button
+            style={s.btn}
+            onMouseEnter={e => (e.currentTarget.style.background = "#d4891a")}
+            onMouseLeave={e => (e.currentTarget.style.background = "#f5a623")}
+          
+          >
+            <FiMap size={15} style={{ marginRight: 8 }} />
+            Explore Map View 
+>>>>>>> bd0893bbba46a0e529a9346238f37165fd8c1335
           </button>
         </div>
 
