@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="sand" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#a0622a"/>
+      <stop offset="100%" stop-color="#3d1500"/>
+    </linearGradient>
+  </defs>
+  <!-- base ground -->
+  <rect x="0" y="50" width="64" height="14" rx="2" fill="#3d2000"/>
+  <!-- hump mound -->
+  <ellipse cx="32" cy="48" rx="26" ry="12" fill="url(#sand)" stroke="#3d1500" stroke-width="1"/>
+  <ellipse cx="32" cy="44" rx="18" ry="8" fill="#8B4513"/>
+  <ellipse cx="32" cy="41" rx="10" ry="5" fill="#a0622a"/>
+  <!-- rails approaching -->
+  <rect x="10" y="50" width="18" height="3" rx="1" fill="#5A2D0C"/>
+  <rect x="36" y="50" width="18" height="3" rx="1" fill="#5A2D0C"/>
+  <!-- buffer text -->
+  <text x="32" y="26" text-anchor="middle" font-size="8" fill="white" font-family="Arial" font-weight="bold">SH</text>
+</svg>

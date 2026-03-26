@@ -1,0 +1,35 @@
+.railway-popup{
+  font-family: "Inter", sans-serif;
+  min-width:220px;
+}
+
+.popup-header{
+  font-weight:600;
+  font-size:14px;
+  padding-bottom:6px;
+  margin-bottom:6px;
+  border-bottom:1px solid #eee;
+  color:#0b5ed7;
+}
+
+.popup-body{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.popup-row{
+  display:flex;
+  justify-content:space-between;
+  font-size:12px;
+}
+
+.popup-row .label{
+  color:#777;
+  font-weight:500;
+}
+
+.popup-row .value{
+  font-weight:600;
+  color:#333;
+}

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <!-- sleepers -->
+  <rect x="8" y="32" width="4" height="16" rx="1" fill="#555"/>
+  <rect x="20" y="32" width="4" height="16" rx="1" fill="#555"/>
+  <rect x="32" y="32" width="4" height="16" rx="1" fill="#555"/>
+  <!-- rails -->
+  <rect x="6" y="34" width="34" height="4" rx="1.5" fill="#333"/>
+  <rect x="6" y="44" width="34" height="4" rx="1.5" fill="#333"/>
+  <!-- buffer beam -->
+  <rect x="38" y="28" width="8" height="26" rx="2" fill="#111" stroke="#000" stroke-width="1"/>
+  <!-- buffer bumpers -->
+  <rect x="46" y="30" width="12" height="8" rx="3" fill="#222" stroke="#000" stroke-width="1"/>
+  <rect x="46" y="44" width="12" height="8" rx="3" fill="#222" stroke="#000" stroke-width="1"/>
+  <!-- stop stripes -->
+  <rect x="38" y="30" width="8" height="4" fill="#ffcc00"/>
+  <rect x="38" y="38" width="8" height="4" fill="#ffcc00"/>
+  <rect x="38" y="46" width="8" height="4" fill="#ffcc00"/>
+</svg>

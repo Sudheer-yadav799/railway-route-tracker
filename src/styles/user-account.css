@@ -1,0 +1,610 @@
+/* =========================================================
+   GLOBAL PAGE
+========================================================= */
+
+.us-page{
+  padding:28px 32px;
+  background:var(--content-bg);
+  min-height:100vh;
+  font-family:var(--sans);
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.us-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+
+.us-title{
+  margin:0;
+  font-size:1.3rem;
+  font-weight:700;
+  color:var(--text-dark);
+}
+
+.us-subtitle{
+  margin:3px 0 0;
+  font-size:0.78rem;
+  color:var(--text-soft);
+}
+
+.us-btn-new{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:var(--primary-dark);
+  color:#fff;
+  border:none;
+  border-radius:var(--radius);
+  padding:9px 18px;
+  font-size:0.84rem;
+  font-weight:600;
+  cursor:pointer;
+  transition:all .15s;
+}
+
+.us-btn-new:hover{
+  background:#6b7200;
+}
+
+/* =========================================================
+   FILTER BAR
+========================================================= */
+
+.us-filters{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-bottom:16px;
+}
+
+.us-search-wrap{
+  position:relative;
+  display:flex;
+  align-items:center;
+  flex:1;
+  max-width:320px;
+}
+
+.us-search-icon{
+  position:absolute;
+  left:11px;
+  color:var(--text-soft);
+  font-size:.75rem;
+}
+
+.us-search{
+  width:100%;
+  border:1px solid var(--sidebar-border);
+  border-radius:20px;
+  padding:7px 12px 7px 32px;
+  font-size:.82rem;
+  color:var(--text-dark);
+  background:var(--sidebar-bg);
+  outline:none;
+}
+
+.us-search:focus{
+  border-color:var(--blue);
+}
+
+/* =========================================================
+   ROLE TABS
+========================================================= */
+
+.us-role-tabs{
+  display:flex;
+  gap:6px;
+}
+
+.us-role-tab{
+  border:1px solid var(--sidebar-border);
+  background:transparent;
+  border-radius:20px;
+  padding:5px 13px;
+  font-size:.77rem;
+  cursor:pointer;
+  color:var(--text-mid);
+}
+
+.us-role-tab:hover{
+  border-color:var(--blue);
+}
+
+.us-role-tab.active{
+  background:var(--primary-dark);
+  color:white;
+}
+
+.us-count{
+  margin-left:auto;
+  font-size:.77rem;
+  color:var(--text-soft);
+}
+
+/* =========================================================
+   USERS TABLE
+========================================================= */
+
+.us-card{
+  background:var(--white);
+  border:1px solid var(--sidebar-border);
+  border-radius:var(--radius-lg);
+  overflow:hidden;
+  box-shadow:var(--shadow-sm);
+}
+
+.us-table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:.84rem;
+}
+
+.us-th{
+  padding:12px 14px;
+  background:var(--sidebar-bg);
+  border-bottom:1px solid var(--sidebar-border);
+  text-align:left;
+  font-size:.68rem;
+  font-weight:700;
+  color:var(--text-soft);
+  text-transform:uppercase;
+}
+
+.us-td{
+  padding:13px 14px;
+  color:var(--text-mid);
+}
+
+.us-row{
+  border-bottom:1px solid var(--sidebar-border);
+}
+
+.us-row:hover{
+  background:#102234;
+}
+
+/* =========================================================
+   USER CELL
+========================================================= */
+
+.us-user-info{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.us-avatar{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+  font-size:.8rem;
+}
+
+.us-user-name{
+  font-weight:600;
+  color:var(--text-dark);
+}
+
+/* =========================================================
+   ROLE BADGE
+========================================================= */
+
+.us-role-badge{
+  font-size:.71rem;
+  border-radius:20px;
+  padding:3px 10px;
+  font-weight:600;
+}
+
+.role-admin{
+  background:var(--red-bg);
+  color:var(--red);
+}
+
+.role-customer{
+  background:var(--blue-bg);
+  color:var(--blue);
+}
+
+.role-guest{
+  background:var(--amber-bg);
+  color:var(--amber);
+}
+
+/* =========================================================
+   STATUS BADGE
+========================================================= */
+
+.us-status-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-size:.71rem;
+  border-radius:20px;
+  padding:3px 10px;
+  font-weight:600;
+}
+
+.us-active{
+  background:var(--green-bg);
+  color:var(--green);
+}
+
+.us-inactive{
+  background:var(--red-bg);
+  color:var(--red);
+}
+
+/* =========================================================
+   DELETE BUTTON
+========================================================= */
+
+.us-btn-delete{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  border:1px solid var(--sidebar-border);
+  background:transparent;
+  border-radius:6px;
+  padding:5px 11px;
+  font-size:.75rem;
+  cursor:pointer;
+  color:var(--text-mid);
+}
+
+.us-btn-delete:hover{
+  border-color:var(--red);
+  color:var(--red);
+}
+
+/* =========================================================
+   PAGINATION
+========================================================= */
+
+.us-pagination{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-top:16px;
+}
+
+.us-page-btns button{
+  min-width:80px;
+  height:32px;
+  border:1px solid var(--sidebar-border);
+  background:transparent;
+  border-radius:6px;
+  cursor:pointer;
+  color:var(--text-mid);
+}
+
+.us-page-btns button:hover{
+  border-color:var(--blue);
+}
+
+.us-page-active{
+  background:var(--primary-dark);
+  color:white;
+}
+
+/* =========================================================
+   CREATE USER MODAL
+========================================================= */
+
+.create-user-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(5,10,18,0.8);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:2000;
+}
+
+.create-user-card{
+  width:580px;
+  background:#ffffff;
+  border-radius:16px;
+  padding:28px 32px;
+  box-shadow:0 32px 80px rgba(0,0,0,0.4);
+}
+
+/* header */
+
+.create-user-header{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:24px;
+}
+
+.create-user-header h2{
+  font-size:1rem;
+  color:#1e293b;
+}
+
+/* close */
+
+.close-btn{
+  border:1px solid #e2e8f0;
+  background:none;
+  width:30px;
+  height:30px;
+  border-radius:7px;
+  cursor:pointer;
+}
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+
+.form-field label{
+  font-size:.77rem;
+  font-weight:600;
+  color:#374151;
+  margin-bottom:5px;
+  display:block;
+}
+
+.form-field input,
+.form-field select{
+  width:100%;
+  padding:9px 12px;
+  border-radius:8px;
+  border:1px solid #d1d5db;
+  font-size:.83rem;
+  background:#f9fafb;
+  color:#000;   /* typing text color */
+}
+
+.form-field input:focus,
+.form-field select:focus{
+  border-color:olive !important;
+  background:#fff !important;
+  color:#000 !important;
+  outline:none;
+}
+
+.form-field input::placeholder{
+  color:#9ca3af;
+}
+
+/* password */
+
+.password-wrapper{
+  position:relative;
+}
+
+.password-wrapper input{
+  padding-right:38px;
+}
+
+.toggle-password{
+  position:absolute;
+  right:11px;
+  top:50%;
+  transform:translateY(-50%);
+  cursor:pointer;
+}
+
+/* actions */
+
+.form-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+  margin-top:24px;
+}
+
+.primary-btn{
+  background:var(--primary-dark);
+  color:#fff;
+  padding:9px 20px;
+  border-radius:8px;
+  border:none;
+  cursor:pointer;
+}
+
+.secondary-btn{
+  background:#f9fafb;
+  color:#475569;
+  padding:9px 20px;
+  border-radius:8px;
+  border:1px solid #d1d5db;
+  cursor:pointer;
+}
+
+/* ===============================
+PROFILE PAGE
+=============================== */
+
+.profile-page{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:var(--content-bg);
+}
+
+/* card */
+
+.profile-card{
+  width:380px;
+  background:#fff;
+  border-radius:22px;
+  padding:0 28px 30px;
+  text-align:center;
+  box-shadow:var(--shadow-lg);
+}
+
+/* header gradient */
+
+.profile-header{
+  height:120px;
+  background:linear-gradient(80deg,#1f2937,olive);
+  border-radius:22px 22px 0 0;
+  margin:0 -28px 60px;
+}
+
+/* avatar */
+
+.profile-avatar{
+  width:88px;
+  height:88px;
+  border-radius:50%;
+  background:linear-gradient(80deg,var(--content-bg),olive);
+  color:#fff;
+  font-size:30px;
+  font-weight:700;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:-90px auto 10px;
+  border:5px solid #fff;
+}
+
+/* user */
+
+.profile-user h2{
+  margin:0;
+  font-size:20px;
+  color:#1f2937;
+}
+
+.profile-user p{
+  font-size:12px;
+  color:#64748b;
+}
+
+.profile-role{
+  display:inline-block;
+  margin-top:8px;
+  padding:4px 12px;
+  border-radius:20px;
+  background:#fef3c7;
+  color:#92400e;
+  font-size:12px;
+  font-weight:600;
+}
+
+/* stats */
+
+.profile-stats{
+  display:flex;
+  justify-content:space-between;
+  background:#f1f5f9;
+  border-radius:14px;
+  padding:14px;
+  margin:22px 0;
+}
+
+.profile-stats div{
+  flex:1;
+}
+
+.profile-stats strong{
+  display:block;
+  font-size:18px;
+}
+
+.profile-stats span{
+  font-size:11px;
+  color:#64748b;
+}
+
+/* info rows */
+
+.profile-info{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.info-row{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  background:#f1f5f9;
+  padding:14px;
+  border-radius:12px;
+}
+
+.info-row svg{
+  font-size:16px;
+  color:#ff7a45;
+}
+
+.info-row span{
+  font-size:11px;
+  color:#64748b;
+}
+
+.info-row p{
+  margin:0;
+  font-weight:600;
+}
+
+/* status */
+
+.active{
+  color:var(--green);
+}
+
+.inactive{
+  color:var(--red);
+}
+
+/* logout */
+
+.profile-logout{
+  width:100%;
+  margin-top:20px;
+  padding:12px;
+  border:none;
+  border-radius:12px;
+  /* background:linear-gradient(135deg,#ff7a45,#c2410c);
+   */
+   background: var(--content-bg);
+  color:#fff;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.profile-logout:hover{
+  opacity:.9;
+}
+
+.profile-back{
+  position:absolute;
+  top:20px;
+  left:20px;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  border:none;
+  background:transparent;
+  color:var(--text-mid);
+  cursor:pointer;
+  font-size:14px;
+}
+
+.profile-back:hover{
+  color:var(--text-dark);
+}

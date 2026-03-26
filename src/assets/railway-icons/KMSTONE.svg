@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="80" viewBox="0 0 64 80">
+  <defs>
+    <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F0F0F0"/>
+      <stop offset="50%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#D8D8D8"/>
+    </linearGradient>
+    <linearGradient id="shadowGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#00000022"/>
+      <stop offset="100%" stop-color="#00000000"/>
+    </linearGradient>
+  </defs>
+
+  <!-- ground shadow -->
+  <ellipse cx="32" cy="78" rx="16" ry="3" fill="#00000030"/>
+
+  <!-- STONE BODY: rectangular with pointed arch top -->
+  <!-- Main rectangle body -->
+  <rect x="10" y="30" width="44" height="46" rx="2" fill="url(#bodyGrad)" stroke="#888" stroke-width="1.5"/>
+
+  <!-- Pointed arch top (true KM stone shape) -->
+  <path d="M10,32 L32,6 L54,32 Z" fill="url(#bodyGrad)" stroke="#888" stroke-width="1.5"/>
+  <!-- clean inner seam -->
+  <line x1="10" y1="32" x2="54" y2="32" stroke="#888" stroke-width="1.5"/>
+
+  <!-- TOP HALF (arch): black/dark fill — "KM" section -->
+  <path d="M11,32 L32,8 L53,32 Z" fill="#1A1A1A"/>
+  <!-- KM label -->
+  <text x="32" y="27" text-anchor="middle" font-size="10" fill="#FFFFFF" font-family="Arial Black, Arial" font-weight="900" letter-spacing="1">KM</text>
+
+  <!-- BOTTOM HALF: bright yellow — number section (blank) -->
+  <rect x="11" y="33" width="42" height="42" rx="1" fill="#FFD700"/>
+
+  <!-- subtle border lines on yellow panel -->
+  <rect x="13" y="35" width="38" height="38" rx="1" fill="none" stroke="#E6B800" stroke-width="1"/>
+
+  <!-- side 3D depth lines -->
+  <line x1="10" y1="32" x2="10" y2="76" stroke="#AAAAAA" stroke-width="1"/>
+  <line x1="54" y1="32" x2="54" y2="76" stroke="#CCCCCC" stroke-width="0.8"/>
+</svg>

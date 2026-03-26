@@ -1,0 +1,127 @@
+/* ============================================================
+   RAILWAY GIS — Global Theme  |  #F74400 × #F2F1F0
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Rajdhani:wght@500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;600;700&display=swap');
+
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap');
+
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--admin-bg);
+}
+
+:root {
+    /* ── Brand ── */
+    --r-orange: #F74400;
+    --r-orange-dark: #d93b00;
+    --r-orange-light: #ff6a35;
+    --r-orange-glow: rgba(247, 68, 0, 0.22);
+    --r-cream: #F2F1F0;
+    --r-cream-dark: #dddbd9;
+
+      --admin-bg: #f5f7fa;
+  --admin-card: #ffffff;
+  --admin-accent: #F74400;
+  --admin-accent-light: #fff1ea;
+  --admin-text: #1f2937;
+  --admin-muted: #6b7280;
+
+    /* ── Dark canvas ── */
+    --r-bg: #10100f;
+    --r-bg-2: #161614;
+    --r-bg-3: #1e1e1b;
+    --r-bg-panel: #1a1a17;
+    --r-bg-card: #222220;
+
+    /* ── Borders ── */
+    --r-border: rgba(247, 68, 0, 0.18);
+    --r-border-soft: rgba(242, 241, 240, 0.08);
+
+    /* ── Text ── */
+    --r-text: #000000;
+    --r-text-dim: rgba(242, 241, 240, 0.55);
+    --r-text-muted: rgba(242, 241, 240, 0.28);
+
+    /* ── Header ── */
+    --header-h: 64px;
+
+    /* ── Shadows ── */
+    --shadow-panel: 0 12px 40px rgba(0, 0, 0, 0.55), 0 0 0 1px var(--r-border);
+    --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.45);
+    --glow-orange: 0 0 18px rgba(247, 68, 0, 0.35);
+    /* ── Fonts ── */
+    --f-ui: 'Inter', sans-serif;
+    --f-brand: 'Rajdhani', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--f-ui);
+    background: var(--r-bg);
+    color: var(--r-text);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #374151;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--r-orange);
+}
+
+/* ── Keyframes ── */
+@keyframes pulse-live {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: .5;
+        transform: scale(1.45);
+    }
+}
+
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+.leaflet-container {
+  cursor: pointer;
+}
