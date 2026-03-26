@@ -187,7 +187,7 @@ export const LayerForm: React.FC<LayerFormProps> = ({
             </Field>
 
             <Field label="Layer Code" required icon={<FaCode />}>
-              <input className="lf-input lf-mono" name="layer_code" value={form.layer_code} onChange={onChange} placeholder="e.g. TRK_001" required />
+              <input className="lf-input lf-mono" name="layer_code" value={form.layer_code} onChange={onChange} required />
             </Field>
           </div>
 

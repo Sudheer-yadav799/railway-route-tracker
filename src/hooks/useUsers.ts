@@ -18,6 +18,33 @@ export const useGetUserById = (id: string) => {
   });
 };
 
+export const useUpdateUser = (onSuccessCallback?: () => void) => {
+  const qc = useQueryClient();
+
+  return useMutation({
+    mutationFn: userService.updateUserById,
+    onSuccess: (res) => {
+      toast.success(res?.message || "User updated successfully ");
+      qc.invalidateQueries({ queryKey: ["users"] });
+
+      if (onSuccessCallback) {
+        onSuccessCallback(); 
+      }
+    },
+     onError: (err: any) => {
+      toast.error(err?.response?.data?.message || "  failed to update User ");
+    },
+  });
+};
+
+export const useUpdateUserById = (id: string) => {
+  return useQuery({
+    queryKey: ["user", id],
+    queryFn: () => userService.updateUserById(id),
+    enabled: !!id,
+  });
+};
+
 
 export const useCreateUser = (onSuccessCallback?: () => void) => {
   const queryClient = useQueryClient();

@@ -17,8 +17,8 @@ const UserSessionsTable = () => {
       <div className="table-header">
         <h4>Today's User Sessions</h4>
       </div>
-
-      <table className="session-table">
+   <div className="table-scroll">
+    <table className="session-table">
 
         <thead>
           <tr>
@@ -75,6 +75,8 @@ const UserSessionsTable = () => {
         </tbody>
 
       </table>
+   </div>
+      
 
     </div>
   );

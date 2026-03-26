@@ -21,6 +21,10 @@ export const OverviewScreen = () => {
     0
   );
 
+const totalLayers = projects.reduce(
+  (s: number, p: any) => s + Number(p.layer_count || 0),
+  0
+);
   if (isLoading) return <div className="screen-loading">Loading...</div>;
 
   return (
@@ -72,8 +76,8 @@ export const OverviewScreen = () => {
           <div className="stat-card purple">
             <div className="stat-icon-box">🗺️</div>
             <div className="stat-info">
-              <div className="stat-value">30</div>
-              <div className="stat-label">Layer Types</div>
+              <div className="stat-value">{totalLayers}</div>
+              <div className="stat-label">Total Layers</div>
             </div>
           </div>
 

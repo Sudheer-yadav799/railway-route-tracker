@@ -11,10 +11,10 @@ const services = [
 ];
 
 const stats = [
-  { Icon: FiAward, value: "15+", label: "Years" },
+  { Icon: FiAward, value: "5+", label: "Years" },
   { Icon: FiLayers, value: "200+", label: "Projects" },
   { Icon: FiUsers, value: "40+", label: "Experts" },
-  { Icon: FiCompass, value: "18+", label: "Countries" }
+  { Icon: FiCompass, value: "10+", label: "Countries" }
 ];
 
 

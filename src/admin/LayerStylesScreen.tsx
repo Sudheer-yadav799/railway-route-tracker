@@ -17,7 +17,7 @@ import "./styles/admin-layer-styles.css";
 const PAGE_SIZE = 10;
 
 const ALL_FILTER_TYPES: string[] = [
-  "All", "tilelayer", "markerlayer", "linelayer", "polygonlayer", "wmslayer",
+  "All", "tilelayer", "markerlayer", "linelayer", "polygonlayer", "wmslayer","droneimagelayer"
 ];
 
 const EMPTY_FORM: LayerFormData = {
@@ -52,8 +52,35 @@ export const LayerStylesScreen: React.FC = () => {
   /* ── derived data ── */
   const sections  = data?.data ?? [];
   const allLayers: Layer[] = sections.flatMap((s: any) =>
-    s.layers.map((l: any) => ({ ...l, sectionTitle: s.title }))
-  );
+  s.layers.map((l: any) => ({
+    id: l.id,
+    sectionTitle: s.title,
+
+    // ✅ IMPORTANT FIXES
+    section_id: s.section,
+    layer_code: l.layerCode,
+    sortby: l.sortBy,
+
+    popup_type: l.popupType,
+    popup_name: l.popupname,
+    bind_popup_name: l.bindPopupName,
+    popup_field_name: l.popupFieldName,
+
+    icon_url: l.iconUrl,
+    geoserver_workspace: l.geoserverWorkSpace,
+
+    // existing
+    name: l.name,
+    color: l.color,
+    fillcolor: l.fillcolor,
+    isenabled: l.isenabled,
+    isactivated: l.isactivated ?? true,
+    type: l.type,
+    apiendpoint: l.apiendpoint,
+    opacity: l.opacity,
+    project_id: l.project_id,
+  }))
+);
 
   const filtered = allLayers.filter((l) => {
     const ms = l.name.toLowerCase().includes(search.toLowerCase());
@@ -117,16 +144,41 @@ export const LayerStylesScreen: React.FC = () => {
   /* ── submit ── */
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    const payload = {
-      ...form,
-      project_id: form.project_id ? Number(form.project_id) : null,
-      section_id: form.section_id ? Number(form.section_id) : null,
-      sortby:     form.sortby     ? Number(form.sortby)     : null,
-      opacity:    form.opacity    || null,
-    };
+   const payload = {
+  project_id: form.project_id ? Number(form.project_id) : null,
+  section_id: form.section_id ? Number(form.section_id) : null,
+  layer_code: form.layer_code?.trim() || "",
+  name: form.name,
+  color: form.color,
+  fillcolor: form.fillcolor,
+  opacity: form.opacity || null,
+  isenabled: form.isenabled,
+  type: form.type,
+  apiendpoint: form.apiendpoint,
+  sortBy: form.sortby ? Number(form.sortby) : null,
+
+  popupType: form.popup_type,
+  popupname: form.popup_name,
+  bindPopupName: form.bind_popup_name,
+  popupFieldName: form.popup_field_name,
+
+  iconUrl: form.icon_url,
+  geoserverWorkSpace: form.geoserver_workspace,
+};
+
 
     if (editLayer) {
-      updateLayer.mutate({ id: editLayer.id, ...payload }, { onSuccess: closeForm });
+     updateLayer.mutate(
+    {
+      layerId: editLayer.id,
+      data: payload,
+    },
+    {
+      onSuccess: () => {
+        closeForm();   // ✅ CLOSE MODAL AFTER UPDATE
+      },
+    }
+  );
     } else {
       createLayer.mutate(payload, { onSuccess: closeForm });
     }
@@ -221,9 +273,6 @@ export const LayerStylesScreen: React.FC = () => {
                     </td>
                     <td className="col-actions">
                       <div className="actions-cell">
-                        <button className="action-btn view" onClick={() => console.log("view", layer.id)}>
-                          <FaEye /> View
-                        </button>
                         <button className="action-btn edit" onClick={() => openEdit(layer)}>
                           <FaEdit /> Edit
                         </button>

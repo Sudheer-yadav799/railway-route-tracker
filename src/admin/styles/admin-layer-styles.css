@@ -220,10 +220,11 @@
 .type-badge {
   display: inline-block;
   font-size: 0.69rem;
-  border-radius: 20px;
-  padding: 3px 10px;
+  border-radius: 5px;
+  padding: 3px 15px;
   font-weight: 600;
   white-space: nowrap;
+  text-transform: uppercase;
 }
 .type-tilelayer    { background: var(--purple-bg); color: var(--purple); }
 .type-markerlayer  { background: var(--amber-bg);  color: var(--amber);  }
@@ -234,6 +235,7 @@
 .type-point        { background: var(--amber-bg);  color: var(--amber);  }
 .type-polygon      { background: var(--green-bg);  color: var(--green);  }
 .type-label        { background: var(--purple-bg); color: var(--purple); }
+.type-droneimagelayer { background: var(--cyan-bg); color: var(--blue); }
 
 /* ── COLOR CELL ── */
 .color-cell {

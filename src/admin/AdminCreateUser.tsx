@@ -1,10 +1,11 @@
-import { useState } from "react";
-import { useCreateUser } from "../hooks/useUsers";
+import { useEffect, useState } from "react";
+import { useCreateUser, useUpdateUser } from "../hooks/useUsers";
 import "./styles/admin-create-user.css";
 import { FaEye, FaEyeSlash, FaUserShield, FaUser, FaLink, FaUserFriends } from "react-icons/fa";
 
 interface Props {
   onClose: () => void;
+  editUser?: any; // ✅ add this
 }
 
 const roles = [
@@ -13,7 +14,7 @@ const roles = [
   { id: 3, name: "guest", label: "Guest", icon: <FaUserFriends /> },
 ];
 
-const AdminCreateUser: React.FC<Props> = ({ onClose }) => {
+const AdminCreateUser: React.FC<Props> = ({ onClose,editUser  }) => {
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -22,10 +23,22 @@ const AdminCreateUser: React.FC<Props> = ({ onClose }) => {
     password: "",
   });
 
+   useEffect(() => {
+    if (editUser) {
+      setForm({
+        name: editUser.name || "",
+        email: editUser.email || "",
+        mobile: editUser.mobile_number || "",
+        role: editUser.Roles?.[0]?.name || "customer",
+        password: editUser.mobile_number ||"", 
+      });
+    }
+  }, [editUser]);
   const [errors, setErrors] = useState<any>({});
   const [showPassword, setShowPassword] = useState(false);
 
-  const { mutate, isPending } = useCreateUser(onClose);
+ const { mutate: createUser  ,isPending} = useCreateUser(onClose);
+const { mutate: updateUser ,isPending: isUpdating} = useUpdateUser(onClose); 
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -54,22 +67,29 @@ const AdminCreateUser: React.FC<Props> = ({ onClose }) => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = () => {
-    if (!validate()) return;
+const handleSubmit = () => {
+  if (!validate()) return;
 
-    const selectedRole = roles.find((r) => r.name === form.role);
+  const selectedRole = roles.find((r) => r.name === form.role);
 
-    const payload = {
-      name: form.name,
-      email: form.email,
-      mobile_number: form.mobile,
-      password: form.password,
-      roleId: selectedRole?.id,
-      roleName: selectedRole?.name,
-    };
-
-    mutate(payload);
+  const payload = {
+    name: form.name,
+    email: form.email,
+    mobile_number: form.mobile,
+    password: form.password,
+    roleId: selectedRole?.id,
+    roleName: selectedRole?.name,
   };
+
+  if (editUser) {
+    updateUser({
+      id: editUser.id,
+      data: payload,
+    });
+  } else {
+    createUser(payload);
+  }
+};
 
   return (
     <div className="create-user-overlay">
@@ -175,9 +195,11 @@ const AdminCreateUser: React.FC<Props> = ({ onClose }) => {
           <button
             className="primary-btn"
             onClick={handleSubmit}
-            disabled={isPending}
+            disabled={isPending || isUpdating}
           >
-            {isPending ? "Creating..." : "Create User"}
+            {isPending || isUpdating
+  ? editUser ? "Updating..." : "Creating..."
+  : editUser ? "Update User" : "Create User"}
           </button>
         </div>
 

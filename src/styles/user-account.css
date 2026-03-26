@@ -608,3 +608,9 @@ PROFILE PAGE
 .profile-back:hover{
   color:var(--text-dark);
 }
+
+.us-actions{
+
+  display: flex;
+  gap: 4px;
+}

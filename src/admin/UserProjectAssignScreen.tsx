@@ -88,7 +88,7 @@ const UserProjectsScreen = () => {
       <div className="admin-top-header">
         <div className="admin-top-header-left">
           <h2>Project Management</h2>
-          <p>Railway Web GIS — Layer Styling Standards</p>
+          <p>Railway Web GIS — Project Configuration & Management</p>
         </div>
       </div>
 

@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { FaUserPlus, FaSearch, FaTrash, FaSortAmountDown, FaSortAmountUp } from "react-icons/fa";
+import { FaUserPlus, FaSearch, FaTrash, FaSortAmountDown, FaSortAmountUp, FaEdit } from "react-icons/fa";
 import { useDeleteUser, useGetUsers } from "../hooks/useUsers";
 import AdminCreateUser from "./AdminCreateUser";
 import "../styles/user-account.css";
@@ -9,14 +9,15 @@ const PAGE_SIZE = 5;
 const UsersScreen = () => {
   const { data: users = [], isLoading } = useGetUsers();
 
-  const [openCreate, setOpenCreate]   = useState(false);
-  const [search, setSearch]           = useState("");
-  const [roleFilter, setRoleFilter]   = useState("all");
-  const [sortField, setSortField]     = useState("name");
-  const [sortOrder, setSortOrder]     = useState<"asc" | "desc">("asc");
-  const [page, setPage]               = useState(1);
+  const [openCreate, setOpenCreate] = useState(false);
+  const [search, setSearch] = useState("");
+  const [roleFilter, setRoleFilter] = useState("all");
+  const [sortField, setSortField] = useState("name");
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+  const [page, setPage] = useState(1);
 
   const currentUser = localStorage.getItem("userId");
+  const [editUser, setEditUser] = useState<any>(null);
 
   /* ── filter + sort ── */
   const filteredUsers = useMemo(() => {
@@ -46,7 +47,7 @@ const UsersScreen = () => {
     return result;
   }, [users, search, roleFilter, sortField, sortOrder]);
 
-  const totalPages     = Math.ceil(filteredUsers.length / PAGE_SIZE);
+  const totalPages = Math.ceil(filteredUsers.length / PAGE_SIZE);
   const paginatedUsers = filteredUsers.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
   const handleSort = (field: string) => {
@@ -65,15 +66,15 @@ const UsersScreen = () => {
   /* ── role → colour ── */
   const roleCls = (role: string) => {
     const r = role?.toLowerCase();
-    if (r === "admin")    return "role-admin";
+    if (r === "admin") return "role-admin";
     if (r === "customer") return "role-customer";
-    if (r === "guest")    return "role-guest";
+    if (r === "guest") return "role-guest";
     return "role-default";
   };
 
   /* ── avatar colour from name ── */
   const avatarColor = (name: string) => {
-    const colors = ["#3b82f6","#8b5cf6","#10b981","#f59e0b","#ef4444","#06b6d4","#ec4899"];
+    const colors = ["#3b82f6", "#8b5cf6", "#10b981", "#f59e0b", "#ef4444", "#06b6d4", "#ec4899"];
     let hash = 0;
     for (let i = 0; i < name.length; i++) hash = name.charCodeAt(i) + ((hash << 5) - hash);
     return colors[Math.abs(hash) % colors.length];
@@ -184,8 +185,21 @@ const UsersScreen = () => {
                       day: "2-digit", month: "short", year: "numeric",
                     })}
                   </td>
-                  <td className="us-td">
-                    <div className="us-actions">
+                  <td className="us-td ">
+                    <div className="us-actions ">
+
+                      <button
+                       className="us-btn-delete"
+                        onClick={() => {
+                          setEditUser(user);
+                          setOpenCreate(true);
+                        }}
+                        title="Edit user"
+                      >
+                        <FaEdit /> Edit
+                      </button>
+
+                      {/* DELETE */}
                       <button
                         className="us-btn-delete"
                         onClick={() => handleDelete(user.id)}
@@ -195,6 +209,7 @@ const UsersScreen = () => {
                         <FaTrash />
                         {isDeleting ? "Deleting…" : "Delete"}
                       </button>
+
                     </div>
                   </td>
                 </tr>
@@ -223,7 +238,15 @@ const UsersScreen = () => {
         </div>
       </div>
 
-      {openCreate && <AdminCreateUser onClose={() => setOpenCreate(false)} />}
+      {openCreate && (
+        <AdminCreateUser
+          onClose={() => {
+            setOpenCreate(false);
+            setEditUser(null);
+          }}
+          editUser={editUser} 
+        />
+      )}
     </div>
   );
 };

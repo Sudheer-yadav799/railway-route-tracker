@@ -68,7 +68,7 @@ const UserAccount: React.FC = () => {
         {/* STATS */}
         <div className="profile-stats">
           <div>
-            <strong>{user.projectIds?.length || 0}</strong>
+            <strong>{user.project_count || 0}</strong>
             <span>PROJECTS</span>
           </div>
         </div>

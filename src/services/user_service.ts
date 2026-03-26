@@ -24,6 +24,13 @@ export const userService = {
     );
     return response.data;
   },
+   updateUserById: async ({ id, data }: any) => {
+  const response = await axiosInstance.post(
+    API_ENDPOINTS.USERS.UPDATE_BY_USER_ID(id),
+    data  
+  );
+  return response.data;
+},
   deleteUserById: async ({id,deletedById,}: { id: number | string; deletedById: number | string; }) => {
     const response = await axiosInstance.delete(
       API_ENDPOINTS.USERS.DELETE_BY_ID(id, deletedById)
