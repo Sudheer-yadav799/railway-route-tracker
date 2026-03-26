@@ -64,9 +64,13 @@
 /* arrow */
 
 .legend-chevron {
-  font-size: 10px;
+  font-size: 15px;
   transition: transform 0.25s ease;
-  color: #0b1f36;
+  /* color: ; */
+    color: #0b1f36;
+
+
+ 
 }
 
 /* ── Body ── */

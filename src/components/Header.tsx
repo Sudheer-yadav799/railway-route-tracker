@@ -189,7 +189,7 @@ const Header = ({ mapRef }: HeaderProps) => {
         <div className="brand-block">
           <img src={companyLogo} className="brand-logo" alt="Company Logo" />
           <div>
-            <div className="brand-tag">DGT</div>
+            {/* <div className="brand-tag">DGT</div> */}
             <div className="brand-title">Dharani Geo Portal</div>
           </div>
         </div>

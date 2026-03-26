@@ -187,7 +187,7 @@ const fetchSuggestions = async (keyword: string) => {
 
       <input
         type="text"
-        placeholder={filterType === "poles" ? "Search pole name..." : "Search area layer..."}
+        // placeholder={filterType === "poles" ? "Search pole name..." : "Search area layer..."}
         value={query}
         onChange={handleChange}
       />

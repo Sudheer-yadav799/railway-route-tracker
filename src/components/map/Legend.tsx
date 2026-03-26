@@ -4,6 +4,7 @@ import L from 'leaflet'
 
 import { railwayStyleConfig } from '../../utils/railwayStyleConfig'
 import { railwayMarkerIcons } from '../../utils/config/railwayMarkerIcons'
+import { FiChevronDown, FiChevronUp } from 'react-icons/fi'
 
 /* ─────────────────────────────────────────────
    📌 GROUP CONFIG (ONLY KEYS, NO STYLES HERE)
@@ -99,9 +100,8 @@ const LegendView = () => {
         <span className="legend-title">LEGEND</span>
         <span
           className="legend-chevron"
-          style={{ transform: open ? 'rotate(180deg)' : 'rotate(0deg)' }}
         >
-          ▼
+         {open?  <FiChevronDown /> : <FiChevronUp />} 
         </span>
       </div>
 

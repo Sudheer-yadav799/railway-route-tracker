@@ -98,10 +98,7 @@ const LayerPanelSection = () => {
                             />
                             <span>{layer.name}</span>
                           </div>
-                          <span
-                            className="color-dot"
-                            style={{ background: layer.color || "#00c8ff" }}
-                          />
+                          
                         </div>
                       ))}
                   </div>
