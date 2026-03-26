@@ -136,12 +136,12 @@ const getDynamicIcon = useCallback((baseIcon: L.Icon) => {
     const onPopupOpen  = () => { popupOpen.current = true }
     const onPopupClose = () => { popupOpen.current = false }
 
-    // ✅ As soon as user starts panning/zooming — close any open popup immediately
-    const onMoveStart = () => {
-      if (popupOpen.current) {
-        map.closePopup()          // closes popup → triggers onPopupClose → unblocks
-      }
-    }
+
+   const onMoveStart = () => {
+  if (popupOpen.current && !(map as any)._isSearchFly) {
+    map.closePopup()
+  }
+}
 
     const onMove = () => {
       if (popupOpen.current) return

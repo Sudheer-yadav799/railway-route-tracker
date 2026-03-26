@@ -19,6 +19,7 @@ import BRIDGE from "../../assets/railway-icons/BRIDGE.svg";
 import CULVERT from "../../assets/railway-icons/CULVERT.svg";
 import RUB from "../../assets/railway-icons/RUB.svg";
 import ROB from "../../assets/railway-icons/ROB.svg";
+import SHUNTS from "../../assets/railway-icons/SHUNTS.svg";
 
 const createIcon = (iconUrl: string, size = 24) =>
   L.icon({
@@ -34,7 +35,7 @@ export const railwayMarkerIcons: Record<string, L.Icon> = {
   "SIGNAL": createIcon(SIGNALS, 24),
   "KM": createIcon(KM_STONE, 26),
   "KM STONE": createIcon(KM_STONE, 26),
-  "STATION CENTER": createIcon(STATION_CENTER, 26),
+  "STATIONCENTER": createIcon(STATION_CENTER, 26),
   "TOWER": createIcon(TOWER, 26),
   "FIELD GEARS": createIcon(FIELDGEARS, 24),
   "LC GATE": createIcon(LCGATE, 24),
@@ -43,6 +44,7 @@ export const railwayMarkerIcons: Record<string, L.Icon> = {
   "DEADEND": createIcon(DEADEND, 22),
   "BSLB": createIcon(BSLB, 22),
   "FM": createIcon(FM, 22),
+  "SHUNTS": createIcon(SHUNTS, 22),
   "STOPBOARD": createIcon(STOPBOARD, 22),
   "BRIDGE": createIcon(BRIDGE, 24),
   "CULVERT": createIcon(CULVERT, 24),

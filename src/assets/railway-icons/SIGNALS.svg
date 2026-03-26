@@ -1,30 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
-  <defs>
-    <radialGradient id="red_l" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#ff4444"/><stop offset="100%" stop-color="#990000"/></radialGradient>
-    <radialGradient id="yel_l" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#ffee00"/><stop offset="100%" stop-color="#886600"/></radialGradient>
-    <radialGradient id="grn_l" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#44ff44"/><stop offset="100%" stop-color="#006600"/></radialGradient>
-  </defs>
-  <!-- post -->
-  <rect x="30" y="48" width="4" height="16" fill="#555"/>
-  <rect x="22" y="62" width="20" height="2" rx="1" fill="#444"/>
-  <!-- signal head -->
-  <rect x="16" y="4" width="32" height="46" rx="5" fill="#111" stroke="#333" stroke-width="2"/>
-  <!-- hood visors -->
-  <rect x="16" y="8" width="32" height="4" rx="2" fill="#222"/>
-  <rect x="16" y="22" width="32" height="4" rx="2" fill="#222"/>
-  <rect x="16" y="36" width="32" height="4" rx="2" fill="#222"/>
-  <!-- RED lamp -->
-  <circle cx="32" cy="13" r="8" fill="#1a0000"/>
-  <circle cx="32" cy="13" r="6" fill="url(#red_l)"/>
-  <circle cx="29" cy="11" r="2" fill="#ffaaaa" opacity="0.5"/>
-  <!-- YELLOW lamp (dim) -->
-  <circle cx="32" cy="27" r="8" fill="#111100"/>
-  <circle cx="32" cy="27" r="6" fill="#665500"/>
-  <!-- GREEN lamp (active) -->
-  <circle cx="32" cy="41" r="8" fill="#001100"/>
-  <circle cx="32" cy="41" r="6" fill="url(#grn_l)"/>
-  <circle cx="29" cy="39" r="2" fill="#aaffaa" opacity="0.6"/>
-  <!-- bracket arm -->
-  <line x1="32" y1="20" x2="48" y2="14" stroke="#555" stroke-width="2.5" stroke-linecap="round"/>
-  <circle cx="48" cy="14" r="3" fill="#666"/>
-</svg>
+
+  <svg id="svgSignal" width="60" height="120" viewBox="0 0 60 120" xmlns="http://www.w3.org/2000/svg">
+    <!-- pole -->
+    <rect x="27" y="80" width="6" height="38" fill="#333"/>
+    <!-- housing shadow -->
+    <rect x="10" y="8" width="40" height="72" rx="10" ry="10" fill="#111" opacity="0.25" transform="translate(2,2)"/>
+    <!-- housing -->
+    <rect x="10" y="8" width="40" height="72" rx="10" ry="10" fill="#1a1a1a"/>
+    <!-- red lens -->
+    <circle cx="30" cy="32" r="13" fill="#cc0000"/>
+    <circle cx="30" cy="32" r="11" fill="#ff2a2a"/>
+    <circle cx="26" cy="28" r="3" fill="rgba(255,255,255,0.25)"/>
+    <!-- amber lens -->
+    <circle cx="30" cy="62" r="10" fill="#b8860b"/>
+    <circle cx="30" cy="62" r="8" fill="#ffc200"/>
+    <circle cx="27" cy="59" r="2.5" fill="rgba(255,255,255,0.25)"/>
+    <!-- bracket -->
+    <rect x="27" y="76" width="6" height="8" fill="#555"/>
+    <!-- green indicator dot (legend color) -->
+    <circle cx="30" cy="5" r="4" fill="#008000"/>
+  </svg>

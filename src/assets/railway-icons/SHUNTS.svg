@@ -1,0 +1,30 @@
+
+  <!-- Inline preview -->
+  <svg id="svgShunt" width="70" height="120" viewBox="0 0 70 120" xmlns="http://www.w3.org/2000/svg">
+    <!-- pole -->
+    <rect x="32" y="76" width="6" height="42" fill="#333"/>
+    <!-- diamond housing shadow -->
+    <rect x="16" y="16" width="40" height="40" rx="4" ry="4" fill="#111" opacity="0.2" transform="rotate(45 36 36) translate(2,2)"/>
+    <!-- diamond housing -->
+    <rect x="16" y="16" width="40" height="40" rx="4" ry="4" fill="#1a1a1a" transform="rotate(45 36 36)"/>
+    <!-- white grid lines inside diamond (clipped) -->
+    <clipPath id="diamondClip">
+      <rect x="16" y="16" width="40" height="40" rx="4" ry="4" transform="rotate(45 36 36)"/>
+    </clipPath>
+    <g clip-path="url(#diamondClip)" stroke="#fff" stroke-width="1.6" fill="none">
+      <!-- diagonals -->
+      <line x1="14" y1="14" x2="58" y2="58"/>
+      <line x1="58" y1="14" x2="14" y2="58"/>
+      <!-- cross horizontals/verticals -->
+      <line x1="12" y1="36" x2="60" y2="36"/>
+      <line x1="36" y1="12" x2="36" y2="60"/>
+    </g>
+    <!-- bracket to pole -->
+    <rect x="32" y="68" width="6" height="10" fill="#555"/>
+    <!-- purple indicator dot (legend color) -->
+    <circle cx="35" cy="5" r="4" fill="#800080"/>
+    <!-- polyline sample (dotted purple) -->
+    <line x1="4" y1="110" x2="66" y2="110"
+          stroke="#800080" stroke-width="2"
+          stroke-dasharray="2,4"/>
+  </svg>

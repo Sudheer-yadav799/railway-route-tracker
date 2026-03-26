@@ -173,6 +173,7 @@ const Header = ({ mapRef }: HeaderProps) => {
     navigate("/");
 
   };
+  
 
   /* -----------------------------
      UI
@@ -228,7 +229,7 @@ const Header = ({ mapRef }: HeaderProps) => {
 
       {/* SEARCH BAR */}
 
-      <SearchBar mapRef={mapRef} />
+   <SearchBar mapRef={mapRef} projectId={selectedproject} />
 
       {/* RIGHT */}
 

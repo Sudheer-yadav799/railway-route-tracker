@@ -1,5 +1,4 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
-<<<<<<< HEAD
   <!-- ground shadow -->
   <ellipse cx="32" cy="61" rx="13" ry="3.5" fill="#5C3D11" opacity="0.5"/>
   <!-- pole shaft -->
@@ -19,23 +18,3 @@
   <rect x="29" y="52" width="6" height="4" fill="#E74C3C"/>
   <rect x="29" y="56" width="6" height="3" fill="#F1C40F"/>
 </svg>
-=======
-  <!-- ground -->
-  <ellipse cx="32" cy="60" rx="14" ry="4" fill="#3a2e1a" opacity="0.6"/>
-  <!-- pole shaft -->
-  <rect x="29" y="12" width="6" height="48" rx="2" fill="#6b5a3e" stroke="#3a2e1a" stroke-width="1.5"/>
-  <!-- cross arms -->
-  <rect x="12" y="18" width="40" height="5" rx="2" fill="#5a4a2e" stroke="#3a2e1a" stroke-width="1.2"/>
-  <rect x="16" y="28" width="32" height="4" rx="2" fill="#5a4a2e" stroke="#3a2e1a" stroke-width="1.2"/>
-  <!-- insulators on top arm -->
-  <circle cx="14" cy="20" r="3" fill="#ccddaa" stroke="#556B2F" stroke-width="1"/>
-  <circle cx="32" cy="20" r="3" fill="#ccddaa" stroke="#556B2F" stroke-width="1"/>
-  <circle cx="50" cy="20" r="3" fill="#ccddaa" stroke="#556B2F" stroke-width="1"/>
-  <!-- OHE wires -->
-  <line x1="4" y1="20" x2="14" y2="20" stroke="#999" stroke-width="1.2"/>
-  <line x1="50" y1="20" x2="60" y2="20" stroke="#999" stroke-width="1.2"/>
-  <!-- ID tag plate -->
-  <rect x="20" y="4" width="24" height="10" rx="2" fill="#FFD700" stroke="#cc9900" stroke-width="1.5"/>
-  <text x="32" y="12" text-anchor="middle" font-size="7" fill="#000" font-family="Arial" font-weight="bold">P-101</text>
-</svg>
->>>>>>> bd0893bbba46a0e529a9346238f37165fd8c1335

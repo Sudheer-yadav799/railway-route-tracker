@@ -182,7 +182,7 @@ const Auth: React.FC<Props> = ({ onLogin }) => {
 
         {alreadyLoggedIn ? (
 
-        <CompanyInfo/>
+          <CompanyInfo />
 
         ) : (
 
@@ -291,6 +291,11 @@ const Auth: React.FC<Props> = ({ onLogin }) => {
                   placeholder="Enter password"
                   className="form-input"
                   onChange={handleChange}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      handleSubmit();
+                    }
+                  }}
                 />
 
                 <span
@@ -318,16 +323,17 @@ const Auth: React.FC<Props> = ({ onLogin }) => {
               className="auth-button"
               onClick={handleSubmit}
               disabled={isPending}
+
             >
 
               {isPending
                 ? "Processing..."
                 : isRegister
-                ? "Create Account"
-                : "Sign In"}
+                  ? "Create Account"
+                  : "Sign In"}
 
             </button>
-{/* 
+            {/* 
             <div className="auth-divider">or</div>
 
             <div className="switch-text">

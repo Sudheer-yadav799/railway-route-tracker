@@ -3,12 +3,14 @@ import L from "leaflet";
 import { railwayMarkerIcons } from "../../utils/config/railwayMarkerIcons";
 
 import { useSelector,shallowEqual  } from "react-redux";
+import toast from "react-hot-toast";
 const GEOSERVER = import.meta.env.VITE_GEOSERVER_URL;
 
 type FeatureType = "poles" | "areas";
 
 interface SearchBarProps {
   mapRef: React.MutableRefObject<any>;
+  projectId: string;
 }
 
 const normalizeLayerName = (value?: string) => {
@@ -18,12 +20,13 @@ const normalizeLayerName = (value?: string) => {
   return cleaned;
 };
 
-const SearchBar = ({ mapRef }: SearchBarProps) => {
+const SearchBar = ({ mapRef,projectId }: SearchBarProps) => {
   const [query, setQuery] = useState("");
   const [filterType, setFilterType] = useState<FeatureType>("poles");
   const [filterOpen, setFilterOpen] = useState(false);
   const [suggestions, setSuggestions] = useState<any[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const isFlyingRef = useRef(false)
 
  const sections = useSelector((state: any) => state.layers.sections,shallowEqual);
 
@@ -39,6 +42,16 @@ const SearchBar = ({ mapRef }: SearchBarProps) => {
     };
   }, []);
 
+  useEffect(() => {
+  setQuery("");
+  setSuggestions([]);
+  setShowSuggestions(false);
+
+  if (highlightMarkerRef.current) {
+    highlightMarkerRef.current.remove();
+    highlightMarkerRef.current = null;
+  }
+}, [projectId]);
 const fetchSuggestions = async (keyword: string) => {
   if (!keyword) {
     setSuggestions([]);
@@ -95,6 +108,20 @@ const fetchSuggestions = async (keyword: string) => {
   }
 };
 
+
+
+const handleSearchSubmit = async () => {
+  if (!query) return;
+
+  await fetchSuggestions(query);
+
+  if (!suggestions.length) {
+    toast.error("No results found"); // or custom popup UI
+    return;
+  }
+
+  handleSelect(suggestions[0]); // auto select first
+};
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
     setQuery(val);
@@ -116,6 +143,7 @@ const fetchSuggestions = async (keyword: string) => {
 
     const map = mapRef?.current;
     if (!map) { console.error("mapRef.current is null"); return; }
+    
     if (typeof map.flyTo !== "function") { console.error("Not a Leaflet map:", map); return; }
 
     const geom = feature.geometry;
@@ -137,7 +165,7 @@ const fetchSuggestions = async (keyword: string) => {
       // ── create a slightly larger version to highlight it ─────
       const highlightIcon = L.icon({
         ...baseIcon.options,
-        iconSize: [36, 36],            // bigger than normal marker
+        iconSize: [36, 36],            
         iconAnchor: [18, 36],
       });
 
@@ -153,9 +181,14 @@ const fetchSuggestions = async (keyword: string) => {
         .openPopup();
 
       highlightMarkerRef.current = marker;
+(map as any)._isSearchFly = true;
 
-      // ── fly to it ────────────────────────────────────────────
-      map.flyTo([lat, lng], 18, { animate: true, duration: 1.2 });
+map.flyTo([lat, lng], 18, { animate: true, duration: 1.2 });
+
+setTimeout(() => {
+  (map as any)._isSearchFly = false;
+}, 1500);
+    
 
     } else if (geom.type === "Polygon" || geom.type === "MultiPolygon") {
       const geoLayer = L.geoJSON(feature);
@@ -190,6 +223,7 @@ const fetchSuggestions = async (keyword: string) => {
         // placeholder={filterType === "poles" ? "Search pole name..." : "Search area layer..."}
         value={query}
         onChange={handleChange}
+        onKeyDown={(e) => e.key === "Enter" && handleSearchSubmit()}
       />
 
   {showSuggestions && suggestions.length > 0 && (
