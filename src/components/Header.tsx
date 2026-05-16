@@ -6,6 +6,7 @@ import SearchBar from "./map/SearchBar";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedProject } from "../store/slices/projectSlice";
 import { useUserProjectsById } from "../hooks/useUserProjects";
+import { useLogout } from "../hooks/useAuth";
 
 interface HeaderProps {
   mapRef: React.MutableRefObject<any>;
@@ -23,6 +24,7 @@ const Header = ({ mapRef }: HeaderProps) => {
   const menuRef = useRef<HTMLDivElement>(null);
   const areaRef = useRef<HTMLDivElement>(null);
 
+    const logoutMutation = useLogout();
   const user = useSelector((state: any) => state.auth.user);
 
   const isAdmin = user?.Roles?.some(
@@ -165,14 +167,7 @@ const Header = ({ mapRef }: HeaderProps) => {
      LOGOUT
   ------------------------------ */
 
-  const handleLogout = () => {
 
-    localStorage.removeItem("token");
-    localStorage.removeItem("activeProject");
-
-    navigate("/");
-
-  };
   
 
   /* -----------------------------
@@ -265,7 +260,7 @@ const Header = ({ mapRef }: HeaderProps) => {
               <div
                 className="profile-option danger"
                 onClick={() => {
-                  handleLogout();
+                  logoutMutation.mutate();
                   setMenuOpen(false);
                 }}
               >
