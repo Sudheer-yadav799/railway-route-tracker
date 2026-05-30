@@ -4,6 +4,7 @@ import { useEffect, ReactNode } from "react";
 import { MapContainer, useMapEvents, useMap } from "react-leaflet";
 import { useSelector } from "react-redux";
 import MeasureControl from "./MeasureControl";
+import DistanceRuler from "./ruler";
 
 const ZoomLogger = () => {
   const map = useMapEvents({
@@ -39,7 +40,8 @@ const BaseMap: React.FC<BaseMapProps> = ({
       <MeasureControl />
 
       {/* Project map center updater */}
-      <ProjectMapUpdater />
+      <ProjectMapUpdater /> 
+      <DistanceRuler />
 
       <MapReady onReady={onMapReady} />
 

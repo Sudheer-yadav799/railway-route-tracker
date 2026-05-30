@@ -7,15 +7,16 @@ const MeasureControl = () => {
   const map = useMap()
 
   useEffect(() => {
-    const measureControl = new (L as any).Control.Measure({
-      position: 'topleft',
-      primaryLengthUnit: "kilometers",
-      secondaryLengthUnit: "meters",
-      primaryAreaUnit: "sqkilometers",
-      secondaryAreaUnit: "sqmeters",
-      activeColor: '#fc7a00',
-      completedColor: '#00FFFF',
-    })
+const measureControl = new (L as any).Control.Measure({
+  position: 'topleft',
+
+  // AREA ONLY
+  primaryAreaUnit: 'hectares',
+  secondaryAreaUnit: 'sqmeters',
+
+  activeColor: '#fc7a00',
+  completedColor: '#00FFFF',
+})
 
     map.addControl(measureControl)
 
