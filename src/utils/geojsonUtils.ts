@@ -1,26 +1,65 @@
-import proj4 from 'proj4'
+const getHierarchy = (layer: any) => {
+  const name = layer.name?.toUpperCase() || "";
+  const type = layer.type?.toUpperCase() || "";
 
-proj4.defs(
-  'EPSG:32644',
-  '+proj=utm +zone=44 +datum=WGS84 +units=m +no_defs'
-)
-
-export const reprojectCoords = (coords: any): any => {
-  if (typeof coords[0] === 'number') {
-    const [lng, lat] = proj4('EPSG:32644', 'EPSG:4326', coords)
-    return [lng, lat]
+  /* =========================
+     1. RAILWAY LINES
+  ========================= */
+  if (type === "LINELAYER" || name.includes("LINE")) {
+    return {
+      group: "Railway Lines",
+      subgroup: "All Lines",
+    };
   }
-  return coords.map(reprojectCoords)
-}
 
-export const convertGeoJSON = (data: any) =>
-  JSON.parse(JSON.stringify({
-    ...data,
-    features: data.features.map((f: any) => ({
-      ...f,
-      geometry: {
-        ...f.geometry,
-        coordinates: reprojectCoords(f.geometry.coordinates)
-      }
-    }))
-  }))
+  /* =========================
+     2. MARKERS → SIGNALING
+  ========================= */
+  if (type === "MARKERLAYER") {
+    return {
+      group: "Signaling & Field Equipment",
+      subgroup: "General",
+    };
+  }
+
+  /* =========================
+     3. OHE
+  ========================= */
+  if (name.includes("OHE")) {
+    return {
+      group: "OHE",
+      subgroup: "OHE Poles",
+    };
+  }
+
+  /* =========================
+     4. UTILITIES
+  ========================= */
+  if (
+    name.includes("BRIDGE") ||
+    name.includes("CULVERT") ||
+    name.includes("RUB") ||
+    name.includes("ROB")
+  ) {
+    const subgroup =
+      name.includes("ROB")
+        ? "ROB"
+        : name.includes("RUB")
+        ? "RUB"
+        : name.includes("BRIDGE")
+        ? "Bridges"
+        : name.includes("CULVERT")
+        ? "Culvert"
+        : "Other";
+
+    return {
+      group: "Utilities & Other Assets",
+      subgroup,
+    };
+  }
+
+  return {
+    group: "Other Layers",
+    subgroup: "General",
+  };
+};

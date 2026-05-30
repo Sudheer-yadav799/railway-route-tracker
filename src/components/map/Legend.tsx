@@ -11,11 +11,10 @@ import { FiChevronDown, FiChevronUp } from 'react-icons/fi'
 ───────────────────────────────────────────── */
 const LEGEND_GROUPS: Record<string, string[]> = {
   Track: ['MAIN LINES', 'OTHER LINES', 'LOOP LINES', 'SHUNTS', 'GLUE JOINTS'],
-  Signalling: ['SIGNALS', 'POINTS', 'BSLB', 'FM', 'FIELD GEARS', 'LC GATE', 'SAND HUMP', 'DEAD END', 'STOPBOARD','POLE WITH ID','POLE ID'],
+  Signalling: ['SIGNALS', 'POINTS', 'POINT', 'BSLB', 'FM', 'FIELD GEARS', 'LC GATE', 'DEAD END', 'STOPBOARD','POLE ID'],
   'Station Infrastructure': ['STATION CENTER', 'PLATFORM', 'BUILDING', 'PARKING', 'IB HUT', 'KM STONE'],
   Bridges: ['BRIDGE', 'CULVERT', 'ROB', 'RUB', 'FOOT OVER BRIDGE'],
   'Railway Boundary': ['RAILWAY BOUNDARY', 'TOWER'],
-  Electrical: ['OHE'],
 }
 
 /* ─────────────────────────────────────────────

@@ -3,6 +3,7 @@ import { GeoJSON } from "react-leaflet";
 
 import { railwayStyleConfig } from "../../../utils/railwayStyleConfig";
 import { buildPopupHTML } from "../../../utils/popups/popup";
+import { useSelector } from "react-redux";
 
 interface Props {
   layer: any;
@@ -11,6 +12,29 @@ interface Props {
 
 const VectorLayerRenderer: React.FC<Props> = ({ layer, geoData }) => {
   if (!geoData) return null;
+const enabledAssetLayers = useSelector(
+  (state: any) =>
+    state.assetLayers.enabledLayers
+);
+
+const filteredGeoData = {
+  ...geoData,
+  features: geoData.features?.filter((feature: any) => {
+    const layerName =
+      feature.properties?.layer
+        ?.trim()
+        ?.toUpperCase();
+
+    console.log(
+      "Feature Layer:",
+      layerName,
+      "Enabled:",
+      enabledAssetLayers[layerName]
+    );
+
+    return enabledAssetLayers[layerName] !== false;
+  }) || []
+};
 
 const getStyle = (feature: any) => {
 
@@ -54,12 +78,14 @@ const getStyle = (feature: any) => {
   };
 
   return (
-    <GeoJSON
-      key={`vector-${layer.id}`}
-      data={geoData}
-      style={getStyle}
-      onEachFeature={handleEachFeature}
-    />
+   <GeoJSON
+  key={`vector-${layer.id}-${Object.keys(enabledAssetLayers)
+    .filter(k => enabledAssetLayers[k])
+    .join("-")}`}
+  data={filteredGeoData}
+  style={getStyle}
+  onEachFeature={handleEachFeature}
+/>
   );
 };
 

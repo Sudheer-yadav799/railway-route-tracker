@@ -1,10 +1,12 @@
 import { Marker, Popup, useMap  ,Tooltip} from "react-leaflet"
 import { useEffect, useRef, useState, useCallback } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import L from "leaflet"
 import { setGeoJson, setLoading } from "../../../store/slices/railwayGeoSlice"
-import { getLabelText, railwayMarkerIcons } from "../../../utils/config/railwayMarkerIcons"
-
+import { getLabelText, railwayMarkerIcons,getMarkerIconByName } from "../../../utils/config/railwayMarkerIcons"
+import {
+  setAvailableLayers
+} from "../../../store/slices/assetLayersSlice"
 import "../../../styles/map.css"
 
 const CHUNK_SIZE = 100
@@ -45,21 +47,46 @@ const RailwayMarkerLayer = ({ layer }: any) => {
   const abortCtrl     = useRef<AbortController | null>(null)  // ← cancel stale fetches
   const popupOpen     = useRef(false)           // ← track popup state
 
+  const enabledAssetLayers =
+  useSelector(
+    (state:any) =>
+      state.assetLayers.enabledLayers
+  )
   /* ---------------- Icon Resize ---------------- */
 const getDynamicIcon = useCallback((baseIcon: L.Icon) => {
+  const iconUrl = String(baseIcon.options.iconUrl || "").toUpperCase();
 
-  if (zoom >= 22)
-    return L.icon({ ...baseIcon.options, iconSize: [55,55] })
+  const isLargeIcon =
+    iconUrl.includes("POINT") ||
+    iconUrl.includes("SHUNT") ||
+    iconUrl.includes("LCGATE");
 
-  if (zoom >= 20)
-    return L.icon({ ...baseIcon.options, iconSize: [45,45] })
+  if (zoom >= 22) {
+    return L.icon({
+      ...baseIcon.options,
+      iconSize: isLargeIcon ? [95, 95] : [55, 55],
+    });
+  }
 
-  if (zoom >= 18)
-    return L.icon({ ...baseIcon.options, iconSize: [28,28] })
+  if (zoom >= 20) {
+    return L.icon({
+      ...baseIcon.options,
+      iconSize: isLargeIcon ? [55, 55] : [45, 45],
+    });
+  }
 
-  return L.icon({ ...baseIcon.options, iconSize: [22,22] })
+  if (zoom >= 18) {
+    return L.icon({
+      ...baseIcon.options,
+      iconSize: isLargeIcon ? [40, 40] : [28, 28],
+    });
+  }
 
-}, [zoom])
+  return L.icon({
+    ...baseIcon.options,
+    iconSize: [22, 22],
+  });
+}, [zoom]);
 
   /* ---------------- Chunk Rendering ---------------- */
   const loadChunkIdle = useCallback(() => {
@@ -81,6 +108,28 @@ const getDynamicIcon = useCallback((baseIcon: L.Icon) => {
       loadChunkIdle()
     }, LOAD_DELAY)
   }, [loadChunkIdle])
+
+const getAssetCategory = (feature: any) => {
+  const layer =
+    feature.properties?.layer?.toUpperCase();
+
+  const name =
+    feature.properties?.name?.toUpperCase()?.trim() || "";
+
+  if (
+    layer === "SIGNAL" ||
+    layer === "SIGNALS"
+  ) {
+    if (name.startsWith("SH")) return "SHUNTS";
+    if (name.startsWith("P")) return "POINTS";
+    if (name.startsWith("LC")) return "LC GATE";
+    if (name.startsWith("FM")) return "FM";
+
+    return "SIGNALS";
+  }
+
+  return layer;
+};
 
   /* ---------------- Load WFS ---------------- */
   const loadData = useCallback(() => {
@@ -117,9 +166,22 @@ const getDynamicIcon = useCallback((baseIcon: L.Icon) => {
     fetch(wfsUrl, { signal: abortCtrl.current.signal })
       .then(res => res.json())
       .then(json => {
-        scheduleChunkLoad(json)
-        dispatch(setGeoJson(json))
-      })
+
+const uniqueLayers = [
+  ...new Set(
+    json.features
+      .map((f:any) => getAssetCategory(f))
+      .filter(Boolean)
+  )
+];
+
+dispatch(setAvailableLayers(uniqueLayers));
+
+
+  scheduleChunkLoad(json)
+
+  dispatch(setGeoJson(json))
+})
       .catch(err => {
         if (err.name !== "AbortError") {
           console.error("WFS fetch error:", err)
@@ -184,11 +246,23 @@ const getDynamicIcon = useCallback((baseIcon: L.Icon) => {
 
   return (
     <>
-{visibleFeatures.map((f: any, index: number) => {
+{visibleFeatures.filter((f:any) => {
+
+  const category =
+  getAssetCategory(f);
+
+return (
+  enabledAssetLayers[category] !== false
+)
+  }).map((f: any, index: number) => {
   const [lng, lat] = f.geometry.coordinates
   const layerValue = normalizeLayerName(f.properties?.layer)
-  const baseIcon = railwayMarkerIcons[layerValue] || railwayMarkerIcons["DEFAULT"]
+  const baseIcon = getMarkerIconByName(
+  f.properties?.layer,
+  f.properties?.name
+)
   const icon = getDynamicIcon(baseIcon)
+
 
   return (
     <Marker

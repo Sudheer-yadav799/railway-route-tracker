@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSelector, shallowEqual } from "react-redux";
+import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { GeoJSON, WMSTileLayer, TileLayer } from "react-leaflet";
 import L from "leaflet";
 import RailwayMarkerLayer from "./MarkerLayer";
@@ -10,6 +10,7 @@ import DroneImageWMS from "./droneImage";
 import WMSFeatureInfo from "./WMSFeatureInfo";
 import VectorLayerRenderer from "./VectorLayerRenderer";
 import LegendView from "../Legend";
+import { setAvailableLayers } from "../../../store/slices/assetLayersSlice";
 
 const DynamicLayerRenderer = () => {
   const sections = useSelector(
@@ -19,6 +20,8 @@ const DynamicLayerRenderer = () => {
   const [geoJsonCache, setGeoJsonCache] = useState<any>({});
   const [activeFeatureKeys, setActiveFeatureKeys] = useState<Set<string>>(new Set())
   const GEOSERVER_URL = import.meta.env.VITE_GEOSERVER_URL;
+
+   const dispatch = useDispatch()
 
 
   /* --------------------------
@@ -39,17 +42,30 @@ const DynamicLayerRenderer = () => {
 
           fetch(wfsUrl)
             .then((res) => res.json())
-            .then((data) => {
-              setGeoJsonCache((prev: any) => ({
-                ...prev,
-                [layer.id]: data
-              }));
-              const keys: string[] = data.features
-                ?.map((f: any) => f.properties?.layer?.trim().toUpperCase())
-                .filter(Boolean) ?? []
+           .then((data) => {
 
-              setActiveFeatureKeys(prev => new Set([...prev, ...keys]))
-            });
+  setGeoJsonCache((prev: any) => ({
+    ...prev,
+    [layer.id]: data
+  }));
+
+  const uniqueLayers = [
+    ...new Set(
+      data.features
+        ?.map((f: any) =>
+          f.properties?.layer
+            ?.trim()
+            ?.toUpperCase()
+        )
+        .filter(Boolean)
+    )
+  ];
+
+  dispatch(
+    setAvailableLayers(uniqueLayers)
+  );
+
+});
         }
       });
     });
@@ -57,7 +73,15 @@ const DynamicLayerRenderer = () => {
 
 
 
+const getGroupFromType = (layer: any) => {
+  const type = layer.type?.toLowerCase();
 
+  if (type === "linelayer") return "Railway Lines";
+  if (type === "markerlayer") return "Signaling & Field Equipment";
+  if (type === "polygonlayer") return "Utilities & Other Assets";
+
+  return "Other";
+};
 
 
   const normalizeLayerName = (value?: string) => {
