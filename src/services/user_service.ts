@@ -37,11 +37,23 @@ export const userService = {
     );
     return response.data;
   },
-getAllUsersSeassion: async () => {
-    const response = await axiosInstance.get(
-      API_ENDPOINTS.USERS.USERSEASSIONS
-    );
-    return response.data;
-  },
+getAllUsersSeassion: async (
+  filter?: string,
+  startDate?: string,
+  endDate?: string
+) => {
+  const response = await axiosInstance.get(
+    API_ENDPOINTS.USERS.USERSEASSIONS,
+    {
+      params: {
+        filter,
+        startDate,
+        endDate,
+      },
+    }
+  );
+
+  return response.data;
+},
   
 };

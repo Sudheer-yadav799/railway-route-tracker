@@ -91,10 +91,24 @@ export const useDeleteUser = () => {
   });
 };
 
-export const useUserSessions = () => {
+export const useUserSessions = (
+  filter: string,
+  startDate?: string,
+  endDate?: string
+) => {
   return useQuery({
-    queryKey: ["user-sessions"],
-    queryFn: () => userService.getAllUsersSeassion(),
-    staleTime: 60000
+    queryKey: [
+      "user-sessions",
+      filter,
+      startDate,
+      endDate,
+    ],
+    queryFn: () =>
+      userService.getAllUsersSeassion(
+        filter,
+        startDate,
+        endDate
+      ),
+    staleTime: 60000,
   });
 };
