@@ -109,7 +109,7 @@ const getDynamicIcon = useCallback((baseIcon: L.Icon) => {
     }, LOAD_DELAY)
   }, [loadChunkIdle])
 
-const getAssetCategory = (feature: any) => {
+    const getAssetCategory = (feature: any) => {
   const layer =
     feature.properties?.layer?.toUpperCase();
 
@@ -248,12 +248,12 @@ dispatch(setAvailableLayers(uniqueLayers));
     <>
 {visibleFeatures.filter((f:any) => {
 
-  const category =
-  getAssetCategory(f);
+    const layerName =
+      f.properties?.layer?.toUpperCase()
 
-return (
-  enabledAssetLayers[category] !== false
-)
+    return (
+      enabledAssetLayers[layerName] !== false
+    )
   }).map((f: any, index: number) => {
   const [lng, lat] = f.geometry.coordinates
   const layerValue = normalizeLayerName(f.properties?.layer)
@@ -271,36 +271,16 @@ return (
       icon={icon}
     >
       {/* Tooltip acts like hover popup */}
-      <Tooltip
-        direction="top"
-        offset={[0, -10]}
-        opacity={1}
-        interactive={true}      // allows mouse to hover inside
-      >
-        <div className="railway-popup">
-          <div className="popup-header"> {f.properties.layer}</div>
-          <div className="popup-body">
-            <div className="popup-row">
-               <span className="label">{getLabelText(f.properties.layer)}</span>
-              <span className="value">{f.properties.name}</span>
-            </div>
-            {f.properties.id && (
-              <div className="popup-row">
-                <span className="label">Feature ID</span>
-                <span className="value">{f.properties.id}</span>
-              </div>
-            )}
-            <div className="popup-row">
-              <span className="label">Latitude</span>
-              <span className="value">{lat.toFixed(6)}</span>
-            </div>
-            <div className="popup-row">
-              <span className="label">Longitude</span>
-              <span className="value">{lng.toFixed(6)}</span>
-            </div>
-          </div>
-        </div>
-      </Tooltip>
+  {zoom > 16 && (
+  <Tooltip
+    direction="top"
+    offset={[0, -12]}
+    permanent
+    className="railway-label-dark"
+  >
+    {f.properties.name}
+  </Tooltip>
+)}
 
       {/* Popup still opens on click */}
       <Popup offset={[0, -10]}>

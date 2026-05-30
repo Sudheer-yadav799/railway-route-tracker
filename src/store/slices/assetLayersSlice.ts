@@ -16,16 +16,18 @@ const assetLayersSlice = createSlice({
   initialState,
 
   reducers: {
-setAvailableLayers: (state, action) => {
-  const normalized = (action.payload || [])
-    .map((l: string) => l?.trim()?.toUpperCase())
-    .filter((l: string) => l && l !== "UNDEFINED"); // 🔥 IMPORTANT
+  setAvailableLayers: (state, action) => {
+  const normalized = action.payload.map((l) =>
+    l.trim().toUpperCase()
+  );
 
-  state.availableLayers = [...new Set(normalized)];
+  state.availableLayers = [
+    ...new Set([...state.availableLayers, ...normalized]),
+  ];
 
   normalized.forEach((layer) => {
-    if (layer && state.enabledLayers[layer] === undefined) {
-      state.enabledLayers[layer] = false;
+    if (state.enabledLayers[layer] === undefined) {
+      state.enabledLayers[layer] = true;
     }
   });
 },
@@ -54,12 +56,7 @@ setAvailableLayers: (state, action) => {
           state.enabledLayers[layer] = false;
         }
       );
-    },
-
-    resetAssetLayers: (state) => {
-  state.enabledLayers = {};
-  state.availableLayers = [];
-}
+    }
   }
 });
 
