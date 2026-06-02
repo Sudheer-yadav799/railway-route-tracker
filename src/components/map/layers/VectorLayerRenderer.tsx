@@ -25,13 +25,6 @@ const filteredGeoData = {
         ?.trim()
         ?.toUpperCase();
 
-    console.log(
-      "Feature Layer:",
-      layerName,
-      "Enabled:",
-      enabledAssetLayers[layerName]
-    );
-
     return enabledAssetLayers[layerName] !== false;
   }) || []
 };

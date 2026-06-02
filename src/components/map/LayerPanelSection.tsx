@@ -43,14 +43,41 @@ const LayerPanelSection = () => {
     setCollapsed
   ] = useState<number[]>([]);
 
+
+  const [
+    collapsedAssetGroups,
+    setCollapsedAssetGroups
+  ] = useState<string[]>([]);
+
+
+
+
+  const toggleAssetCollapse = (
+    group: string
+  ) => {
+    setCollapsedAssetGroups(
+      (prev) =>
+        prev.includes(group)
+          ? prev.filter(
+            (g) =>
+              g !== group
+          )
+          : [
+            ...prev,
+            group
+          ]
+    );
+  };
+
+
   const toggleCollapse = (
     id: number
   ) => {
     setCollapsed((prev) =>
       prev.includes(id)
         ? prev.filter(
-            (i) => i !== id
-          )
+          (i) => i !== id
+        )
         : [...prev, id]
     );
   };
@@ -151,7 +178,7 @@ const LayerPanelSection = () => {
 
           const children =
             parentChildMap?.[
-              parentKey
+            parentKey
             ] || [];
 
           if (
@@ -372,14 +399,11 @@ const LayerPanelSection = () => {
               {!isAnyParentActive ? (
                 <div
                   style={{
-                    padding:
-                      10,
-                    color:
-                      "#888"
+                    padding: 10,
+                    color: "#888"
                   }}
                 >
-                  No active
-                  layers
+                  No active layers
                 </div>
               ) : (
                 Object.entries(
@@ -396,67 +420,93 @@ const LayerPanelSection = () => {
                         ? items
                         : [];
 
+                    const isCollapsed =
+                      collapsedAssetGroups.includes(
+                        String(
+                          groupName
+                        )
+                      );
+
                     return (
                       <div
                         key={String(
                           groupName
                         )}
                         style={{
-                          marginTop:
-                            10
+                          marginTop: 10
                         }}
                       >
                         {/* GROUP HEADER */}
-                        <div className="group-header">
+                        <div
+                          className="group-header"
+                          onClick={() =>
+                            toggleAssetCollapse(
+                              String(
+                                groupName
+                              )
+                            )
+                          }
+                          style={{
+                            cursor:
+                              "pointer"
+                          }}
+                        >
                           <span>
                             {String(
                               groupName
                             )}
                           </span>
+
+                          {isCollapsed ? (
+                            <FiChevronDown />
+                          ) : (
+                            <FiChevronUp />
+                          )}
                         </div>
 
                         {/* CHILD ITEMS */}
-                        {safeItems.map(
-                          (
-                            layerName
-                          ) => (
-                            <div
-                              key={String(
-                                layerName
-                              )}
-                              className="layer-item"
-                            >
-                              <div className="left">
-                                <input
-                                  type="checkbox"
-                                  checked={
-                                    enabledLayers[
+                        {!isCollapsed &&
+                          safeItems.map(
+                            (
+                              layerName
+                            ) => (
+                              <div
+                                key={String(
+                                  layerName
+                                )}
+                                className="layer-item"
+                              >
+                                <div className="left">
+                                  <input
+                                    type="checkbox"
+                                    checked={
+                                      enabledLayers[
                                       String(
                                         layerName
                                       )
-                                    ] ??
-                                    false
-                                  }
-                                  onChange={() =>
-                                    dispatch(
-                                      toggleAssetLayer(
-                                        String(
-                                          layerName
+                                      ] ??
+                                      false
+                                    }
+                                    onChange={() =>
+                                      dispatch(
+                                        toggleAssetLayer(
+                                          String(
+                                            layerName
+                                          )
                                         )
                                       )
-                                    )
-                                  }
-                                />
+                                    }
+                                  />
 
-                                <span>
-                                  {String(
-                                    layerName
-                                  )}
-                                </span>
+                                  <span>
+                                    {String(
+                                      layerName
+                                    )}
+                                  </span>
+                                </div>
                               </div>
-                            </div>
-                          )
-                        )}
+                            )
+                          )}
                       </div>
                     );
                   }

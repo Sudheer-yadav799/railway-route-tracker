@@ -131,6 +131,31 @@ const getDynamicIcon = useCallback((baseIcon: L.Icon) => {
   return layer;
 };
 
+
+const shouldShowFeature =
+  (
+    feature: any,
+    zoom: number
+  ) => {
+    const layerName =
+      feature.properties?.layer
+        ?.trim()
+        ?.toUpperCase();
+
+    // Always visible
+    if (
+      layerName ===
+        "STATION CENTER" ||
+      layerName ===
+        "STATIONCENTER"
+    ) {
+      return true;
+    }
+
+    // Other layers only after zoom 14
+    return zoom >= 14;
+  };
+
   /* ---------------- Load WFS ---------------- */
   const loadData = useCallback(() => {
     const currentZoom = map.getZoom()
@@ -141,9 +166,9 @@ const getDynamicIcon = useCallback((baseIcon: L.Icon) => {
       return
     }
 
-    if (currentZoom < 14) return
 
-    // ✅ Cancel any in-flight request before starting a new one
+
+   
     if (abortCtrl.current) {
       abortCtrl.current.abort()
     }
@@ -175,7 +200,7 @@ const uniqueLayers = [
   )
 ];
 
- console.log("layer.type",layer.type)
+
 dispatch(
   setAvailableLayers({
     parentType:
@@ -254,15 +279,32 @@ dispatch(
 
   return (
     <>
-{visibleFeatures.filter((f:any) => {
+{
+visibleFeatures
+.filter((f: any) => {
 
-    const layerName =
-      f.properties?.layer?.toUpperCase()
+  const layerName =
+    f.properties?.layer
+      ?.trim()
+      ?.toUpperCase();
 
-    return (
-      enabledAssetLayers[layerName] !== false
-    )
-  }).map((f: any, index: number) => {
+  const isEnabled =
+    enabledAssetLayers[
+      layerName
+    ] !== false;
+
+  const isVisible =
+    shouldShowFeature(
+      f,
+      zoom
+    );
+
+  return (
+    isEnabled &&
+    isVisible
+  );
+})
+.map((f: any, index: number) => {
   const [lng, lat] = f.geometry.coordinates
   const layerValue = normalizeLayerName(f.properties?.layer)
   const baseIcon = getMarkerIconByName(
@@ -279,7 +321,17 @@ dispatch(
       icon={icon}
     >
       {/* Tooltip acts like hover popup */}
-  {zoom > 16 && (
+{(
+  zoom > 16 ||
+  f.properties?.layer
+    ?.toUpperCase()
+    ?.trim() ===
+    "STATION CENTER" ||
+  f.properties?.layer
+    ?.toUpperCase()
+    ?.trim() ===
+    "STATIONCENTER"
+) && (
   <Tooltip
     direction="top"
     offset={[0, -12]}
