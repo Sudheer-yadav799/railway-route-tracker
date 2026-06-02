@@ -175,7 +175,15 @@ const uniqueLayers = [
   )
 ];
 
-dispatch(setAvailableLayers(uniqueLayers));
+ console.log("layer.type",layer.type)
+dispatch(
+  setAvailableLayers({
+    parentType:
+      String(layer.type),
+    layers:
+      uniqueLayers
+  })
+);
 
 
   scheduleChunkLoad(json)

@@ -61,9 +61,14 @@ const DynamicLayerRenderer = () => {
     )
   ];
 
-  dispatch(
-    setAvailableLayers(uniqueLayers)
-  );
+dispatch(
+  setAvailableLayers({
+    parentType:
+      String(layer.type),
+    layers:
+      uniqueLayers
+  })
+);
 
 });
         }
@@ -71,17 +76,6 @@ const DynamicLayerRenderer = () => {
     });
   }, [sections]);
 
-
-
-const getGroupFromType = (layer: any) => {
-  const type = layer.type?.toLowerCase();
-
-  if (type === "linelayer") return "Railway Lines";
-  if (type === "markerlayer") return "Signaling & Field Equipment";
-  if (type === "polygonlayer") return "Utilities & Other Assets";
-
-  return "Other";
-};
 
 
   const normalizeLayerName = (value?: string) => {
