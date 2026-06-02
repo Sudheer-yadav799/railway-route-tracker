@@ -50,13 +50,16 @@ axiosInstance.interceptors.response.use(
     const { status, data } = error.response;
 
     /* Unauthorized */
-    if (status === 401 || status === 403) {
-      localStorage.removeItem("token");
-      window.location.href = "/";
-      return Promise.reject(
-        new Error("Session expired. Please login again.")
-      );
-    }
+ if (status === 401 || status === 403) {
+  localStorage.removeItem("token");
+  localStorage.clear();
+
+  window.location.replace("/");
+
+  return Promise.reject(
+    new Error("Session expired. Please login again.")
+  );
+}
 
     /* Validation Error */
     if (status === 400 && data?.errors) {
