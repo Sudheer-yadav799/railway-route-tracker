@@ -5,7 +5,7 @@ import { FaEye, FaEyeSlash, FaUserShield, FaUser, FaLink, FaUserFriends } from "
 
 interface Props {
   onClose: () => void;
-  editUser?: any; // ✅ add this
+  editUser?: any; 
 }
 
 const roles = [
@@ -14,7 +14,7 @@ const roles = [
   { id: 3, name: "guest", label: "Guest", icon: <FaUserFriends /> },
 ];
 
-const AdminCreateUser: React.FC<Props> = ({ onClose,editUser  }) => {
+const AdminCreateUser: React.FC<Props> = ({ onClose, editUser }) => {
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -23,22 +23,22 @@ const AdminCreateUser: React.FC<Props> = ({ onClose,editUser  }) => {
     password: "",
   });
 
-   useEffect(() => {
+  useEffect(() => {
     if (editUser) {
       setForm({
         name: editUser.name || "",
         email: editUser.email || "",
         mobile: editUser.mobile_number || "",
         role: editUser.Roles?.[0]?.name || "customer",
-        password: editUser.mobile_number ||"", 
+        password: editUser.password || "",
       });
     }
   }, [editUser]);
   const [errors, setErrors] = useState<any>({});
   const [showPassword, setShowPassword] = useState(false);
 
- const { mutate: createUser  ,isPending} = useCreateUser(onClose);
-const { mutate: updateUser ,isPending: isUpdating} = useUpdateUser(onClose); 
+  const { mutate: createUser, isPending } = useCreateUser(onClose);
+  const { mutate: updateUser, isPending: isUpdating } = useUpdateUser(onClose);
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -67,29 +67,29 @@ const { mutate: updateUser ,isPending: isUpdating} = useUpdateUser(onClose);
     return Object.keys(newErrors).length === 0;
   };
 
-const handleSubmit = () => {
-  if (!validate()) return;
+  const handleSubmit = () => {
+    if (!validate()) return;
 
-  const selectedRole = roles.find((r) => r.name === form.role);
+    const selectedRole = roles.find((r) => r.name === form.role);
 
-  const payload = {
-    name: form.name,
-    email: form.email,
-    mobile_number: form.mobile,
-    password: form.password,
-    roleId: selectedRole?.id,
-    roleName: selectedRole?.name,
+    const payload = {
+      name: form.name,
+      email: form.email,
+      mobile_number: form.mobile,
+      password: form.password,
+      roleId: selectedRole?.id,
+      roleName: selectedRole?.name,
+    };
+
+    if (editUser) {
+      updateUser({
+        id: editUser.id,
+        data: payload,
+      });
+    } else {
+      createUser(payload);
+    }
   };
-
-  if (editUser) {
-    updateUser({
-      id: editUser.id,
-      data: payload,
-    });
-  } else {
-    createUser(payload);
-  }
-};
 
   return (
     <div className="create-user-overlay">
@@ -170,9 +170,8 @@ const handleSubmit = () => {
               {roles.map((role) => (
                 <div
                   key={role.id}
-                  className={`role-card ${
-                    form.role === role.name ? "active" : ""
-                  }`}
+                  className={`role-card ${form.role === role.name ? "active" : ""
+                    }`}
                   onClick={() =>
                     setForm((prev) => ({ ...prev, role: role.name }))
                   }
@@ -198,8 +197,8 @@ const handleSubmit = () => {
             disabled={isPending || isUpdating}
           >
             {isPending || isUpdating
-  ? editUser ? "Updating..." : "Creating..."
-  : editUser ? "Update User" : "Create User"}
+              ? editUser ? "Updating..." : "Creating..."
+              : editUser ? "Update User" : "Create User"}
           </button>
         </div>
 
