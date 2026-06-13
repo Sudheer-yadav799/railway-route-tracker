@@ -148,9 +148,25 @@ const SearchBar = ({ mapRef, projectId }: SearchBarProps) => {
       const res = await fetch(url);
       const data = await res.json();
 
-      setSuggestions(data.features || []);
+      const sortedFeatures = (data.features || []).sort(
+        (a: any, b: any) => {
+          const aValue =
+            filterType === "areas"
+              ? (a.properties.layer || "")
+              : (a.properties.name || "");
 
-      return data.features || [];
+          const bValue =
+            filterType === "areas"
+              ? (b.properties.layer || "")
+              : (b.properties.name || "");
+
+          return aValue.localeCompare(bValue);
+        }
+      );
+
+      setSuggestions(sortedFeatures);
+
+      return sortedFeatures;
     } catch (err) {
       console.error("Search error:", err);
       return [];
@@ -189,7 +205,7 @@ const SearchBar = ({ mapRef, projectId }: SearchBarProps) => {
 
       const typeName = `${workspace}:${layerName}`;
 
-      let cql = `layer='STATION CENTER'`;
+      let cql = `layer IN ('STATION CENTER','STATION_CENTER','STATIONCENTER')`;
 
       if (keyword) {
         cql += ` AND name ILIKE '%${keyword}%'`;
@@ -214,7 +230,7 @@ const SearchBar = ({ mapRef, projectId }: SearchBarProps) => {
             ...(data.features || []),
           ];
 
-          return merged.filter(
+          const unique = merged.filter(
             (item, index, self) =>
               index ===
               self.findIndex(
@@ -223,9 +239,23 @@ const SearchBar = ({ mapRef, projectId }: SearchBarProps) => {
                   item.properties.name
               )
           );
+
+          return unique.sort((a: any, b: any) =>
+            (a.properties.name || "").localeCompare(
+              b.properties.name || ""
+            )
+          );
         });
       } else {
-        setSuggestions(data.features || []);
+        const sortedFeatures = (data.features || []).sort(
+          (a: any, b: any) =>
+            (a.properties.name || "").localeCompare(
+              b.properties.name || ""
+            )
+        );
+
+        setSuggestions(sortedFeatures);
+
       }
 
       return data.features || [];
@@ -446,8 +476,8 @@ const SearchBar = ({ mapRef, projectId }: SearchBarProps) => {
           {filterType === "poles"
             ? "Poles"
             : filterType === "areas"
-            ? "Areas"
-            : "Stations"}
+              ? "Areas"
+              : "Stations"}
 
           <span className="filter-caret">
             ▾
