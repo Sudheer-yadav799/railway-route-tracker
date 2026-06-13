@@ -144,26 +144,27 @@ export const LayerStylesScreen: React.FC = () => {
   /* ── submit ── */
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-   const payload = {
+const payload = {
   project_id: form.project_id ? Number(form.project_id) : null,
   section_id: form.section_id ? Number(form.section_id) : null,
   layer_code: form.layer_code?.trim() || "",
   name: form.name,
   color: form.color,
   fillcolor: form.fillcolor,
-  opacity: form.opacity || null,
+  opacity: form.opacity ? Number(form.opacity) : null,
   isenabled: form.isenabled,
+  isactivated: form.isactivated, 
   type: form.type,
   apiendpoint: form.apiendpoint,
-  sortBy: form.sortby ? Number(form.sortby) : null,
+  sortby: form.sortby ? Number(form.sortby) : null,
 
-  popupType: form.popup_type,
-  popupname: form.popup_name,
-  bindPopupName: form.bind_popup_name,
-  popupFieldName: form.popup_field_name,
+  popup_type: form.popup_type,
+  popup_name: form.popup_name,
+  bind_popup_name: form.bind_popup_name,
+  popup_field_name: form.popup_field_name,
 
-  iconUrl: form.icon_url,
-  geoserverWorkSpace: form.geoserver_workspace,
+  icon_url: form.icon_url,
+  geoserver_workspace: form.geoserver_workspace,
 };
 
 
